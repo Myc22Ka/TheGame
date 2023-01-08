@@ -49,4 +49,3 @@ yarn build ||
 
 # If everything passes... Now we can commit
 echo -e "${Green} You win this time... I am committing this now. ${Color_Off}"
-undefined
