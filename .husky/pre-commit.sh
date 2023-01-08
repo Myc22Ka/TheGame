@@ -1,13 +1,16 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
 
-RED='\033[0;31m' # Red Color
-GREEN='\033[0;32m'# Green Color
-NC='\033[0m' # No Color
+Red='\033[0;31m'          # Red
+Green='\033[0;32m'        # Green
+Color_Off='\033[0m'       # Text Reset
+BPurple='\033[1;35m'      # Purple
 
-echo `================================================================
-        Styling, testing and building your project before committing
-      ================================================================`
+echo -e "
+================================================================
+  ${BPurple}Styling, testing and building your project before committing${Color_Off}
+================================================================
+"
 
 # Check Prettier standards
 yarn check-format ||
@@ -45,4 +48,4 @@ yarn build ||
 )
 
 # If everything passes... Now we can commit
-echo -e "${RED}✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅"
+echo -e "${Green} You win this time... I am committing this now. ${Color_Off}"
