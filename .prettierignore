@@ -1,8 +1,10 @@
 .next
 .husky
+.vscode
 next-env.d.ts
 next.config.js
 node_modules
 yarn.lock
 package.json
 public
+tsconfig.json
