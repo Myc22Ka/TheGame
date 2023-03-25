@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
+import "../globals.css";
 import { useThemeContext } from "./Context/ThemeContext";
 
 function Homepage() {
@@ -8,7 +9,7 @@ function Homepage() {
 
     console.log(theme);
 
-    return <div>page</div>;
+    return <div className="">PAGE</div>;
 }
 
 export default Homepage;

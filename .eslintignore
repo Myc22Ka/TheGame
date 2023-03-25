@@ -2,6 +2,7 @@
 .husky
 next-env.d.ts
 next.config.js
+tailwind.config.js
 node_modules
 yarn.lock
 package.json
