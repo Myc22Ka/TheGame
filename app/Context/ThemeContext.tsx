@@ -23,7 +23,7 @@ const ThemeContext = createContext<ContextProps>({
 });
 
 export const ThemeProvider = ({ children }: Props) => {
-    const [color, setColor] = useState("");
+    const [color, setColor] = useState("Basic text");
 
     return (
         <ThemeContext.Provider value={{ color, setColor }}>

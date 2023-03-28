@@ -10,14 +10,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head />
-            <body className="bg-slate-500 m-4 ">
+            <body className="bg-slate-100 px-12 h-screen w-screen flex">
                 <ThemeProvider>
-                    <div className="flex flex-row justify-center items-center ">
+                    <div className="w-1/3 h-full justify-center flex">
                         <MainMenu />
-                        {/* picture  */}
-                        <div className="flex-1"></div>
-                        {children}
                     </div>
+                    <div className="flex-1">{children}</div>
                 </ThemeProvider>
             </body>
         </html>

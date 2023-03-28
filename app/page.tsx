@@ -7,9 +7,7 @@ import { useThemeContext } from "./Context/ThemeContext";
 function Homepage() {
     const theme = useThemeContext();
 
-    console.log(theme);
-
-    return <div className="">PAGE</div>;
+    return <div className="">{theme.color}</div>;
 }
 
 export default Homepage;

@@ -3,6 +3,7 @@
 next-env.d.ts
 next.config.js
 tailwind.config.js
+postcss.config.js
 node_modules
 yarn.lock
 package.json
