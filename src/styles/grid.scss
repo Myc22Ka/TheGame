@@ -1,0 +1,17 @@
+@import "./constants.scss";
+
+.grid-container {
+    flex: 11;
+    .grid-elements {
+        $size: 40vw;
+        height: $size;
+        width: $size;
+        background-color: #f9f871;
+        display: grid;
+        grid-template-columns: repeat(var(--size, 3), 1fr);
+        grid-template-rows: repeat(var(--size, 3), 1fr);
+        box-shadow:
+            0 10px 20px rgba(0, 0, 0, 0.19),
+            0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+}

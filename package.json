@@ -1,46 +1,54 @@
 {
-  "name": "setup",
+  "name": "onehourgame",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
-    "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build",
     "prepare": "husky install"
   },
   "dependencies": {
-    "@next/font": "13.1.1",
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "18.0.10",
-    "next": "13.1.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sass": "^1.58.1",
-    "typescript": "*"
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "sass": "^1.64.1",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
-    "@typescript-eslint/parser": "^5.48.0",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^8.0.1",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-config-xo": "^0.43.1",
-    "eslint-config-xo-typescript": "^0.55.1",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.31.11",
-    "husky": "^8.0.0",
-    "postcss": "^8.4.21",
-    "prettier": "^2.8.2",
-    "prop-types": "^15.8.1",
-    "react-icons": "^4.8.0",
-    "tailwindcss": "^3.2.7"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/node-sass": "^4.11.3",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.33.0",
+    "husky": "^8.0.3",
+    "prettier": "3.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

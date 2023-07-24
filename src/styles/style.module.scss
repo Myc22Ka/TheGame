@@ -1,0 +1,7 @@
+// file only for exporting variables to react
+
+@import "./constants.scss";
+
+:export {
+    cell: $cell;
+}
