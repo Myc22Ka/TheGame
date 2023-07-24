@@ -1,25 +1,25 @@
 @import "./constants.scss";
 
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 .App {
-    background-color: #845ec2;
-    height: 100vh;
-    flex-direction: column;
-    @include flex-center;
+  background-color: #845ec2;
+  height: 100vh;
+  flex-direction: column;
+  @include flex-center;
 }
 .score-component {
-    padding-right: 2rem;
-    flex: 1;
-    @include flex-center;
-    align-self: flex-end;
-    font-size: 2rem;
-    color: black;
-    font-family: "Courier New", Courier, monospace;
-    font-weight: bold;
-    .score {
-        padding-left: 1rem;
-    }
+  padding-right: 2rem;
+  flex: 1;
+  @include flex-center;
+  align-self: flex-end;
+  font-size: 2rem;
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  .score {
+    padding-left: 1rem;
+  }
 }
