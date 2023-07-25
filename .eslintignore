@@ -5,6 +5,7 @@
 .prettierrc
 tsconfig.json
 node_modules
+build
 yarn.lock
 package.json
 public

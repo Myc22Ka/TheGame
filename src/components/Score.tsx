@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
+import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 
 const Score: React.FC = () => {
   const [score, setScore] = useState<number>(0);
@@ -17,7 +17,7 @@ const Score: React.FC = () => {
 
   return (
     <div className="score-component">
-      <FontAwesomeIcon icon={faWheelchair} spin />
+      <FontAwesomeIcon icon={faDollarSign} />
       <div className="score">{score}</div>
     </div>
   );

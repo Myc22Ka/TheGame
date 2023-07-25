@@ -4,22 +4,31 @@ body {
   margin: 0;
   padding: 0;
 }
-.App {
-  background-color: #845ec2;
-  height: 100vh;
+
+.app {
+  @include flex-center;
   flex-direction: column;
-  @include flex-center;
-}
-.score-component {
-  padding-right: 2rem;
-  flex: 1;
-  @include flex-center;
-  align-self: flex-end;
-  font-size: 2rem;
-  color: black;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-  .score {
-    padding-left: 1rem;
+  height: 100vh;
+  background-color: $background;
+  .header {
+    padding: 0.7rem;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    @include flex-center;
+    justify-content: flex-end;
+    .score-component {
+      @include flex-center;
+      font-size: 1rem;
+      color: black;
+      font-family: "Courier New", Courier, monospace;
+      font-weight: bold;
+      .score {
+        padding-left: 0.3rem;
+      }
+    }
+  }
+  .main {
+    flex: 15;
   }
 }

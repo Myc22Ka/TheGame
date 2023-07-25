@@ -1,15 +1,14 @@
 import React from "react";
-import Grid from "./components/Grid";
 import "./styles/App.scss";
-import Score from "./components/Score";
+import Main from "./layout/Main";
+import Header from "./layout/Header";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <Score />
-      <Grid />
+    <div className="app">
+      <Header />
+      <Main />
     </div>
   );
-}
-
+};
 export default App;
