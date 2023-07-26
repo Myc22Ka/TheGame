@@ -1,27 +1,40 @@
-import React, { useEffect, useState } from "react";
-
-const formatDate = (seconds: number): string => {
-  const h = `${Math.floor(seconds / 3600)}`.padStart(2, "0");
-  const m = `${Math.floor((seconds % 3600) / 60)}`.padStart(2, "0");
-  const s = `${seconds % 60}`.padStart(2, "0");
-
-  return `${h}:${m}:${s}`;
-};
+import React, { useEffect, useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { useGameOver } from "../contexts/GameOverContext";
 
 const Timer: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<number>(3600);
+  const defaultTime = useRef<number>(3600);
+  const [currentTime, setCurrentTime] = useState<number>(defaultTime.current);
+  const isGameOver = useGameOver();
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (currentTime > 0) {
+      interval = setInterval(() => {
+        setCurrentTime(currentTime - 1);
+      }, 1);
+    }
+    if (currentTime === 0) {
       setCurrentTime(currentTime - 1);
-    }, 1000);
-
+      isGameOver.gameLoseEvent();
+    }
     return () => {
       clearInterval(interval);
     };
   });
 
-  return <div>{formatDate(currentTime)}</div>;
+  return (
+    <div className="timer-component">
+      <FontAwesomeIcon icon={faClock} />
+      <div className="timer">
+        <div
+          className="timer-metter"
+          style={{ width: `${(currentTime / defaultTime.current) * 100}%` }}
+        ></div>
+      </div>
+    </div>
+  );
 };
 
 export default Timer;

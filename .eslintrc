@@ -16,6 +16,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-console": 1
     },
     "settings": {
     "react": {
