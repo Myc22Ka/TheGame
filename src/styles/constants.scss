@@ -3,6 +3,13 @@
 // colors
 $cell: #ff6fec;
 $background: #323641;
+$main: #00c6bd;
+$secondary: #1a857f;
+$third: #334b49;
+
+$shadow:
+  0 10px 20px rgba(0, 0, 0, 0.19),
+  0 6px 6px rgba(0, 0, 0, 0.23);
 
 //mixins
 @mixin flex-center {

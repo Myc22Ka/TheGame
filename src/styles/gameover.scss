@@ -1,6 +1,41 @@
-.gameover-container {
+@import "./constants.scss";
+
+.gameover-background {
   position: absolute;
-  height: 200px;
-  width: 200px;
-  background-color: red;
+  backdrop-filter: blur(2px);
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  @include flex-center;
+  .gameover-container {
+    @include flex-center;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 2rem;
+    font-family: monospace;
+    color: $secondary;
+    position: absolute;
+    height: 300px;
+    width: clamp(600px, 30vw, 100px);
+    align-items: center;
+    border-radius: 10px;
+    .gameover-title {
+      font-size: 2.8rem;
+      border-bottom: 3px solid $third;
+      color: $main;
+    }
+    .gameover-button {
+      background-color: $third;
+      color: $main;
+      padding: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: $shadow;
+      transition: all 0.1s ease-in-out;
+      &:hover {
+        filter: brightness(0.8);
+        transform: scale(1.1);
+      }
+    }
+  }
 }
