@@ -27,8 +27,9 @@ const Timer: React.FC = () => {
 
   return (
     <div className="timer-component">
-      <FontAwesomeIcon icon={faClock} />
+      <FontAwesomeIcon className="timer-icon" icon={faClock} />
       <div className="timer">
+        <div className="timer-text">{currentTime}</div>
         <div
           className="timer-metter"
           style={{ width: `${(currentTime / DEFAULT_TIME) * 100}%` }}

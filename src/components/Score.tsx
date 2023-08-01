@@ -22,8 +22,10 @@ const Score: React.FC = () => {
 
   return (
     <div className="score-component">
-      <FontAwesomeIcon icon={faDollarSign} />
-      <div className="score">{score}</div>
+      {/* <FontAwesomeIcon icon={faDollarSign} /> */}
+      <div className="score">
+        <p>Money:</p> ${score}
+      </div>
     </div>
   );
 };
