@@ -1,23 +1,24 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { useGameOver } from "../contexts/GameOverContext";
+import { useGame } from "../contexts/GameContext";
+
+const DEFAULT_TIME = 3600;
 
 const Timer: React.FC = () => {
-  const defaultTime = useRef<number>(3600);
-  const [currentTime, setCurrentTime] = useState<number>(defaultTime.current);
-  const isGameOver = useGameOver();
+  const [currentTime, setCurrentTime] = useState<number>(DEFAULT_TIME);
+  const { gameLoseEvent } = useGame();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (currentTime > 0) {
       interval = setInterval(() => {
         setCurrentTime(currentTime - 1);
-      }, 1);
+      }, 1000);
     }
     if (currentTime === 0) {
       setCurrentTime(currentTime - 1);
-      isGameOver.gameLoseEvent();
+      gameLoseEvent();
     }
     return () => {
       clearInterval(interval);
@@ -30,7 +31,7 @@ const Timer: React.FC = () => {
       <div className="timer">
         <div
           className="timer-metter"
-          style={{ width: `${(currentTime / defaultTime.current) * 100}%` }}
+          style={{ width: `${(currentTime / DEFAULT_TIME) * 100}%` }}
         ></div>
       </div>
     </div>

@@ -1,17 +1,17 @@
 import React from "react";
 import Main from "./Main";
 import Header from "./Header";
-import { useGameOver } from "../contexts/GameOverContext";
+import { useGame } from "../contexts/GameContext";
 import GameOver from "./GameOver";
 
 const Layout = () => {
-  const { isGameOver } = useGameOver();
+  const { game } = useGame();
 
   return (
     <React.Fragment>
       <Header />
       <Main />
-      {isGameOver.gameOver ? <GameOver /> : null}
+      {game.gameOver ? <GameOver /> : null}
     </React.Fragment>
   );
 };

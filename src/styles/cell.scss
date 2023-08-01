@@ -1,17 +1,13 @@
 @import "./constants.scss";
 
 .cell {
-  border: 3px solid $cell;
-  font-family: monospace;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.16),
-    0 3px 6px rgba(0, 0, 0, 0.23);
+  border: 5px solid $cell;
+  font-family: $font;
+  @include flex-center;
+  font-size: $font-size-larger;
   cursor: pointer;
-  p {
-    all: unset;
-  }
+  border-radius: $border-radius;
+  background-color: $third;
+  box-shadow: $shadow;
+  user-select: none;
 }

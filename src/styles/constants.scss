@@ -1,17 +1,24 @@
 // file for constants
 
-// colors
-$cell: #ff6fec;
+// colors:
+$cell: #3d7571;
 $background: #323641;
 $main: #00c6bd;
 $secondary: #1a857f;
 $third: #334b49;
 
+// fonts:
+$font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+$font-size-larger: clamp(2rem, 5vw, 3rem);
+
+// misc:
 $shadow:
   0 10px 20px rgba(0, 0, 0, 0.19),
   0 6px 6px rgba(0, 0, 0, 0.23);
 
-//mixins
+$border-radius: 10px;
+
+// mixins:
 @mixin flex-center {
   display: flex;
   align-items: center;

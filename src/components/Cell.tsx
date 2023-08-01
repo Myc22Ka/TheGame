@@ -1,10 +1,15 @@
 import React from "react";
 import "../styles/cell.scss";
+import { GridEntry } from "../contexts/GameContext";
 
-const Cell: React.FC = () => {
+interface CellProps {
+  cell: GridEntry;
+}
+
+const Cell: React.FC<CellProps> = ({ cell }): JSX.Element => {
   return (
     <div className="cell">
-      <p>Elo</p>
+      <div>{cell.name}</div>
     </div>
   );
 };

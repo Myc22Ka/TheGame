@@ -1,14 +1,14 @@
 import React from "react";
 import "./styles/App.scss";
-import { GameOverProvider, initState } from "./contexts/GameOverContext";
+import { GameProvider, initState } from "./contexts/GameContext";
 import Layout from "./layout/Layout";
 
 const App: React.FC = () => {
   return (
     <div className="app">
-      <GameOverProvider gameOver={initState.gameOver}>
+      <GameProvider gameOver={initState.gameOver} grid={initState.grid}>
         <Layout />
-      </GameOverProvider>
+      </GameProvider>
     </div>
   );
 };
