@@ -6,7 +6,11 @@ import Layout from "./layout/Layout";
 const App: React.FC = () => {
   return (
     <div className="app">
-      <GameProvider gameOver={initState.gameOver} grid={initState.grid}>
+      <GameProvider
+        gameOver={initState.gameOver}
+        grid={initState.grid}
+        score={initState.score}
+      >
         <Layout />
       </GameProvider>
     </div>

@@ -11,7 +11,7 @@ const Timer: React.FC = () => {
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (currentTime > 0) {
+    if (currentTime >= 0) {
       interval = setInterval(() => {
         setCurrentTime(currentTime - 1);
       }, 1000);

@@ -12,7 +12,5 @@
     color: $main;
     display: grid;
     gap: 5px;
-    grid-template-columns: repeat(var(--size, 3), 1fr);
-    grid-template-rows: repeat(var(--size, 3), 1fr);
   }
 }

@@ -4,14 +4,13 @@ import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { useGame } from "../contexts/GameContext";
 
 const Score: React.FC = () => {
-  const [score, setScore] = useState<number>(0);
-  const { game } = useGame();
+  const { game, addGold } = useGame();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (!game.gameOver) {
       interval = setInterval(() => {
-        setScore(score + 1);
+        addGold();
       }, 1000);
     }
 
@@ -22,9 +21,9 @@ const Score: React.FC = () => {
 
   return (
     <div className="score-component">
-      {/* <FontAwesomeIcon icon={faDollarSign} /> */}
       <div className="score">
-        <p>Money:</p> ${score}
+        <FontAwesomeIcon icon={faDollarSign} />
+        {game.score}
       </div>
     </div>
   );

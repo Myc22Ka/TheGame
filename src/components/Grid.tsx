@@ -8,7 +8,13 @@ const Grid: React.FC = () => {
 
   return (
     <div className="grid-container">
-      <div className="grid-elements">
+      <div
+        className="grid-elements"
+        style={{
+          gridTemplateColumns: `repeat(${Math.sqrt(game.grid.length)}, 1fr)`,
+          gridTemplateRows: `repeat(${Math.sqrt(game.grid.length)}, 1fr)`,
+        }}
+      >
         {game.grid.map((cell, key) => {
           return <Cell key={key} cell={cell} />;
         })}
