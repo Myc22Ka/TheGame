@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { useGame } from "../contexts/GameContext";
+import { formatTime } from "../utils/timeDisplay";
 
 const DEFAULT_TIME = 3600;
 
@@ -29,7 +30,7 @@ const Timer: React.FC = () => {
     <div className="timer-component">
       <FontAwesomeIcon className="timer-icon" icon={faClock} />
       <div className="timer">
-        <div className="timer-text">{currentTime}</div>
+        <div className="timer-text">{formatTime(currentTime)}</div>
         <div
           className="timer-metter"
           style={{ width: `${(currentTime / DEFAULT_TIME) * 100}%` }}

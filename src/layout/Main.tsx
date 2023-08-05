@@ -1,10 +1,12 @@
 import React from "react";
-import Grid from "../components/Grid";
-import Shop from "../components/Shop";
+import Grid from "./Grid";
+import Shop from "./Shop";
+import Gambler from "./Gambler";
 
 const Main: React.FC = () => {
   return (
     <div className="main">
+      <Gambler />
       <Grid />
       <Shop />
     </div>

@@ -72,5 +72,15 @@ body {
   }
   .main {
     flex: 15;
+    @include flex-center;
+    width: 100%;
+    gap: 1rem;
+    & > div {
+      flex: 1;
+    }
+    .shop {
+      background: red;
+      height: 100%;
+    }
   }
 }

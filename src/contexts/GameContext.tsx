@@ -8,23 +8,17 @@ import React, {
 
 export type GridEntry = { name: string };
 
+const emptyCell = {
+  name: "",
+};
+
 type StateType = {
   gameOver: boolean;
   grid: Array<GridEntry>;
   score: number;
 };
 
-const DEFAULT_GRID: Array<GridEntry> = [
-  { name: "Pantak" },
-  { name: "Ma" },
-  { name: "Małego" },
-  { name: "Fiutka" },
-  { name: "I" },
-  { name: "Jest" },
-  { name: "Turbo" },
-  { name: "Gejem" },
-  { name: "XD" },
-];
+const DEFAULT_GRID: Array<GridEntry> = Array(4).fill(emptyCell);
 
 export const initState: StateType = {
   gameOver: false,

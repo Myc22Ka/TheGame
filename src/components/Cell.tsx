@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/cell.scss";
 import { GridEntry } from "../contexts/GameContext";
 
 interface CellProps {

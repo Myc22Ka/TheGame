@@ -1,7 +1,6 @@
 @import "./constants.scss";
 
 .grid-container {
-  flex: 11;
   height: auto;
   background-color: $secondary;
   border-radius: $border-radius;
@@ -12,5 +11,16 @@
     color: $main;
     display: grid;
     gap: 5px;
+    .cell {
+      border: 5px solid $cell;
+      font-family: $font;
+      @include flex-center;
+      font-size: $font-size-large;
+      cursor: pointer;
+      border-radius: $border-radius;
+      background-color: $third;
+      box-shadow: $shadow;
+      user-select: none;
+    }
   }
 }
