@@ -13,8 +13,8 @@ const defaultComponent = {
 };
 
 const ARRAY_OF_COMPONENTS: Array<Component> = [
-  { name: "Component1" },
-  { name: "Component2" },
+  { name: "component1" },
+  { name: "component2" },
 ];
 
 const Shop: React.FC = () => {
@@ -32,13 +32,14 @@ const Shop: React.FC = () => {
 
   const generateComponent = () => {
     // xd because I want to make something truly random
-    const jsonString = JSON.stringify(ARRAY_OF_COMPONENTS);
-    const encoder = new TextEncoder();
-    const arrayBuffer = encoder.encode(jsonString).buffer;
-    const uint8Array = new Uint8Array(arrayBuffer);
-
-    const randomIndex =
-      self.crypto.getRandomValues(uint8Array)[0] % ARRAY_OF_COMPONENTS.length;
+    const randomBytes = new Uint8Array(4);
+    self.crypto.getRandomValues(randomBytes);
+    const seed =
+      randomBytes[0] |
+      (randomBytes[1] << 8) |
+      (randomBytes[2] << 16) |
+      (randomBytes[3] << 24);
+    const randomIndex = Math.abs(seed) % ARRAY_OF_COMPONENTS.length;
 
     return ARRAY_OF_COMPONENTS[randomIndex];
   };
@@ -47,7 +48,7 @@ const Shop: React.FC = () => {
     let interval: ReturnType<typeof setInterval>;
     interval = setInterval(() => {
       setRandomComponent(generateComponent());
-    }, 3000);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
