@@ -16,7 +16,7 @@ const Grid: React.FC = () => {
         }}
       >
         {game.grid.map((cell, key) => {
-          return <Cell key={key} cell={cell} />;
+          return <Cell key={key} cell={cell} index={key} />;
         })}
       </div>
     </div>

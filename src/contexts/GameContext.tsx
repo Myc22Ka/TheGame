@@ -6,10 +6,14 @@ import React, {
   useCallback,
 } from "react";
 
-export type GridEntry = { name: string };
+export type GridEntry = {
+  name: string;
+  ref: React.RefObject<HTMLDivElement> | null;
+};
 
-const emptyCell = {
+export const emptyCell: GridEntry = {
   name: "",
+  ref: null,
 };
 
 type StateType = {
@@ -39,13 +43,27 @@ const useGameContext = (defaultGame: StateType) => {
     []
   );
 
+  const addRefToCell = useCallback(
+    (newRef: React.RefObject<HTMLDivElement> | null, index: number) => {
+      setGame((prev) => {
+        // Create a new copy of the grid array with the updated ref at the specified index
+        const newGrid = [...prev.grid];
+        newGrid[index] = { ...newGrid[index], ref: newRef };
+
+        // Return a new state with the updated grid
+        return { ...prev, grid: newGrid };
+      });
+    },
+    []
+  );
+
   const resizeGrid = useCallback(
     (newTable: Array<GridEntry>) =>
       setGame((prev) => ({ ...prev, grid: newTable })),
     []
   );
 
-  return { game, gameLoseEvent, resizeGrid, addGold };
+  return { game, gameLoseEvent, resizeGrid, addGold, addRefToCell };
 };
 
 type UseGameContextType = ReturnType<typeof useGameContext>;
@@ -55,6 +73,7 @@ const initContextState: UseGameContextType = {
   gameLoseEvent: () => {},
   resizeGrid: () => {},
   addGold: () => {},
+  addRefToCell: () => {},
 };
 
 export const GameContext = createContext<UseGameContextType>(initContextState);
@@ -79,10 +98,15 @@ type UseGameHookType = {
   gameLoseEvent: () => void;
   resizeGrid: (newTable: Array<GridEntry>) => void;
   addGold: () => void;
+  addRefToCell: (
+    newRef: React.RefObject<HTMLDivElement> | null,
+    index: number
+  ) => void;
 };
 
 export const useGame = (): UseGameHookType => {
-  const { game, gameLoseEvent, resizeGrid, addGold } = useContext(GameContext);
+  const { game, gameLoseEvent, resizeGrid, addGold, addRefToCell } =
+    useContext(GameContext);
 
-  return { game, gameLoseEvent, resizeGrid, addGold };
+  return { game, gameLoseEvent, resizeGrid, addGold, addRefToCell };
 };
