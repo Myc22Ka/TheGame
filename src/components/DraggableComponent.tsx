@@ -87,6 +87,7 @@ const DraggableComponent: React.FC = () => {
     <motion.div
       className={randomComponent.name}
       drag
+      dragTransition={{ bounceStiffness: 600, bounceDamping: 100 }}
       // onDragEnd={handleDragEnd}
       ref={ref}
     >

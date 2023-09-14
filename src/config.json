@@ -1,0 +1,8 @@
+{
+  "points": {
+    "gold": 0,
+    "multiplier": 1,
+    "baseIncome": 1
+  },
+  "defaultGridSize": 2
+}

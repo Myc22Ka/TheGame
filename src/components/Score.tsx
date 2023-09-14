@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { useGame } from "../contexts/GameContext";
+import { useScore } from "../contexts/ScoreContext";
 
 const Score: React.FC = () => {
-  const { game, addGold } = useGame();
+  const { game } = useGame();
+  const { addGold, score } = useScore();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -23,7 +25,7 @@ const Score: React.FC = () => {
     <div className="score-component">
       <div className="score">
         <FontAwesomeIcon icon={faDollarSign} />
-        {game.score}
+        {score.gold}
       </div>
     </div>
   );

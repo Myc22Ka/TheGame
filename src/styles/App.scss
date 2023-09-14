@@ -20,9 +20,10 @@ body {
     .score-component {
       @include flex-center;
       font-size: $font-size-mid;
-      color: $secondary;
+      color: $main;
       font-family: $font;
       font-weight: bold;
+      text-shadow: $shadow;
       .score {
         p {
           all: unset;
@@ -36,7 +37,7 @@ body {
       gap: 0.3rem;
       .timer-icon {
         color: $main;
-        font-size: $font-size-mid;
+        font-size: $font-size-small;
       }
       .timer {
         width: clamp(2rem, 25vw, 13rem);
@@ -55,6 +56,7 @@ body {
           z-index: 1;
           font-size: $font-size-small;
           font-family: $font;
+          user-select: none;
         }
         .timer-metter {
           height: 100%;

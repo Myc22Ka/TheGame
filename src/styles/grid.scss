@@ -2,7 +2,6 @@
 
 .grid-container {
   height: auto;
-  background-color: $secondary;
   border-radius: $border-radius;
   .grid-elements {
     $size: clamp(350px, 80vw, 800px);
@@ -12,7 +11,7 @@
     display: grid;
     gap: 5px;
     .cell {
-      border: 5px solid $cell;
+      border: 5px solid $main;
       font-family: $font;
       @include flex-center;
       font-size: $font-size-large;

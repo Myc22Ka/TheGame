@@ -5,6 +5,7 @@ import React, {
   ReactElement,
   useCallback,
 } from "react";
+import options from "../config.json";
 
 export type GridEntry = {
   name: string;
@@ -19,15 +20,11 @@ export const emptyCell: GridEntry = {
 type StateType = {
   gameOver: boolean;
   grid: Array<GridEntry>;
-  score: number;
 };
-
-const DEFAULT_GRID: Array<GridEntry> = Array(4).fill(emptyCell);
 
 export const initState: StateType = {
   gameOver: false,
-  grid: DEFAULT_GRID,
-  score: 1000,
+  grid: Array(Math.pow(options.defaultGridSize, 2)).fill(emptyCell),
 };
 
 const useGameContext = (defaultGame: StateType) => {
@@ -35,11 +32,6 @@ const useGameContext = (defaultGame: StateType) => {
 
   const gameLoseEvent = useCallback(
     () => setGame((prev) => ({ ...prev, gameOver: true })),
-    []
-  );
-
-  const addGold = useCallback(
-    () => setGame((prev) => ({ ...prev, score: prev.score + 1 })),
     []
   );
 
@@ -63,20 +55,17 @@ const useGameContext = (defaultGame: StateType) => {
     []
   );
 
-  return { game, gameLoseEvent, resizeGrid, addGold, addRefToCell };
+  return { game, gameLoseEvent, resizeGrid, addRefToCell };
 };
 
-type UseGameContextType = ReturnType<typeof useGameContext>;
-
-const initContextState: UseGameContextType = {
+const initContextState: ReturnType<typeof useGameContext> = {
   game: initState,
   gameLoseEvent: () => {},
   resizeGrid: () => {},
-  addGold: () => {},
   addRefToCell: () => {},
 };
 
-export const GameContext = createContext<UseGameContextType>(initContextState);
+export const GameContext = createContext(initContextState);
 
 type ChildrenType = {
   children?: ReactElement | null;
@@ -93,20 +82,9 @@ export const GameProvider = ({
   );
 };
 
-type UseGameHookType = {
-  game: StateType;
-  gameLoseEvent: () => void;
-  resizeGrid: (newTable: Array<GridEntry>) => void;
-  addGold: () => void;
-  addRefToCell: (
-    newRef: React.RefObject<HTMLDivElement> | null,
-    index: number
-  ) => void;
-};
-
-export const useGame = (): UseGameHookType => {
-  const { game, gameLoseEvent, resizeGrid, addGold, addRefToCell } =
+export const useGame = () => {
+  const { game, gameLoseEvent, resizeGrid, addRefToCell } =
     useContext(GameContext);
 
-  return { game, gameLoseEvent, resizeGrid, addGold, addRefToCell };
+  return { game, gameLoseEvent, resizeGrid, addRefToCell };
 };
