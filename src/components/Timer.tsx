@@ -3,11 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { useGame } from "../contexts/GameContext";
 import { formatTime } from "../utils/timeDisplay";
-
-const DEFAULT_TIME = 3600;
+import options from "../config.json";
 
 const Timer: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<number>(DEFAULT_TIME);
+  const [currentTime, setCurrentTime] = useState<number>(options.time.maxTime);
   const { gameLoseEvent } = useGame();
 
   useEffect(() => {
@@ -15,7 +14,7 @@ const Timer: React.FC = () => {
     if (currentTime >= 0) {
       interval = setInterval(() => {
         setCurrentTime(currentTime - 1);
-      }, 1000);
+      }, options.time.defaultTimeTick * 1000);
     }
     if (currentTime === 0) {
       setCurrentTime(currentTime - 1);
@@ -33,7 +32,7 @@ const Timer: React.FC = () => {
         <div className="timer-text">{formatTime(currentTime)}</div>
         <div
           className="timer-metter"
-          style={{ width: `${(currentTime / DEFAULT_TIME) * 100}%` }}
+          style={{ width: `${(currentTime / options.time.maxTime) * 100}%` }}
         ></div>
       </div>
     </div>

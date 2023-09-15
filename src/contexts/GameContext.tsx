@@ -17,17 +17,26 @@ export const emptyCell: GridEntry = {
   ref: null,
 };
 
-type StateType = {
+enum GameErrors {
+  NO_ERROR = 0,
+  INCORRECT_GRID_SIZE = 1,
+}
+
+type GameType = {
   gameOver: boolean;
   grid: Array<GridEntry>;
+  currentGridSize: number;
+  error: GameErrors;
 };
 
-export const initState: StateType = {
+export const initState: GameType = {
   gameOver: false,
-  grid: Array(Math.pow(options.defaultGridSize, 2)).fill(emptyCell),
+  grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
+  currentGridSize: options.grid.size,
+  error: 0,
 };
 
-const useGameContext = (defaultGame: StateType) => {
+const useGameContext = (defaultGame: GameType) => {
   const [game, setGame] = useState(defaultGame);
 
   const gameLoseEvent = useCallback(
@@ -49,11 +58,21 @@ const useGameContext = (defaultGame: StateType) => {
     []
   );
 
-  const resizeGrid = useCallback(
-    (newTable: Array<GridEntry>) =>
-      setGame((prev) => ({ ...prev, grid: newTable })),
-    []
-  );
+  const resizeGrid = useCallback(() => {
+    if (game.currentGridSize === options.grid.maxSize) return;
+
+    const updatedCurrentGridSize = game.currentGridSize + 1;
+    const newTable = new Array(Math.pow(updatedCurrentGridSize, 2));
+    newTable.fill(emptyCell);
+
+    for (let i = 0; i < game.grid.length; i++) newTable[i] = game.grid[i];
+
+    setGame((prev) => ({
+      ...prev,
+      grid: newTable,
+      currentGridSize: updatedCurrentGridSize,
+    }));
+  }, [game]);
 
   return { game, gameLoseEvent, resizeGrid, addRefToCell };
 };
@@ -74,7 +93,7 @@ type ChildrenType = {
 export const GameProvider = ({
   children,
   ...initState
-}: ChildrenType & StateType) => {
+}: ChildrenType & GameType) => {
   return (
     <GameContext.Provider value={useGameContext(initState)}>
       {children}

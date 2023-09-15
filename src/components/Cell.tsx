@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { GridEntry, useGame } from "../contexts/GameContext";
+import { useGame } from "../contexts/GameContext";
+import { GridEntry } from "../contexts/GameContext";
 
 interface CellProps {
   cell: GridEntry;

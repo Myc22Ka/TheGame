@@ -1,8 +1,20 @@
 {
   "points": {
-    "gold": 0,
+    "gold": 99999,
     "multiplier": 1,
     "baseIncome": 1
   },
-  "defaultGridSize": 2
+  "grid": {
+    "size": 2,
+    "maxSize": 5,
+    "gridUpgrades": [
+      { "level": 1, "cost": 5000 },
+      { "level": 2, "cost": 10000 },
+      { "level": 3, "cost": 20000 }
+    ]
+  },
+  "time": {
+    "defaultTimeTick": 1,
+    "maxTime": 3600
+  }
 }

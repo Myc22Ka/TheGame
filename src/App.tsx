@@ -8,7 +8,7 @@ import options from "./config.json";
 const App: React.FC = () => {
   return (
     <div className="app">
-      <GameProvider gameOver={initState.gameOver} grid={initState.grid}>
+      <GameProvider {...initState}>
         <ScoreProvider {...options.points}>
           <Layout />
         </ScoreProvider>
