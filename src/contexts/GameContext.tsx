@@ -17,23 +17,23 @@ export const emptyCell: GridEntry = {
   ref: null,
 };
 
-enum GameErrors {
-  NO_ERROR = 0,
-  INCORRECT_GRID_SIZE = 1,
-}
+// enum GameErrors {
+//   NO_ERROR = 0,
+//   INCORRECT_GRID_SIZE = 1,
+// }
 
 type GameType = {
   gameOver: boolean;
   grid: Array<GridEntry>;
   currentGridSize: number;
-  error: GameErrors;
+  // error: GameErrors;
 };
 
 export const initState: GameType = {
   gameOver: false,
   grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
   currentGridSize: options.grid.size,
-  error: 0,
+  // error: 0,
 };
 
 const useGameContext = (defaultGame: GameType) => {

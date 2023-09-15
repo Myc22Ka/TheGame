@@ -6,12 +6,12 @@ import { formatTime } from "../utils/timeDisplay";
 import options from "../config.json";
 
 const Timer: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<number>(options.time.maxTime);
+  const [currentTime, setCurrentTime] = useState(options.time.maxTime);
   const { gameLoseEvent } = useGame();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (currentTime >= 0) {
+    if (currentTime > 0) {
       interval = setInterval(() => {
         setCurrentTime(currentTime - 1);
       }, options.time.defaultTimeTick * 1000);

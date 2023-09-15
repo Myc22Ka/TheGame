@@ -13,11 +13,7 @@ type ScoreType = {
   baseIncome: number;
 };
 
-export const initState: ScoreType = {
-  gold: config.points.gold,
-  multiplier: config.points.multiplier,
-  baseIncome: config.points.baseIncome,
-};
+export const initState: ScoreType = config.points;
 
 const useScoreContext = (defaultScore: ScoreType) => {
   const [score, setScore] = useState(defaultScore);
