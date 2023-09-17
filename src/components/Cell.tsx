@@ -7,7 +7,7 @@ interface CellProps {
   index: number;
 }
 
-const Cell: React.FC<CellProps> = ({ cell, index }): JSX.Element => {
+const Cell: React.FC<CellProps> = ({ cell, index }) => {
   const { addRefToCell } = useGame();
   const cellRef = useRef<HTMLDivElement>(null);
 

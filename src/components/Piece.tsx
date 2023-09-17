@@ -1,59 +1,20 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { PanInfo, motion } from "framer-motion";
-import { useGame } from "../contexts/GameContext";
-
-type Component = {
-  name: string;
-};
-
-const defaultComponent = {
-  name: "",
-};
-
-const ARRAY_OF_COMPONENTS: Array<Component> = [
-  { name: "component1" },
-  { name: "component2" },
-];
+import React from "react";
+import { motion } from "framer-motion";
+import usePiece from "../hooks/usePiece";
 
 const Piece: React.FC = () => {
-  const { game } = useGame();
-  const ref = useRef<HTMLDivElement>(null);
-  const [randomComponent, setRandomComponent] =
-    useState<Component>(defaultComponent);
-
-  const generateComponent = useMemo(() => {
-    // xd because I want to make something truly random
-    const randomBytes = new Uint8Array(4);
-    self.crypto.getRandomValues(randomBytes);
-    const seed =
-      randomBytes[0] |
-      (randomBytes[1] << 8) |
-      (randomBytes[2] << 16) |
-      (randomBytes[3] << 24);
-    const randomIndex = Math.abs(seed) % ARRAY_OF_COMPONENTS.length;
-
-    return ARRAY_OF_COMPONENTS[randomIndex];
-  }, []);
-
-  useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    interval = setInterval(() => {
-      setRandomComponent(generateComponent);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  const { pieceRef, tile, handleDragStart, handleDragEnd } = usePiece();
 
   return (
     <motion.div
-      className={randomComponent.name}
+      className={tile.piece.name}
       drag
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       dragTransition={{ bounceStiffness: 600, bounceDamping: 100 }}
-      ref={ref}
+      ref={pieceRef}
     >
-      {randomComponent.name}
+      {tile.piece.name}
     </motion.div>
   );
 };

@@ -1,6 +1,6 @@
 {
   "points": {
-    "gold": 99999,
+    "gold": 0,
     "multiplier": 1,
     "baseIncome": 1
   },
@@ -16,5 +16,9 @@
   "time": {
     "defaultTimeTick": 1,
     "maxTime": 3600
+  },
+  "tiles": {
+    "animationTime": 1000,
+    "pieceCycleTime": 3000
   }
 }
