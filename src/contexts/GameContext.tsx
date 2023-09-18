@@ -17,7 +17,7 @@ export const emptyCell: GridEntry = {
   ref: null,
 };
 
-type GameType = {
+export type GameType = {
   gameOver: boolean;
   grid: Array<GridEntry>;
   currentGridSize: number;

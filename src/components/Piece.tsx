@@ -11,6 +11,7 @@ const Piece: React.FC = () => {
       drag
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      animate={tile.animate}
       dragTransition={{ bounceStiffness: 600, bounceDamping: 100 }}
       ref={pieceRef}
     >
