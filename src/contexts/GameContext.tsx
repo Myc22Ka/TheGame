@@ -7,14 +7,26 @@ import React, {
 } from "react";
 import options from "../config.json";
 
-export type GridEntry = {
+export type PieceType = {
   name: string;
+  sell: number;
+};
+
+export const emptyPiece: PieceType = {
+  name: "",
+  sell: 0,
+};
+
+export type GridEntry = {
+  insideCell: PieceType;
   ref: React.RefObject<HTMLDivElement> | null;
+  isEmpty: boolean;
 };
 
 export const emptyCell: GridEntry = {
-  name: "",
+  insideCell: emptyPiece,
   ref: null,
+  isEmpty: true,
 };
 
 export type GameType = {
@@ -35,6 +47,22 @@ const useGameContext = (defaultGame: GameType) => {
   const gameLoseEvent = useCallback(
     () => setGame((prev) => ({ ...prev, gameOver: true })),
     []
+  );
+
+  const addPieceToCell = useCallback(
+    (cell: GridEntry, piece: PieceType) => {
+      const foundIndex = game.grid.findIndex((entry) => entry.ref === cell.ref);
+
+      const newGrid = [...game.grid];
+      newGrid[foundIndex] = {
+        ...newGrid[foundIndex],
+        insideCell: piece,
+        isEmpty: false,
+      };
+
+      setGame((prev) => ({ ...prev, grid: newGrid }));
+    },
+    [game]
   );
 
   const addRefToCell = useCallback(
@@ -67,7 +95,7 @@ const useGameContext = (defaultGame: GameType) => {
     }));
   }, [game]);
 
-  return { game, gameLoseEvent, resizeGrid, addRefToCell };
+  return { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell };
 };
 
 const initContextState: ReturnType<typeof useGameContext> = {
@@ -75,6 +103,7 @@ const initContextState: ReturnType<typeof useGameContext> = {
   gameLoseEvent: () => {},
   resizeGrid: () => {},
   addRefToCell: () => {},
+  addPieceToCell: () => {},
 };
 
 export const GameContext = createContext(initContextState);
@@ -95,8 +124,8 @@ export const GameProvider = ({
 };
 
 export const useGame = () => {
-  const { game, gameLoseEvent, resizeGrid, addRefToCell } =
+  const { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell } =
     useContext(GameContext);
 
-  return { game, gameLoseEvent, resizeGrid, addRefToCell };
+  return { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell };
 };

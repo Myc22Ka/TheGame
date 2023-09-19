@@ -18,7 +18,6 @@
     "maxTime": 3600
   },
   "tiles": {
-    "animationTime": 1000,
-    "pieceCycleTime": 3000
+    "pieceCycleTime": 2000
   }
 }

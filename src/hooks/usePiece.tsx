@@ -1,29 +1,22 @@
-import { useState, useRef, useCallback } from "react";
-import { emptyCell, useGame } from "../contexts/GameContext";
-
-type PieceType = {
-  name: string;
-};
+import { useState, useRef, useCallback, useEffect } from "react";
+import {
+  GridEntry,
+  PieceType,
+  emptyCell,
+  useGame,
+} from "../contexts/GameContext";
+import { useScore } from "../contexts/ScoreContext";
 
 type Cords = {
   x: number;
   y: number;
 };
 
-const defaultPiece: PieceType = {
-  name: "component1",
-};
-
-const ARRAY_OF_COMPONENTS: PieceType[] = [
-  { name: "component1" },
-  { name: "component2" },
-];
-
 const defaultState = {
-  piece: defaultPiece,
   isdragged: false,
+  show: true,
   nearestCell: emptyCell,
-  dragTime: { start: Date.now(), end: 0 },
+  dragEnd: false,
   startingPosition: { x: 0, y: 0 },
   vector: { x: 0, y: 0 },
 };
@@ -41,16 +34,16 @@ const getFixedRectPosition = (ref: React.RefObject<HTMLDivElement>): Cords => {
   return position;
 };
 
-export const usePiece = () => {
+export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultState);
-  const { game } = useGame();
+  const { game, addPieceToCell } = useGame();
+  const { addSomeGold } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
       ...prev,
       isdragged: true,
-      dragTime: { ...prev.dragTime, end: 0 },
       startingPosition: getFixedRectPosition(pieceRef),
     }));
   }, [tile]);
@@ -76,20 +69,36 @@ export const usePiece = () => {
             },
           };
         })
+        .filter((entry) => entry.cell.isEmpty)
         .sort((a, b) => a.distance - b.distance)[0];
+
+      if (!nearestCell) {
+        addSomeGold(piece.sell);
+        setTile((prev) => ({ ...prev, show: false }));
+        return;
+      }
 
       setTile((prev) => ({
         ...prev,
         isdragged: false,
         nearestCell: nearestCell.cell,
-        dragTime: { ...prev.dragTime, end: Date.now() },
+        dragEnd: true,
         vector: nearestCell.vector,
       }));
     },
     [tile]
   );
 
-  return { tile, pieceRef, handleDragEnd, handleDragStart };
+  const hidePiece = () => {
+    addPieceToCell(tile.nearestCell, piece);
+    setTile((prev) => ({ ...prev, show: false }));
+  };
+
+  // useEffect(() => {
+  //   console.log(tile);
+  // }, [tile]);
+
+  return { tile, pieceRef, handleDragEnd, handleDragStart, hidePiece };
 };
 
 export default usePiece;

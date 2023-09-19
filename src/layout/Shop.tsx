@@ -1,9 +1,9 @@
 import React from "react";
 import { useGame } from "../contexts/GameContext";
 import "../styles/shop.scss";
-import Piece from "../components/Piece";
 import options from "../config.json";
 import { useScore } from "../contexts/ScoreContext";
+import RandomPieceGen from "../components/Piece/RandomPieceGen";
 
 const Shop: React.FC = () => {
   const { game, resizeGrid } = useGame();
@@ -21,9 +21,7 @@ const Shop: React.FC = () => {
 
   return (
     <div className="shop">
-      <div className="random-component-gen">
-        <Piece />
-      </div>
+      <RandomPieceGen />
       <button onClick={handleClick}>Resize Grid</button>
     </div>
   );

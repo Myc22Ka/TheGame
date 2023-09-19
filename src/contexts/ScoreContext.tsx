@@ -27,6 +27,10 @@ const useScoreContext = (defaultScore: ScoreType) => {
     []
   );
 
+  const addSomeGold = useCallback((amount: number) => {
+    setScore((prev) => ({ ...prev, gold: prev.gold + amount }));
+  }, []);
+
   const removeSomeGold = useCallback((amount: number) => {
     setScore((prev) => ({ ...prev, gold: prev.gold - amount }));
   }, []);
@@ -35,7 +39,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
     setScore((prev) => ({ ...prev, multiplier: newMultiplier }));
   }, []);
 
-  return { score, addGold, setMultiplier, removeSomeGold };
+  return { score, addGold, setMultiplier, removeSomeGold, addSomeGold };
 };
 
 const initContextState: ReturnType<typeof useScoreContext> = {
@@ -43,6 +47,7 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   addGold: () => {},
   setMultiplier: () => {},
   removeSomeGold: () => {},
+  addSomeGold: () => {},
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -63,8 +68,8 @@ export const ScoreProvider = ({
 };
 
 export const useScore = () => {
-  const { score, setMultiplier, addGold, removeSomeGold } =
+  const { score, setMultiplier, addGold, removeSomeGold, addSomeGold } =
     useContext(ScoreContext);
 
-  return { score, setMultiplier, addGold, removeSomeGold };
+  return { score, setMultiplier, addGold, removeSomeGold, addSomeGold };
 };
