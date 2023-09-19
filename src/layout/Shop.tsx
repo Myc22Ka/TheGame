@@ -13,7 +13,7 @@ const Shop: React.FC = () => {
     const { maxSize, gridUpgrades, size } = options.grid;
     if (game.currentGridSize === maxSize) return;
 
-    if (gridUpgrades[game.currentGridSize - size].cost < score.gold) {
+    if (gridUpgrades[game.currentGridSize - size].cost <= score.gold) {
       removeSomeGold(gridUpgrades[game.currentGridSize - size].cost);
       resizeGrid();
     }

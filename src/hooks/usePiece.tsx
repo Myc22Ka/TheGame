@@ -1,13 +1,16 @@
-import { PanInfo, delay } from "framer-motion";
-import { useEffect, useState, useRef, useCallback } from "react";
-import options from "../config.json";
-import { GameType, emptyCell, useGame } from "../contexts/GameContext";
+import { useState, useRef, useCallback } from "react";
+import { emptyCell, useGame } from "../contexts/GameContext";
 
 type PieceType = {
   name: string;
 };
 
-const defaultComponent: PieceType = {
+type Cords = {
+  x: number;
+  y: number;
+};
+
+const defaultPiece: PieceType = {
   name: "component1",
 };
 
@@ -17,13 +20,25 @@ const ARRAY_OF_COMPONENTS: PieceType[] = [
 ];
 
 const defaultState = {
-  piece: defaultComponent,
+  piece: defaultPiece,
   isdragged: false,
-  animate: { x: 0, y: 0 },
   nearestCell: emptyCell,
   dragTime: { start: Date.now(), end: 0 },
   startingPosition: { x: 0, y: 0 },
   vector: { x: 0, y: 0 },
+};
+
+const getFixedRectPosition = (ref: React.RefObject<HTMLDivElement>): Cords => {
+  const rect = ref.current?.getBoundingClientRect();
+
+  let position = { x: 0, y: 0 };
+  if (rect)
+    position = {
+      x: rect.x + rect.width / 2,
+      y: rect.y + rect.height / 2,
+    };
+
+  return position;
 };
 
 export const usePiece = () => {
@@ -32,46 +47,36 @@ export const usePiece = () => {
   const { game } = useGame();
 
   const handleDragStart = useCallback(() => {
-    const rect = pieceRef.current?.getBoundingClientRect();
-
-    let startingPosition = { x: 0, y: 0 };
-    if (rect) startingPosition = { x: rect.x, y: rect.y };
-
     setTile((prev) => ({
       ...prev,
       isdragged: true,
       dragTime: { ...prev.dragTime, end: 0 },
-      startingPosition: startingPosition,
+      startingPosition: getFixedRectPosition(pieceRef),
     }));
   }, [tile]);
 
   const handleDragEnd = useCallback(
-    (event: PointerEvent, info: PanInfo) => {
+    (event: PointerEvent) => {
       const nearestCell = game.grid
         .map((cell) => {
-          const rect = cell.ref?.current?.getBoundingClientRect();
+          if (!cell.ref)
+            return { cell: emptyCell, distance: 0, vector: { x: 0, y: 0 } };
 
-          const v = [(rect?.x || 0) - event.x, (rect?.y || 0) - event.y];
-          const w = [
-            tile.startingPosition.x - event.x,
-            tile.startingPosition.y - event.y,
-          ];
+          const fixedRect = getFixedRectPosition(cell.ref);
 
           return {
             cell: cell,
             distance: Math.sqrt(
-              Math.pow((rect?.x || 0) - event.x, 2) +
-                Math.pow((rect?.y || 0) - event.y, 2)
+              Math.pow(fixedRect.x - event.x, 2) +
+                Math.pow(fixedRect.y - event.y, 2)
             ),
             vector: {
-              x: v[0] - w[0],
-              y: v[1] - w[1],
+              x: fixedRect.x - tile.startingPosition.x,
+              y: fixedRect.y - tile.startingPosition.y,
             },
           };
         })
         .sort((a, b) => a.distance - b.distance)[0];
-
-      console.log(nearestCell.cell.ref);
 
       setTile((prev) => ({
         ...prev,
@@ -83,10 +88,6 @@ export const usePiece = () => {
     },
     [tile]
   );
-
-  // useEffect(() => {
-  //   console.log(tile);
-  // }, [tile]);
 
   return { tile, pieceRef, handleDragEnd, handleDragStart };
 };

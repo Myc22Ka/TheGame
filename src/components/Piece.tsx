@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { motion } from "framer-motion";
 import usePiece from "../hooks/usePiece";
 
@@ -7,10 +7,6 @@ const Piece: React.FC = () => {
 
   const calculateAnimation = useCallback(() => {
     return tile.vector;
-  }, [tile]);
-
-  useEffect(() => {
-    console.log(tile);
   }, [tile]);
 
   return (
