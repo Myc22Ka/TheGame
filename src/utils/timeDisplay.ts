@@ -7,3 +7,9 @@ export const formatTime = (totalSeconds: number): string => {
 
   return [h, m, s].map((e) => e.toString().padStart(2, "0")).join(":");
 };
+
+export const pieceCycleFormatTime = (totalSeconds: number): string => {
+  const sec = totalSeconds / 1000;
+
+  return `${sec} sec`;
+};
