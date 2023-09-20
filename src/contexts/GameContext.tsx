@@ -10,13 +10,15 @@ import options from "../config.json";
 export type PieceType = {
   name: string;
   sell: number;
-  type: string;
+  rule: string;
+  level: number;
 };
 
 export const emptyPiece: PieceType = {
   name: "",
   sell: 0,
-  type: "",
+  rule: "",
+  level: 0,
 };
 
 export type GridEntry = {

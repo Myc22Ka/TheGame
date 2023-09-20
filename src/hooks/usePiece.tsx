@@ -8,6 +8,7 @@ type Cords = {
 };
 
 const defaultState = {
+  animationTrigger: false,
   isdragged: false,
   show: true,
   nearestCell: emptyCell,
@@ -69,15 +70,15 @@ export const usePiece = (piece: PieceType) => {
 
       if (!nearestCell) {
         addSomeGold(piece.sell);
-        setTile((prev) => ({ ...prev, show: false }));
+        setTile((prev) => ({ ...prev, animationTrigger: true }));
         return;
       }
 
       setTile((prev) => ({
         ...prev,
         isdragged: false,
-        nearestCell: nearestCell.cell,
         dragEnd: true,
+        nearestCell: nearestCell.cell,
         vector: nearestCell.vector,
       }));
     },

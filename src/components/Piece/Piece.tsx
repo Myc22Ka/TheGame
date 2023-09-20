@@ -19,17 +19,14 @@ const Piece: React.FC<PiecePropsType> = ({ piece }) => {
 
   return (
     <motion.div
-      className="box1"
+      className={`${piece.rule}${tile.animationTrigger ? " animated" : ""}`}
       drag
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       animate={tile.dragEnd ? calculateAnimation() : {}}
       transition={{
         duration: 0.4,
-        // damping: 20,
-        // stiffness: 200,
-        // restDelta: 0.01,
-        // type: "spring",
+        ease: "anticipate",
       }}
       onAnimationComplete={hidePiece}
       ref={pieceRef}
