@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Piece from "./Piece";
 import options from "../../config.json";
 import { PieceType } from "../../contexts/GameContext";
+import { pieceCycleFormatTime } from "../../utils/timeDisplay";
 
 const pieces: PieceType[] = [
   { name: "1", sell: 100 },
@@ -33,7 +34,7 @@ const RandomPieceGen: React.FC = () => {
 
   return (
     <div className="random-component-gen">
-      <div>{time}</div>
+      <div>{pieceCycleFormatTime(time)}</div>
       {time > 0 && <Piece piece={generateRandomPiece()} />}
     </div>
   );

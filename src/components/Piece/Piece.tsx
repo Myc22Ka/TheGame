@@ -25,10 +25,9 @@ const Piece: React.FC<PiecePropsType> = ({ piece }) => {
       onDragEnd={handleDragEnd}
       animate={tile.dragEnd ? calculateAnimation() : {}}
       transition={{
-        damping: 20,
-        stiffness: 200,
-        restDelta: 0.01,
         type: "spring",
+        damping: 15,
+        stiffness: 75,
       }}
       onAnimationComplete={hidePiece}
       ref={pieceRef}
