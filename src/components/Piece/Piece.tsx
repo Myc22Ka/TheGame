@@ -20,15 +20,16 @@ const Piece: React.FC<PiecePropsType> = ({ piece }) => {
   return (
     <motion.div
       className="box1"
-      drag={tile.dragEnd ? tile.isdragged : true}
+      drag
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       animate={tile.dragEnd ? calculateAnimation() : {}}
       transition={{
-        damping: 20,
-        stiffness: 200,
-        restDelta: 0.01,
-        type: "spring",
+        duration: 0.4,
+        // damping: 20,
+        // stiffness: 200,
+        // restDelta: 0.01,
+        // type: "spring",
       }}
       onAnimationComplete={hidePiece}
       ref={pieceRef}

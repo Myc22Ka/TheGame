@@ -4,8 +4,8 @@ import options from "../../config.json";
 import { PieceType } from "../../contexts/GameContext";
 
 const pieces: PieceType[] = [
-  { name: "1", sell: 100 },
-  { name: "2", sell: 200 },
+  { name: "1", sell: 100, type: "box1" },
+  { name: "2", sell: 200, type: "box2" },
 ];
 
 const generateRandomPiece = () => {

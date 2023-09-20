@@ -17,7 +17,7 @@ const Cell: React.FC<CellProps> = ({ cell, index }) => {
 
   return (
     <div className="cell" ref={cellRef}>
-      <div>{cell.insideCell.name}</div>
+      <div className={cell.insideCell.type} />
     </div>
   );
 };

@@ -1,10 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from "react";
-import {
-  GridEntry,
-  PieceType,
-  emptyCell,
-  useGame,
-} from "../contexts/GameContext";
+import { useState, useRef, useCallback } from "react";
+import { PieceType, emptyCell, useGame } from "../contexts/GameContext";
 import { useScore } from "../contexts/ScoreContext";
 
 type Cords = {
