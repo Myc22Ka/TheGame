@@ -11,10 +11,6 @@ const Piece: React.FC<PiecePropsType> = ({ piece }) => {
   const { pieceRef, tile, handleDragStart, handleDragEnd, hidePiece } =
     usePiece(piece);
 
-  const calculateAnimation = useCallback(() => {
-    return tile.vector;
-  }, [tile]);
-
   if (!tile.show) return <></>;
 
   return (
