@@ -3,13 +3,17 @@ import { motion } from "framer-motion";
 import usePiece from "../../hooks/usePiece";
 import { PieceType } from "../../contexts/GameContext";
 
-type PiecePropsType = {
+interface PieceProps {
   piece: PieceType;
-};
+}
 
-const Piece: React.FC<PiecePropsType> = ({ piece }) => {
+const Piece: React.FC<PieceProps> = ({ piece }) => {
   const { pieceRef, tile, handleDragStart, handleDragEnd, hidePiece } =
     usePiece(piece);
+
+  const calculateAnimation = useCallback(() => {
+    return tile.vector;
+  }, [tile]);
 
   if (!tile.show) return <></>;
 

@@ -11,6 +11,7 @@
     display: grid;
     gap: 5px;
     .cell {
+      box-sizing: border-box;
       border: 5px solid $main;
       font-family: $font;
       @include flex-center;

@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Piece from "./Piece";
 import options from "../../config.json";
-
-const generateRandomPiece = () => {
-  return options.pieces.types[
-    Math.floor(Math.random() * options.pieces.types.length)
-  ];
-};
+import { generateRandomPiece } from "../../modules/Piece/utils";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState({
