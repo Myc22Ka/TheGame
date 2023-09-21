@@ -12,6 +12,7 @@ const defaultTile: TileType = {
   dragEnd: false,
   startingPosition: defaultCords,
   vector: defaultCords,
+  animate: "active",
 };
 /**
  * Finds the nearest empty cell in the game grid to a given event position.

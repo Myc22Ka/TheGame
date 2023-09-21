@@ -27,12 +27,17 @@ export const usePiece = (piece: PieceType) => {
 
       if (!nearestCell) {
         addSomeGold(piece.sell);
-        setTile((prev) => ({ ...prev, animationTrigger: true }));
+        setTile((prev) => ({
+          ...prev,
+          animationTrigger: true,
+          animate: "sell",
+        }));
         return;
       }
 
       setTile((prev) => ({
         ...prev,
+        animate: "drag",
         isDragged: false,
         dragEnd: true,
         nearestCell: nearestCell.cell,
@@ -43,8 +48,9 @@ export const usePiece = (piece: PieceType) => {
   );
 
   const hidePiece = () => {
+    if (tile.animate !== "drag") return;
     addPieceToCell(tile.nearestCell, piece);
-    setTile((prev) => ({ ...prev, show: false }));
+    setTile((prev) => ({ ...prev, show: false, animate: "inactive" }));
   };
 
   return { tile, pieceRef, handleDragEnd, handleDragStart, hidePiece };

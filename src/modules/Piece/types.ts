@@ -13,6 +13,7 @@ type TileType = {
   dragEnd: boolean;
   startingPosition: Cords;
   vector: Cords;
+  animate: "active" | string;
 };
 
 type NearestCellType = {
