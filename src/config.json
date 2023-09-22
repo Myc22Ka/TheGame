@@ -15,6 +15,7 @@
   },
   "time": {
     "defaultTimeTick": 1,
+    "breakTimeBetweenPiecesCycle": 0.4,
     "maxTime": 3600
   },
   "pieces": {

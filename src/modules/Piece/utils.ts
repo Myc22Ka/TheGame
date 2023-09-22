@@ -14,6 +14,25 @@ const defaultTile: TileType = {
   vector: defaultCords,
   animate: "active",
 };
+
+// Piece variables
+const pieceVariants = {
+  initial: { scale: 0 },
+  active: { scale: 1 },
+  drag: { scale: 1 },
+  sell: {
+    scale: 0,
+    rotate: 45,
+    radius: "50%",
+  },
+  inactive: { scale: 0 },
+};
+
+const pieceTransition = {
+  duration: 0.4,
+  ease: "anticipate",
+};
+
 /**
  * Finds the nearest empty cell in the game grid to a given event position.
  *
@@ -80,4 +99,11 @@ const generateRandomPiece = (): PieceType => {
   ];
 };
 
-export { calcCenterPoint, findNearestCell, defaultTile, generateRandomPiece };
+export {
+  calcCenterPoint,
+  findNearestCell,
+  defaultTile,
+  generateRandomPiece,
+  pieceTransition,
+  pieceVariants,
+};

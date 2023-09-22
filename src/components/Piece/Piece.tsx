@@ -1,38 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import usePiece from "../../hooks/usePiece";
 import { PieceType } from "../../contexts/GameContext";
+import { pieceTransition, pieceVariants } from "../../modules/Piece/utils";
 
 interface PieceProps {
   piece: PieceType;
+  exit: boolean;
 }
 
-const Piece: React.FC<PieceProps> = ({ piece }) => {
+const Piece: React.FC<PieceProps> = ({ piece, exit }) => {
   const { pieceRef, tile, handleDragStart, handleDragEnd, hidePiece } =
     usePiece(piece);
-
-  // if (!tile.show) return <React.Fragment />;
-
-  const variants = {
-    initial: { scale: 0 },
-    active: { scale: 1 },
-    drag: { ...tile.vector, scale: 1 },
-    sell: {
-      scale: 0,
-      rotate: 45,
-      radius: "50%",
-    },
-    inactive: { scale: 0 },
-  };
-
-  const defaultTransition = {
-    duration: 0.4,
-    ease: "anticipate",
-  };
-
-  // useEffect(() => {
-  //   console.log(tile.animate);
-  // }, [tile]);
 
   return (
     <motion.div
@@ -40,11 +19,13 @@ const Piece: React.FC<PieceProps> = ({ piece }) => {
       drag
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      animate={tile.animate}
+      animate={!exit ? tile.animate : "inactive"}
       initial="initial"
-      variants={variants}
-      exit="inactive"
-      transition={defaultTransition}
+      variants={{
+        ...pieceVariants,
+        drag: { ...pieceVariants.drag, ...tile.vector },
+      }}
+      transition={pieceTransition}
       onAnimationComplete={hidePiece}
       ref={pieceRef}
     />
