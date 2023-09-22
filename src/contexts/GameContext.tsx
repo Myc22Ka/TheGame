@@ -25,12 +25,14 @@ export type GridEntry = {
   insideCell: PieceType;
   ref: React.RefObject<HTMLDivElement> | null;
   isEmpty: boolean;
+  animate: "inactive" | "active";
 };
 
 export const emptyCell: GridEntry = {
   insideCell: emptyPiece,
   ref: null,
   isEmpty: true,
+  animate: "inactive",
 };
 
 export type GameType = {
@@ -62,6 +64,7 @@ const useGameContext = (defaultGame: GameType) => {
         ...newGrid[foundIndex],
         insideCell: piece,
         isEmpty: false,
+        animate: "active",
       };
 
       setGame((prev) => ({ ...prev, grid: newGrid }));

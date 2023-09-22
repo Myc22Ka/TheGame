@@ -102,11 +102,22 @@
 
 .gold,
 .gold_add {
-  background: #eee;
+  background: #eee2;
   width: 100px;
   height: 100px;
   border-radius: 1rem;
+  position: relative;
+  &::before {
+    top: 50%;
+    left: 50%;
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: blue;
+  }
 }
 .gold_add {
-  background: red;
+  background: #d4c2;
 }

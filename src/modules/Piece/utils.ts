@@ -19,7 +19,7 @@ const defaultTile: TileType = {
 const pieceVariants = {
   initial: { scale: 0 },
   active: { scale: 1 },
-  drag: { scale: 1 },
+  drag: { scale: 0, rotate: 270 },
   sell: {
     scale: 0,
     rotate: 45,

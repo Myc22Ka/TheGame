@@ -12,7 +12,7 @@
     gap: 5px;
     .cell {
       box-sizing: border-box;
-      border: 5px solid $main;
+      border: 2px solid $main;
       font-family: $font;
       @include flex-center;
       font-size: $font-size-large;
@@ -21,6 +21,17 @@
       background-color: $third;
       box-shadow: $shadow;
       user-select: none;
+      position: relative;
+      &::before {
+        top: 50%;
+        left: 50%;
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: red !important;
+      }
     }
   }
 }
