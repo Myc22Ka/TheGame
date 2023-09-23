@@ -5,21 +5,22 @@ import options from "../../config.json";
 const defaultCords: Cords = { x: 0, y: 0 };
 
 const defaultTile: TileType = {
-  animationTrigger: false,
-  isDragged: false,
-  show: true,
   nearestCell: emptyCell,
-  dragEnd: false,
   startingPosition: defaultCords,
   vector: defaultCords,
   animate: "active",
+  isDropped: false,
 };
 
 // Piece variables
 const pieceVariants = {
   initial: { scale: 0 },
-  active: { scale: 1 },
+  active: { scale: 1, rotate: 0 },
   drag: { scale: 0, rotate: 270 },
+  return: {
+    scale: 1,
+    rotate: 0,
+  },
   sell: {
     scale: 0,
     rotate: 45,
@@ -29,7 +30,7 @@ const pieceVariants = {
 };
 
 const pieceTransition = {
-  duration: 0.4,
+  duration: 0.7,
   ease: "anticipate",
 };
 
@@ -47,7 +48,7 @@ const findNearestCell = (
   tile: TileType
 ): NearestCellType => {
   return game.grid
-    .filter((entry) => entry.isEmpty)
+    .filter((cell) => cell.isEmpty)
     .map((cell) => {
       if (!cell.ref)
         return { cell: emptyCell, distance: 0, vector: defaultCords };
@@ -66,7 +67,17 @@ const findNearestCell = (
         },
       };
     })
-    .sort((a, b) => a.distance - b.distance)[0];
+    .sort((a, b) => a.distance - b.distance)
+    .filter((cell) => cell.distance < options.grid.maxDragDistance)[0];
+};
+
+const possibleToSell = (game: GameType, event: PointerEvent): boolean => {
+  if (!game.trashCan) return false;
+  const trashCanPos = calcCenterPoint(game.trashCan);
+
+  return [trashCanPos.x - event.x, trashCanPos.y - event.y].every(
+    (e) => Math.abs(e) < options.grid.maxTrashDistance
+  );
 };
 
 /**
@@ -106,4 +117,5 @@ export {
   generateRandomPiece,
   pieceTransition,
   pieceVariants,
+  possibleToSell,
 };

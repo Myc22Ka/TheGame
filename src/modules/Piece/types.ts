@@ -6,14 +6,11 @@ type Cords = {
 };
 
 type TileType = {
-  animationTrigger: boolean;
-  isDragged: boolean;
-  show: boolean;
   nearestCell: GridEntry;
-  dragEnd: boolean;
   startingPosition: Cords;
   vector: Cords;
   animate: "active" | string;
+  isDropped: boolean;
 };
 
 type NearestCellType = {

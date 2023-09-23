@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGame } from "../contexts/GameContext";
 import "../styles/shop.scss";
 import options from "../config.json";
 import { useScore } from "../contexts/ScoreContext";
 import RandomPieceGen from "../components/Piece/RandomPieceGen";
+import TrashCan from "../components/TrashCan";
 
 const Shop: React.FC = () => {
   const { game, resizeGrid } = useGame();
@@ -23,6 +24,7 @@ const Shop: React.FC = () => {
     <div className="shop">
       <RandomPieceGen />
       <button onClick={handleClick}>Resize Grid</button>
+      <TrashCan />
     </div>
   );
 };

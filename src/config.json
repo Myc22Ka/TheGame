@@ -11,15 +11,16 @@
       { "level": 1, "cost": 1 },
       { "level": 2, "cost": 2 },
       { "level": 3, "cost": 3 }
-    ]
+    ],
+    "maxDragDistance": 200,
+    "maxTrashDistance": 100
   },
   "time": {
     "defaultTimeTick": 1,
-    "breakTimeBetweenPiecesCycle": 0.4,
     "maxTime": 3600
   },
   "pieces": {
-    "cycleTime": 4,
+    "cycleTime": 5,
     "types": [
       {
         "name": "1",
@@ -29,7 +30,7 @@
       },
       {
         "name": "2",
-        "sell": 200,
+        "sell": 300,
         "rule": "gold_add",
         "level": 1
       }

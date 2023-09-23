@@ -12,12 +12,10 @@ interface CellProps {
 const variants = {
   active: {
     scale: 1,
-    rotate: 360,
     borderRadius: 10,
   },
   inactive: {
     scale: 0,
-    rotate: -360,
     borderRadius: 100,
   },
 };

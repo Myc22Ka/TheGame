@@ -37,14 +37,16 @@ export const emptyCell: GridEntry = {
 
 export type GameType = {
   gameOver: boolean;
-  grid: Array<GridEntry>;
+  grid: GridEntry[];
   currentGridSize: number;
+  trashCan: React.RefObject<HTMLDivElement> | null;
 };
 
 export const initState: GameType = {
   gameOver: false,
   grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
   currentGridSize: options.grid.size,
+  trashCan: null,
 };
 
 const useGameContext = (defaultGame: GameType) => {
@@ -102,7 +104,21 @@ const useGameContext = (defaultGame: GameType) => {
     }));
   }, [game]);
 
-  return { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell };
+  const setTrashCan = useCallback(
+    (trashCanRef: React.RefObject<HTMLDivElement>) => {
+      setGame((prev) => ({ ...prev, trashCan: trashCanRef }));
+    },
+    []
+  );
+
+  return {
+    game,
+    gameLoseEvent,
+    resizeGrid,
+    addRefToCell,
+    addPieceToCell,
+    setTrashCan,
+  };
 };
 
 const initContextState: ReturnType<typeof useGameContext> = {
@@ -111,6 +127,7 @@ const initContextState: ReturnType<typeof useGameContext> = {
   resizeGrid: () => {},
   addRefToCell: () => {},
   addPieceToCell: () => {},
+  setTrashCan: () => {},
 };
 
 export const GameContext = createContext(initContextState);
@@ -131,8 +148,21 @@ export const GameProvider = ({
 };
 
 export const useGame = () => {
-  const { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell } =
-    useContext(GameContext);
+  const {
+    game,
+    gameLoseEvent,
+    resizeGrid,
+    addRefToCell,
+    addPieceToCell,
+    setTrashCan,
+  } = useContext(GameContext);
 
-  return { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell };
+  return {
+    game,
+    gameLoseEvent,
+    resizeGrid,
+    addRefToCell,
+    addPieceToCell,
+    setTrashCan,
+  };
 };

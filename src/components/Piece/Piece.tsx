@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import usePiece from "../../hooks/usePiece";
 import { PieceType } from "../../contexts/GameContext";
@@ -6,15 +6,12 @@ import { pieceTransition, pieceVariants } from "../../modules/Piece/utils";
 
 interface PieceProps {
   piece: PieceType;
+  animate: string;
 }
 
-const Piece: React.FC<PieceProps> = ({ piece }) => {
+const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
   const { pieceRef, tile, handleDragStart, handleDragEnd, hidePiece } =
     usePiece(piece);
-
-  useEffect(() => {
-    console.log(tile);
-  }, [tile]);
 
   return (
     <motion.div
@@ -22,14 +19,15 @@ const Piece: React.FC<PieceProps> = ({ piece }) => {
       drag
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      animate={tile.animate}
+      animate={animate || tile.animate}
       initial="initial"
       variants={{
         ...pieceVariants,
         drag: { ...pieceVariants.drag, ...tile.vector },
+        return: { ...pieceVariants.return, ...tile.vector },
       }}
       transition={pieceTransition}
-      onAnimationComplete={hidePiece}
+      onAnimationComplete={() => hidePiece()}
       ref={pieceRef}
     />
   );
