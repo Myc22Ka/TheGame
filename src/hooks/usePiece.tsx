@@ -27,7 +27,7 @@ export const usePiece = (piece: PieceType) => {
       const nearestCell = findNearestCell(game, event, tile);
 
       if (!nearestCell) {
-        if (possibleToSell(game, event)) {
+        if (possibleToSell(game, event) && tile.animate !== "exit") {
           sellPiece();
           return;
         }
@@ -60,11 +60,18 @@ export const usePiece = (piece: PieceType) => {
     setTile((prev) => ({ ...prev, animate: "sell" }));
   };
 
-  // useEffect(() => {
-  //   console.log(tile.animate);
-  // }, [tile]);
+  const setVisible = (isVisible: boolean) => {
+    if (!isVisible) setTile((prev) => ({ ...prev, animate: "exit" }));
+  };
 
-  return { tile, pieceRef, handleDragEnd, handleDragStart, hidePiece };
+  return {
+    tile,
+    pieceRef,
+    handleDragEnd,
+    handleDragStart,
+    hidePiece,
+    setVisible,
+  };
 };
 
 export default usePiece;

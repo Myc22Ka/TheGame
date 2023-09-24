@@ -1,4 +1,4 @@
-import { GridEntry } from "../../contexts/GameContext";
+import { GridEntry, PieceType } from "../../contexts/GameContext";
 
 type Cords = {
   x: number;
@@ -9,7 +9,7 @@ type TileType = {
   nearestCell: GridEntry;
   startingPosition: Cords;
   vector: Cords;
-  animate: "active" | string;
+  animate: "active" | "inactive" | "drag" | "return" | "sell" | "exit";
   isDropped: boolean;
 };
 
@@ -19,4 +19,11 @@ type NearestCellType = {
   vector: Cords;
 };
 
-export type { Cords, TileType, NearestCellType };
+type DefaultCycleType = {
+  piece: PieceType;
+  time: number;
+  show: boolean;
+  animate: "" | "exit";
+};
+
+export type { Cords, TileType, NearestCellType, DefaultCycleType };

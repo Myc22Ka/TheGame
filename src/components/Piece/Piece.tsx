@@ -6,12 +6,23 @@ import { pieceTransition, pieceVariants } from "../../modules/Piece/utils";
 
 interface PieceProps {
   piece: PieceType;
-  animate: string;
+  animate: "exit" | "";
 }
 
 const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
-  const { pieceRef, tile, handleDragStart, handleDragEnd, hidePiece } =
-    usePiece(piece);
+  const {
+    pieceRef,
+    tile,
+    handleDragStart,
+    handleDragEnd,
+    hidePiece,
+    setVisible,
+  } = usePiece(piece);
+
+  const animationCompleteHandle = () => {
+    if (animate === "exit") setVisible(false);
+    hidePiece();
+  };
 
   return (
     <motion.div
@@ -27,7 +38,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
         return: { ...pieceVariants.return, ...tile.vector },
       }}
       transition={pieceTransition}
-      onAnimationComplete={() => hidePiece()}
+      onAnimationComplete={animationCompleteHandle}
       ref={pieceRef}
     />
   );

@@ -1,5 +1,5 @@
 import { GameType, PieceType, emptyCell } from "../../contexts/GameContext";
-import { Cords, NearestCellType, TileType } from "./types";
+import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 
 const defaultCords: Cords = { x: 0, y: 0 };
@@ -10,6 +10,13 @@ const defaultTile: TileType = {
   vector: defaultCords,
   animate: "active",
   isDropped: false,
+};
+
+const defaultCycle: DefaultCycleType = {
+  piece: generateRandomPiece(),
+  time: options.pieces.cycleTime,
+  show: true,
+  animate: "",
 };
 
 // Piece variables
@@ -27,6 +34,7 @@ const pieceVariants = {
     radius: "50%",
   },
   inactive: { scale: 0 },
+  exit: { scale: 0 },
 };
 
 const pieceTransition = {
@@ -71,6 +79,13 @@ const findNearestCell = (
     .filter((cell) => cell.distance < options.grid.maxDragDistance)[0];
 };
 
+/**
+ * Checks if Piece is able to be sold.
+ *
+ * @param {GameType} game - The game instance.
+ * @param {PointerEvent} event - The pointer event containing the position.
+ * @returns {boolean} A boolean value representing if Piece can be sold.
+ */
 const possibleToSell = (game: GameType, event: PointerEvent): boolean => {
   if (!game.trashCan) return false;
   const trashCanPos = calcCenterPoint(game.trashCan);
@@ -104,9 +119,28 @@ const calcCenterPoint = (ref: React.RefObject<HTMLDivElement>): Cords => {
  *
  * @returns {PieceType} Random Piece object.
  */
-const generateRandomPiece = (): PieceType => {
+function generateRandomPiece(): PieceType {
   return options.pieces.types[
     Math.floor(Math.random() * options.pieces.types.length)
+  ];
+}
+
+/**
+ * Generates an array of cycle steps.
+ *
+ * @returns {DefaultCycleType[]} An array of steps for the cycle.
+ */
+const setCycleSteps = (): DefaultCycleType[] => {
+  const restArray = Array.from({ length: defaultCycle.time }, (_, i) => ({
+    ...defaultCycle,
+    time: i + 1,
+  })).reverse();
+
+  return [
+    { ...defaultCycle, piece: generateRandomPiece() },
+    ...restArray.slice(1),
+    { ...defaultCycle, time: 0, animate: "exit" as "exit" },
+    { ...defaultCycle, time: 0, show: false },
   ];
 };
 
@@ -118,4 +152,6 @@ export {
   pieceTransition,
   pieceVariants,
   possibleToSell,
+  defaultCycle,
+  setCycleSteps,
 };
