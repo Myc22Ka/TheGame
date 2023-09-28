@@ -55,14 +55,23 @@ export const usePiece = (piece: PieceType) => {
     setTile((prev) => ({ ...prev, animate: "inactive" }));
   };
 
-  const sellPiece = () => {
-    addSomeGold(piece.sell);
+  const sellPiece = useCallback(() => {
     setTile((prev) => ({ ...prev, animate: "sell" }));
-  };
+    addSomeGold(piece.sell);
+  }, [tile]);
 
-  const setVisible = (isVisible: boolean) => {
-    if (!isVisible) setTile((prev) => ({ ...prev, animate: "exit" }));
-  };
+  const resetCycle = useCallback(() => {
+    setTile((prev) => ({ ...prev, animate: "exit" }));
+  }, [tile]);
+
+  const unlockPiece = useCallback(() => {
+    if (tile.animate !== "return") return;
+    setTile((prev) => ({ ...prev, animate: "active" }));
+  }, [tile]);
+
+  // useEffect(() => {
+  //   console.log(tile.animate);
+  // }, [tile]);
 
   return {
     tile,
@@ -70,7 +79,8 @@ export const usePiece = (piece: PieceType) => {
     handleDragEnd,
     handleDragStart,
     hidePiece,
-    setVisible,
+    resetCycle,
+    unlockPiece,
   };
 };
 

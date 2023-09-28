@@ -16,18 +16,20 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
     handleDragStart,
     handleDragEnd,
     hidePiece,
-    setVisible,
+    resetCycle,
+    unlockPiece,
   } = usePiece(piece);
 
   const animationCompleteHandle = () => {
-    if (animate === "exit") setVisible(false);
+    if (animate === "exit") resetCycle();
+    // unlockPiece();
     hidePiece();
   };
 
   return (
     <motion.div
       className={piece.rule}
-      drag
+      drag={!["return", "drag"].includes(tile.animate)}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       animate={animate || tile.animate}

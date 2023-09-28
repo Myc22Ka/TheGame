@@ -25,7 +25,7 @@ const Shop: React.FC = () => {
     <div className="shop">
       <RandomPieceGen />
       <button onClick={handleClick}>Resize Grid</button>
-      <BuyPieces />
+      {/* <BuyPieces /> */}
       <TrashCan />
     </div>
   );

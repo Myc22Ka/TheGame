@@ -1,6 +1,5 @@
 import React from "react";
 import options from "../../../config.json";
-import Piece from "../Piece/Piece";
 import { PieceType } from "../../../contexts/GameContext";
 import { useScore } from "../../../contexts/ScoreContext";
 import BuyPiece from "./BuyPiece";
