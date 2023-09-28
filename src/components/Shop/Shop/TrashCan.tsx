@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { useGame } from "../contexts/GameContext";
+import { useGame } from "../../../contexts/GameContext";
 
 const TrashCan: React.FC = () => {
   const trashRef = useRef<HTMLDivElement>(null);

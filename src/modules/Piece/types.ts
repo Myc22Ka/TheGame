@@ -10,7 +10,6 @@ type TileType = {
   startingPosition: Cords;
   vector: Cords;
   animate: "active" | "inactive" | "drag" | "return" | "sell" | "exit";
-  isDropped: boolean;
 };
 
 type NearestCellType = {

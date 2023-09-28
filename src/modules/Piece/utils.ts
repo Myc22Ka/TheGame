@@ -9,7 +9,6 @@ const defaultTile: TileType = {
   startingPosition: defaultCords,
   vector: defaultCords,
   animate: "active",
-  isDropped: false,
 };
 
 const defaultCycle: DefaultCycleType = {
@@ -131,16 +130,19 @@ function generateRandomPiece(): PieceType {
  * @returns {DefaultCycleType[]} An array of steps for the cycle.
  */
 const setCycleSteps = (): DefaultCycleType[] => {
+  const newPiece = generateRandomPiece();
+  const cycle: DefaultCycleType = { ...defaultCycle, piece: newPiece };
+
   const restArray = Array.from({ length: defaultCycle.time }, (_, i) => ({
-    ...defaultCycle,
+    ...cycle,
     time: i + 1,
   })).reverse();
 
   return [
-    { ...defaultCycle, piece: generateRandomPiece() },
+    { ...cycle, piece: newPiece },
     ...restArray.slice(1),
-    { ...defaultCycle, time: 0, animate: "exit" as "exit" },
-    { ...defaultCycle, time: 0, show: false },
+    { ...cycle, time: 0, animate: "exit" as "exit" },
+    { ...cycle, time: 0, show: false },
   ];
 };
 

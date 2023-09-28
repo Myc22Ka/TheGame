@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Piece from "./Piece";
-import { defaultCycle, setCycleSteps } from "../../modules/Piece/utils";
+import { defaultCycle, setCycleSteps } from "../../../modules/Piece/utils";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState(defaultCycle);

@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import usePiece from "../../hooks/usePiece";
-import { PieceType } from "../../contexts/GameContext";
-import { pieceTransition, pieceVariants } from "../../modules/Piece/utils";
+import usePiece from "../../../hooks/usePiece";
+import { PieceType } from "../../../contexts/GameContext";
+import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
 
 interface PieceProps {
   piece: PieceType;

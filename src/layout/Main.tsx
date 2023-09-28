@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "./Grid";
-import Shop from "./Shop";
+import Shop from "../components/Shop/Shop/Shop";
 import Gambler from "./Gambler";
 
 const Main: React.FC = () => {

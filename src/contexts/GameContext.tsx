@@ -10,6 +10,7 @@ import options from "../config.json";
 export type PieceType = {
   name: string;
   sell: number;
+  buy: number;
   rule: string;
   level: number;
 };
@@ -17,6 +18,7 @@ export type PieceType = {
 export const emptyPiece: PieceType = {
   name: "",
   sell: 0,
+  buy: 0,
   rule: "",
   level: 0,
 };

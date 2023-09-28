@@ -1,6 +1,6 @@
 {
   "points": {
-    "gold": 0,
+    "gold": 15,
     "multiplier": 1,
     "baseIncome": 1
   },
@@ -25,12 +25,14 @@
       {
         "name": "1",
         "sell": 100,
+        "buy": 20,
         "rule": "gold",
         "level": 1
       },
       {
         "name": "2",
         "sell": 300,
+        "buy": 40,
         "rule": "gold_add",
         "level": 1
       }
