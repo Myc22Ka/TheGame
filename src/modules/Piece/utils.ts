@@ -32,8 +32,7 @@ const pieceVariants = {
     rotate: 45,
     radius: "50%",
   },
-  inactive: { scale: 0 },
-  exit: { scale: 0 },
+  exit: { scale: 0, rotate: 0, radius: 0 },
 };
 
 const pieceTransition = {

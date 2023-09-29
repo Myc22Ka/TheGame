@@ -9,7 +9,7 @@ type TileType = {
   nearestCell: GridEntry;
   startingPosition: Cords;
   vector: Cords;
-  animate: "active" | "inactive" | "drag" | "return" | "sell" | "exit";
+  animate: "active" | "drag" | "return" | "sell" | "exit";
 };
 
 type NearestCellType = {

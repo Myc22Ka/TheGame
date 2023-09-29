@@ -4,6 +4,7 @@ import { GameProvider, initState } from "./contexts/GameContext";
 import Layout from "./layout/Layout";
 import { ScoreProvider } from "./contexts/ScoreContext";
 import options from "./config.json";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App: React.FC = () => {
   return (

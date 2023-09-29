@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import { PieceType, useGame } from "../contexts/GameContext";
 import { useScore } from "../contexts/ScoreContext";
 import {
@@ -8,7 +8,7 @@ import {
   possibleToSell,
 } from "../modules/Piece/utils";
 
-export const usePiece = (piece: PieceType) => {
+export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
@@ -49,15 +49,13 @@ export const usePiece = (piece: PieceType) => {
     [tile]
   );
 
-  const hidePiece = () => {
-    if (tile.animate !== "drag") return;
-    addPieceToCell(tile.nearestCell, piece);
-    setTile((prev) => ({ ...prev, animate: "inactive" }));
-  };
+  const addToGrid = useCallback(() => {
+    addPieceToCell(tile.nearestCell, p);
+  }, [tile]);
 
   const sellPiece = useCallback(() => {
     setTile((prev) => ({ ...prev, animate: "sell" }));
-    addSomeGold(piece.sell);
+    addSomeGold(p.sell);
   }, [tile]);
 
   const resetCycle = useCallback(() => {
@@ -65,20 +63,15 @@ export const usePiece = (piece: PieceType) => {
   }, [tile]);
 
   const unlockPiece = useCallback(() => {
-    if (tile.animate !== "return") return;
     setTile((prev) => ({ ...prev, animate: "active" }));
   }, [tile]);
-
-  // useEffect(() => {
-  //   console.log(tile.animate);
-  // }, [tile]);
 
   return {
     tile,
     pieceRef,
     handleDragEnd,
     handleDragStart,
-    hidePiece,
+    addToGrid,
     resetCycle,
     unlockPiece,
   };

@@ -32,7 +32,6 @@ const RandomPieceGen: React.FC = () => {
         {cycle.show && <Piece piece={cycle.piece} animate={cycle.animate} />}
       </div>
       <div className="inner-piece-meter">
-        {cycle.time}
         <input
           type="range"
           min="0"

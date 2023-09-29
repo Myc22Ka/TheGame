@@ -9,8 +9,7 @@ type BuyPiecePropsType = {
 };
 
 const BuyPiece: React.FC<BuyPiecePropsType> = ({ piece }) => {
-  const { pieceRef, tile, handleDragStart, handleDragEnd, hidePiece } =
-    usePiece(piece);
+  const { pieceRef, tile, handleDragStart, handleDragEnd } = usePiece(piece);
 
   return (
     <motion.div

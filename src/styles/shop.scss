@@ -102,7 +102,8 @@
 
 .gold,
 .gold_add {
-  background: #eee2;
+  background: blue;
+  z-index: 9999;
   width: 100px;
   height: 100px;
   border-radius: 1rem;
@@ -119,10 +120,17 @@
   }
 }
 .gold_add {
-  background: #d4c2;
+  background: yellow;
 }
 .trashcan {
-  width: 200px;
-  height: 200px;
-  background: black;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: $background;
+  border-left: 2px solid $main;
+  border-top: 2px solid $main;
+  border-top-left-radius: 1rem;
+  path {
+    fill: $main;
+  }
 }
