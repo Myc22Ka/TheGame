@@ -1,23 +1,27 @@
 import React, { useRef, useEffect } from "react";
-import { useGame } from "../../../contexts/GameContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
+import { useTrashcan } from "../../../contexts/TrashcanContext";
 
 const TrashCan: React.FC = () => {
   const trashRef = useRef<HTMLDivElement>(null);
-  const { setTrashCan, game } = useGame();
+  const { setTrashcanRef, trashcan } = useTrashcan();
 
   useEffect(() => {
-    setTrashCan(trashRef);
+    setTrashcanRef(trashRef);
   }, []);
+
+  useEffect(() => {
+    console.log(trashcan);
+  }, [trashcan]);
 
   return (
     <motion.div className="trashcan p-4" ref={trashRef}>
       <FontAwesomeIcon
         icon={faTrashCan}
-        bounce={game.trashCan.animate === "bounce"}
-        fade={game.trashCan.animate === "fade"}
+        bounce={trashcan.animate === "bounce"}
+        fade={trashcan.animate === "fade"}
         size="3x"
       />
     </motion.div>

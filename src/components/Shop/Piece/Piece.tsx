@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import usePiece from "../../../hooks/usePiece";
 import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
 import { PieceType } from "../../../modules/Piece/types";
-import { useGame } from "../../../contexts/GameContext";
+import { useTrashcan } from "../../../contexts/TrashcanContext";
 
 interface PieceProps {
   piece: PieceType;
@@ -11,7 +11,7 @@ interface PieceProps {
 }
 
 const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
-  const { setActiveTrashCan } = useGame();
+  const { setActiveTrashcan } = useTrashcan();
   const {
     pieceRef,
     tile,
@@ -27,7 +27,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
     if (animate === "exit") resetCycle();
     if (tile.animate === "drag") addToGrid();
     if (tile.animate === "return") unlockPiece();
-    if (tile.animate === "sell") setActiveTrashCan("none");
+    if (tile.animate === "sell") setActiveTrashcan("none");
   };
 
   return (

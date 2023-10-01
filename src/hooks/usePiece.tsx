@@ -8,11 +8,13 @@ import {
   possibleToSell,
 } from "../modules/Piece/utils";
 import { PieceType } from "../modules/Piece/types";
+import { useTrashcan } from "../contexts/TrashcanContext";
 
 export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
-  const { game, addPieceToCell, setActiveTrashCan } = useGame();
+  const { game, addPieceToCell } = useGame();
+  const { setActiveTrashcan, trashcan } = useTrashcan();
   const { addSomeGold } = useScore();
 
   const handleDragStart = useCallback(() => {
@@ -25,16 +27,16 @@ export const usePiece = (p: PieceType) => {
 
   const handleDrag = useCallback(
     (event: PointerEvent) => {
-      if (!game.trashCan.ref) return;
+      if (!trashcan.ref) return;
 
-      if (possibleToSell(game, event) && tile.animate !== "exit") {
-        setActiveTrashCan("fade");
+      if (possibleToSell(trashcan, event)) {
+        setActiveTrashcan("fade");
         return;
       }
 
-      setActiveTrashCan("none");
+      setActiveTrashcan("none");
     },
-    [tile]
+    [trashcan]
   );
 
   const handleDragEnd = useCallback(
@@ -42,8 +44,8 @@ export const usePiece = (p: PieceType) => {
       const nearestCell = findNearestCell(game, event, tile);
 
       if (!nearestCell) {
-        if (possibleToSell(game, event) && tile.animate !== "exit") {
-          setActiveTrashCan("bounce");
+        if (possibleToSell(trashcan, event) && tile.animate !== "exit") {
+          setActiveTrashcan("bounce");
           sellPiece();
           return;
         }

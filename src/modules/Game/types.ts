@@ -1,11 +1,11 @@
+import { TrashcanType } from "../../contexts/TrashcanContext";
 import { GridEntry } from "../Grid/types";
-import { TrashCanType } from "../Trashcan/types";
 
 type GameType = {
   gameOver: boolean;
   grid: GridEntry[];
   currentGridSize: number;
-  trashCan: TrashCanType;
+  trashCan: TrashcanType;
 };
 
 export type { GameType };

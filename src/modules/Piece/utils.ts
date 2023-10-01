@@ -8,6 +8,7 @@ import {
 } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
+import { TrashcanType } from "../../contexts/TrashcanContext";
 
 const emptyPiece: PieceType = {
   name: "",
@@ -117,11 +118,14 @@ const findNearestCell = (
  * @param {PointerEvent} event - The pointer event containing the position.
  * @returns {boolean} A boolean value representing if Piece can be sold.
  */
-const possibleToSell = (game: GameType, event: PointerEvent): boolean => {
-  if (!game.trashCan.ref) return false;
-  const trashCanPos = calcCenterPoint(game.trashCan.ref);
+const possibleToSell = (
+  trashcan: TrashcanType,
+  event: PointerEvent
+): boolean => {
+  if (!trashcan.ref) return false;
+  const trashcanPos = calcCenterPoint(trashcan.ref);
 
-  return [trashCanPos.x - event.x, trashCanPos.y - event.y].every(
+  return [trashcanPos.x - event.x, trashcanPos.y - event.y].every(
     (e) => Math.abs(e) < options.grid.maxTrashDistance
   );
 };
