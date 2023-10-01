@@ -6,50 +6,9 @@ import React, {
   useCallback,
 } from "react";
 import options from "../config.json";
-
-export type PieceType = {
-  name: string;
-  sell: number;
-  buy: number;
-  rule: string;
-  level: number;
-};
-
-export const emptyPiece: PieceType = {
-  name: "",
-  sell: 0,
-  buy: 0,
-  rule: "",
-  level: 0,
-};
-
-export type GridEntry = {
-  insideCell: PieceType;
-  ref: React.RefObject<HTMLDivElement> | null;
-  isEmpty: boolean;
-  animate: "inactive" | "active";
-};
-
-export const emptyCell: GridEntry = {
-  insideCell: emptyPiece,
-  ref: null,
-  isEmpty: true,
-  animate: "inactive",
-};
-
-export type GameType = {
-  gameOver: boolean;
-  grid: GridEntry[];
-  currentGridSize: number;
-  trashCan: React.RefObject<HTMLDivElement> | null;
-};
-
-export const initState: GameType = {
-  gameOver: false,
-  grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
-  currentGridSize: options.grid.size,
-  trashCan: null,
-};
+import { GridEntry, PieceType } from "../modules/Piece/types";
+import { emptyCell, initGameState } from "../modules/Piece/utils";
+import { GameType } from "../modules/Game/types";
 
 const useGameContext = (defaultGame: GameType) => {
   const [game, setGame] = useState(defaultGame);
@@ -108,7 +67,27 @@ const useGameContext = (defaultGame: GameType) => {
 
   const setTrashCan = useCallback(
     (trashCanRef: React.RefObject<HTMLDivElement>) => {
-      setGame((prev) => ({ ...prev, trashCan: trashCanRef }));
+      setGame((prev) => ({
+        ...prev,
+        trashCan: { ...prev.trashCan, ref: trashCanRef },
+      }));
+    },
+    []
+  );
+
+  const setActiveTrashCan = useCallback(
+    (newActiveState: "fade" | "bounce" | "none") => {
+      let newAmount: number;
+      if (newActiveState === "bounce") newAmount = game.trashCan.amount + 1;
+
+      setGame((prev) => ({
+        ...prev,
+        trashCan: {
+          ...prev.trashCan,
+          animate: newActiveState,
+          amount: newAmount,
+        },
+      }));
     },
     []
   );
@@ -120,16 +99,18 @@ const useGameContext = (defaultGame: GameType) => {
     addRefToCell,
     addPieceToCell,
     setTrashCan,
+    setActiveTrashCan,
   };
 };
 
 const initContextState: ReturnType<typeof useGameContext> = {
-  game: initState,
+  game: initGameState,
   gameLoseEvent: () => {},
   resizeGrid: () => {},
   addRefToCell: () => {},
   addPieceToCell: () => {},
   setTrashCan: () => {},
+  setActiveTrashCan: () => {},
 };
 
 export const GameContext = createContext(initContextState);
@@ -157,6 +138,7 @@ export const useGame = () => {
     addRefToCell,
     addPieceToCell,
     setTrashCan,
+    setActiveTrashCan,
   } = useContext(GameContext);
 
   return {
@@ -166,5 +148,6 @@ export const useGame = () => {
     addRefToCell,
     addPieceToCell,
     setTrashCan,
+    setActiveTrashCan,
   };
 };

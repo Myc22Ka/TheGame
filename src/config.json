@@ -4,6 +4,7 @@
     "multiplier": 1,
     "baseIncome": 1
   },
+  "trashMaxAmount": 20,
   "grid": {
     "size": 2,
     "maxSize": 5,

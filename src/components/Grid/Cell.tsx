@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { useGame } from "../contexts/GameContext";
-import { GridEntry } from "../contexts/GameContext";
+import { useGame } from "../../contexts/GameContext";
 import { motion } from "framer-motion";
-import { pieceTransition } from "../modules/Piece/utils";
+import { pieceTransition } from "../../modules/Piece/utils";
+import { GridEntry } from "../../modules/Piece/types";
 
 interface CellProps {
   cell: GridEntry;

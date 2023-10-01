@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/grid.scss";
-import Cell from "../components/Cell";
-import { useGame } from "../contexts/GameContext";
+import "../../styles/grid.scss";
+import Cell from "./Cell";
+import { useGame } from "../../contexts/GameContext";
 
 const Grid: React.FC = () => {
   const { game } = useGame();

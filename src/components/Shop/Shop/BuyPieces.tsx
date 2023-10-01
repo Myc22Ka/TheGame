@@ -1,8 +1,8 @@
 import React from "react";
 import options from "../../../config.json";
-import { PieceType } from "../../../contexts/GameContext";
 import { useScore } from "../../../contexts/ScoreContext";
 import BuyPiece from "./BuyPiece";
+import { PieceType } from "../../../modules/Piece/types";
 
 const BuyPieces: React.FC = () => {
   const { removeSomeGold, score } = useScore();

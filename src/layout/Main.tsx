@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "./Grid";
+import Grid from "../components/Grid/Grid";
 import Shop from "../components/Shop/Shop/Shop";
 import Gambler from "./Gambler";
 

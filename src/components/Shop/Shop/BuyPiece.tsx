@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import usePiece from "../../../hooks/usePiece";
-import { PieceType } from "../../../contexts/GameContext";
 import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
+import { PieceType } from "../../../modules/Piece/types";
 
 type BuyPiecePropsType = {
   piece: PieceType;

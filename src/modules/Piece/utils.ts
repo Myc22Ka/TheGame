@@ -1,6 +1,39 @@
-import { GameType, PieceType, emptyCell } from "../../contexts/GameContext";
-import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
+import { PieceType } from "./types";
+import {
+  Cords,
+  DefaultCycleType,
+  GridEntry,
+  NearestCellType,
+  TileType,
+} from "./types";
 import options from "../../config.json";
+import { GameType } from "../Game/types";
+
+const emptyPiece: PieceType = {
+  name: "",
+  sell: 0,
+  buy: 0,
+  rule: "",
+  level: 0,
+};
+
+const emptyCell: GridEntry = {
+  insideCell: emptyPiece,
+  ref: null,
+  isEmpty: true,
+  animate: "inactive",
+};
+
+const initGameState: GameType = {
+  gameOver: false,
+  grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
+  currentGridSize: options.grid.size,
+  trashCan: {
+    ref: null,
+    animate: "none",
+    amount: options.trashMaxAmount,
+  },
+};
 
 const defaultCords: Cords = { x: 0, y: 0 };
 
@@ -85,8 +118,8 @@ const findNearestCell = (
  * @returns {boolean} A boolean value representing if Piece can be sold.
  */
 const possibleToSell = (game: GameType, event: PointerEvent): boolean => {
-  if (!game.trashCan) return false;
-  const trashCanPos = calcCenterPoint(game.trashCan);
+  if (!game.trashCan.ref) return false;
+  const trashCanPos = calcCenterPoint(game.trashCan.ref);
 
   return [trashCanPos.x - event.x, trashCanPos.y - event.y].every(
     (e) => Math.abs(e) < options.grid.maxTrashDistance
@@ -155,4 +188,7 @@ export {
   possibleToSell,
   defaultCycle,
   setCycleSteps,
+  emptyPiece,
+  emptyCell,
+  initGameState,
 };

@@ -1,8 +1,16 @@
-import { GridEntry, PieceType } from "../../contexts/GameContext";
+import { GridEntry } from "../Grid/types";
 
 type Cords = {
   x: number;
   y: number;
+};
+
+type PieceType = {
+  name: string;
+  sell: number;
+  buy: number;
+  rule: string;
+  level: number;
 };
 
 type TileType = {
@@ -25,4 +33,11 @@ type DefaultCycleType = {
   animate: "" | "exit";
 };
 
-export type { Cords, TileType, NearestCellType, DefaultCycleType };
+export type {
+  Cords,
+  TileType,
+  NearestCellType,
+  DefaultCycleType,
+  PieceType,
+  GridEntry,
+};

@@ -103,7 +103,6 @@
 .gold,
 .gold_add {
   background: blue;
-  z-index: 9999;
   width: 100px;
   height: 100px;
   border-radius: 1rem;
@@ -127,8 +126,6 @@
   bottom: 0;
   right: 0;
   background: $background;
-  border-left: 2px solid $main;
-  border-top: 2px solid $main;
   border-top-left-radius: 1rem;
   path {
     fill: $main;

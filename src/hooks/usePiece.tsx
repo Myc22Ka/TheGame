@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import { PieceType, useGame } from "../contexts/GameContext";
+import { useGame } from "../contexts/GameContext";
 import { useScore } from "../contexts/ScoreContext";
 import {
   defaultTile,
@@ -7,11 +7,12 @@ import {
   calcCenterPoint,
   possibleToSell,
 } from "../modules/Piece/utils";
+import { PieceType } from "../modules/Piece/types";
 
 export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
-  const { game, addPieceToCell } = useGame();
+  const { game, addPieceToCell, setActiveTrashCan } = useGame();
   const { addSomeGold } = useScore();
 
   const handleDragStart = useCallback(() => {
@@ -20,7 +21,21 @@ export const usePiece = (p: PieceType) => {
       startingPosition: calcCenterPoint(pieceRef),
       animate: "active",
     }));
-  }, [tile]);
+  }, []);
+
+  const handleDrag = useCallback(
+    (event: PointerEvent) => {
+      if (!game.trashCan.ref) return;
+
+      if (possibleToSell(game, event) && tile.animate !== "exit") {
+        setActiveTrashCan("fade");
+        return;
+      }
+
+      setActiveTrashCan("none");
+    },
+    [tile]
+  );
 
   const handleDragEnd = useCallback(
     (event: PointerEvent) => {
@@ -28,6 +43,7 @@ export const usePiece = (p: PieceType) => {
 
       if (!nearestCell) {
         if (possibleToSell(game, event) && tile.animate !== "exit") {
+          setActiveTrashCan("bounce");
           sellPiece();
           return;
         }
@@ -70,6 +86,7 @@ export const usePiece = (p: PieceType) => {
     tile,
     pieceRef,
     handleDragEnd,
+    handleDrag,
     handleDragStart,
     addToGrid,
     resetCycle,
