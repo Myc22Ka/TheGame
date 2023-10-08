@@ -1,6 +1,6 @@
 import React from "react";
 import Main from "./Main";
-import Header from "./Header";
+import Header from "../components/Shop/Header/Header";
 import { useGame } from "../contexts/GameContext";
 import GameOver from "./GameOver";
 

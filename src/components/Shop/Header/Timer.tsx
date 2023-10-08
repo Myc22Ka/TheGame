@@ -1,0 +1,58 @@
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { useGame } from "../../../contexts/GameContext";
+import { formatTime } from "../../../utils/timeDisplay";
+import options from "../../../config.json";
+import styles from "../../../styles/style.module.scss";
+import { Stack } from "react-bootstrap";
+
+const Timer: React.FC = () => {
+  const [currentTime, setCurrentTime] = useState(options.time.maxTime);
+  const { gameLoseEvent } = useGame();
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (currentTime > 0) {
+      interval = setInterval(() => {
+        setCurrentTime(currentTime - 1);
+      }, options.time.defaultTimeTick * 1000);
+    }
+    if (currentTime === 0) {
+      setCurrentTime(currentTime - 1);
+      gameLoseEvent();
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  return (
+    <Stack
+      className="justify-content-center align-items-center"
+      direction="horizontal"
+      gap={2}
+    >
+      <FontAwesomeIcon icon={faClock} size="xl" color={styles.main} />
+      <Stack className="timer h2 rounded m-0">
+        <Stack
+          className="justify-content-center align-items-center"
+          style={{ fontFamily: styles.font, zIndex: 2 }}
+        >
+          {formatTime(currentTime)}
+        </Stack>
+        <div
+          className="timer-metter"
+          style={{
+            width: `${(currentTime / options.time.maxTime) * 100}%`,
+            filter: `hue-rotate(${
+              (options.time.maxTime - currentTime) * 0.058
+            }deg)`,
+          }}
+        ></div>
+      </Stack>
+    </Stack>
+  );
+};
+
+export default Timer;
