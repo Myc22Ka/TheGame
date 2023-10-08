@@ -6,7 +6,7 @@ import { useTrashcan } from "../../../contexts/TrashcanContext";
 
 const TrashCan: React.FC = () => {
   const trashRef = useRef<HTMLDivElement>(null);
-  const { setTrashcanRef, trashcan } = useTrashcan();
+  const { setTrashcanRef, trashcan, setActiveTrashcan } = useTrashcan();
 
   useEffect(() => {
     setTrashcanRef(trashRef);
@@ -16,8 +16,19 @@ const TrashCan: React.FC = () => {
     console.log(trashcan);
   }, [trashcan]);
 
+  const handleMouseEnter = () => {
+    if (trashcan.drag) setActiveTrashcan("fade");
+  };
+
   return (
-    <motion.div className="trashcan p-4" ref={trashRef}>
+    <motion.div
+      className="trashcan p-4"
+      ref={trashRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() =>
+        trashcan.animate !== "none" ? setActiveTrashcan("none") : null
+      }
+    >
       <FontAwesomeIcon
         icon={faTrashCan}
         bounce={trashcan.animate === "bounce"}

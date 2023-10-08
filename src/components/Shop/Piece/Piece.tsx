@@ -17,7 +17,6 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
     tile,
     handleDragStart,
     handleDragEnd,
-    handleDrag,
     addToGrid,
     resetCycle,
     unlockPiece,
@@ -46,7 +45,6 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
       transition={pieceTransition}
       onAnimationComplete={animationCompleteHandle}
       ref={pieceRef}
-      onDrag={handleDrag}
     />
   );
 };

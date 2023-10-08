@@ -10,12 +10,14 @@ export type TrashcanType = {
   ref: React.RefObject<HTMLDivElement> | null;
   animate: "fade" | "bounce" | "none";
   amount: number;
+  drag: boolean;
 };
 
 export const initTrashcanState: TrashcanType = {
   ref: null,
   animate: "none",
   amount: 0,
+  drag: false,
 };
 
 const useTrashcanContext = (defaultTrashcanState: TrashcanType) => {
@@ -42,13 +44,30 @@ const useTrashcanContext = (defaultTrashcanState: TrashcanType) => {
     [trashcan]
   );
 
-  return { trashcan, setTrashcanRef, setActiveTrashcan };
+  const setDragState = useCallback((newDragState: boolean) => {
+    setTrashcan((prev) => ({ ...prev, drag: newDragState }));
+  }, []);
+
+  const setInitialTrashcanState = useCallback(
+    () => setTrashcan((prev) => ({ ...prev, animate: "none", drag: false })),
+    []
+  );
+
+  return {
+    trashcan,
+    setTrashcanRef,
+    setActiveTrashcan,
+    setDragState,
+    setInitialTrashcanState,
+  };
 };
 
 const initContextState: ReturnType<typeof useTrashcanContext> = {
   trashcan: initTrashcanState,
   setTrashcanRef: () => {},
   setActiveTrashcan: () => {},
+  setDragState: () => {},
+  setInitialTrashcanState: () => {},
 };
 
 export const TrashcanContext = createContext(initContextState);
@@ -69,8 +88,19 @@ export const TrashcanProvider = ({
 };
 
 export const useTrashcan = () => {
-  const { trashcan, setActiveTrashcan, setTrashcanRef } =
-    useContext(TrashcanContext);
+  const {
+    trashcan,
+    setActiveTrashcan,
+    setTrashcanRef,
+    setDragState,
+    setInitialTrashcanState,
+  } = useContext(TrashcanContext);
 
-  return { trashcan, setActiveTrashcan, setTrashcanRef };
+  return {
+    trashcan,
+    setActiveTrashcan,
+    setTrashcanRef,
+    setDragState,
+    setInitialTrashcanState,
+  };
 };

@@ -14,7 +14,8 @@ export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { setActiveTrashcan, trashcan } = useTrashcan();
+  const { setActiveTrashcan, trashcan, setDragState, setInitialTrashcanState } =
+    useTrashcan();
   const { addSomeGold } = useScore();
 
   const handleDragStart = useCallback(() => {
@@ -23,30 +24,18 @@ export const usePiece = (p: PieceType) => {
       startingPosition: calcCenterPoint(pieceRef),
       animate: "active",
     }));
+    setDragState(true); // true
   }, []);
-
-  const handleDrag = useCallback(
-    (event: PointerEvent) => {
-      if (!trashcan.ref) return;
-
-      if (possibleToSell(trashcan, event)) {
-        setActiveTrashcan("fade");
-        return;
-      }
-
-      setActiveTrashcan("none");
-    },
-    [trashcan]
-  );
 
   const handleDragEnd = useCallback(
     (event: PointerEvent) => {
       const nearestCell = findNearestCell(game, event, tile);
+      setDragState(false);
 
       if (!nearestCell) {
         if (possibleToSell(trashcan, event) && tile.animate !== "exit") {
-          setActiveTrashcan("bounce");
           sellPiece();
+          setActiveTrashcan("bounce");
           return;
         }
 
@@ -77,8 +66,9 @@ export const usePiece = (p: PieceType) => {
   }, [tile]);
 
   const resetCycle = useCallback(() => {
+    if (trashcan.animate !== "none") setInitialTrashcanState();
     setTile((prev) => ({ ...prev, animate: "exit" }));
-  }, [tile]);
+  }, [tile, trashcan]);
 
   const unlockPiece = useCallback(() => {
     setTile((prev) => ({ ...prev, animate: "active" }));
@@ -88,7 +78,6 @@ export const usePiece = (p: PieceType) => {
     tile,
     pieceRef,
     handleDragEnd,
-    handleDrag,
     handleDragStart,
     addToGrid,
     resetCycle,

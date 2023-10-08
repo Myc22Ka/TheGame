@@ -29,11 +29,6 @@ const initGameState: GameType = {
   gameOver: false,
   grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
   currentGridSize: options.grid.size,
-  trashCan: {
-    ref: null,
-    animate: "none",
-    amount: options.trashMaxAmount,
-  },
 };
 
 const defaultCords: Cords = { x: 0, y: 0 };
