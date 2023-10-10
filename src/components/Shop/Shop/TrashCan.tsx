@@ -1,20 +1,29 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { useTrashcan } from "../../../contexts/TrashcanContext";
+import options from "../../../config.json";
 
 const TrashCan: React.FC = () => {
   const trashRef = useRef<HTMLDivElement>(null);
   const { setTrashcanRef, trashcan, setActiveTrashcan } = useTrashcan();
+  const [isBouncing, setIsBouncing] = useState(false);
 
   useEffect(() => {
     setTrashcanRef(trashRef);
   }, []);
 
   useEffect(() => {
-    console.log(trashcan);
-  }, [trashcan]);
+    if (trashcan.animate === "bounce") {
+      setIsBouncing(true);
+
+      setTimeout(() => {
+        setActiveTrashcan(trashcan.animate);
+        setIsBouncing(false);
+      }, options.time.trashcanAnimationTime * 1000);
+    }
+  }, [trashcan.animate]);
 
   const handleMouseEnter = () => {
     if (trashcan.drag) setActiveTrashcan("fade");
@@ -31,8 +40,9 @@ const TrashCan: React.FC = () => {
     >
       <FontAwesomeIcon
         icon={faTrashCan}
-        bounce={trashcan.animate === "bounce"}
+        bounce={isBouncing}
         fade={trashcan.animate === "fade"}
+        style={{ animationDuration: `${options.time.trashcanAnimationTime}s` }}
         size="3x"
       />
     </motion.div>

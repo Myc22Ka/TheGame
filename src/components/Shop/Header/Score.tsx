@@ -33,7 +33,7 @@ const Score: React.FC = () => {
         <div
           className="h2 m-0"
           style={{
-            color: styles.main,
+            color: "white",
             fontWeight: "bold",
             fontFamily: styles.font,
           }}

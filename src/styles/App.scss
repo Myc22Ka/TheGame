@@ -14,9 +14,8 @@ body {
   .timer {
     width: clamp(2rem, 25vw, 13rem);
     background: $third;
-    border: 2px solid $main;
     overflow: hidden;
-    color: $main;
+    color: white;
     position: relative;
     .timer-metter {
       height: 100%;

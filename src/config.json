@@ -18,7 +18,8 @@
   },
   "time": {
     "defaultTimeTick": 1,
-    "maxTime": 3600
+    "maxTime": 3600,
+    "trashcanAnimationTime": 0.7
   },
   "pieces": {
     "cycleTime": 5,
