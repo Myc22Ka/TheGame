@@ -160,20 +160,20 @@ function generateRandomPiece(): PieceType {
  *
  * @returns {DefaultCycleType[]} An array of steps for the cycle.
  */
-const setCycleSteps = (): DefaultCycleType[] => {
-  const newPiece = generateRandomPiece();
-  const cycle: DefaultCycleType = { ...defaultCycle, piece: newPiece };
-
+const setCycleSteps = (currentIndex: number): DefaultCycleType[] => {
   const restArray = Array.from({ length: defaultCycle.time }, (_, i) => ({
-    ...cycle,
+    ...defaultCycle,
     time: i + 1,
   })).reverse();
 
+  if (currentIndex === restArray.length + 1)
+    defaultCycle.piece = generateRandomPiece();
+
   return [
-    { ...cycle, piece: newPiece },
+    defaultCycle,
     ...restArray.slice(1),
-    { ...cycle, time: 0, animate: "exit" as "exit" },
-    { ...cycle, time: 0, show: false },
+    { ...defaultCycle, time: 0, animate: "exit" as "exit" },
+    { ...defaultCycle, time: 0, show: false },
   ];
 };
 

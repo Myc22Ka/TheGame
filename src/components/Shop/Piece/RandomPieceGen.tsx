@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Piece from "./Piece";
-import { defaultCycle, setCycleSteps } from "../../../modules/Piece/utils";
+import {
+  defaultCycle,
+  generateRandomPiece,
+  setCycleSteps,
+} from "../../../modules/Piece/utils";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState(defaultCycle);
 
   useEffect(() => {
+    console.log(cycle);
+  }, [cycle]);
+
+  useEffect(() => {
     const delay = 1000;
+    let currentIndex = 0;
 
     const cycleSequence = async () => {
-      const changes = setCycleSteps();
+      const cycles = setCycleSteps(currentIndex);
+      await new Promise((resolve) => {
+        setCycle(cycles[currentIndex]);
+        setTimeout(resolve, delay);
+      });
 
-      for (const change of changes) {
-        await new Promise((resolve) => {
-          setCycle((prev) => ({ ...prev, ...change }));
-          setTimeout(resolve, delay);
-        });
-      }
-
-      // Continue the cycle if needed
+      currentIndex = (currentIndex + 1) % cycles.length;
       cycleSequence();
     };
 
