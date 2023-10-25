@@ -110,7 +110,7 @@ const findNearestCell = (
  * Checks if Piece is able to be sold.
  *
  * @param {GameType} game - The game instance.
- * @param {PointerEvent} event - The pointer event containing the position.
+ * @param {PointerEvent | MouseEvent | TouchEvent} event - The pointer event containing the position.
  * @returns {boolean} A boolean value representing if Piece can be sold.
  */
 const possibleToSell = (
