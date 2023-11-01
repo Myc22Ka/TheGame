@@ -16,29 +16,57 @@ export const usePiece = (p: PieceType) => {
   const { game, addPieceToCell } = useGame();
   const { setActiveTrashcan, trashcan, setDragState, setInitialTrashcanState } =
     useTrashcan();
-  const { addSomeGold } = useScore();
+  const { addSomeGold, removeSomeGold, score } = useScore();
 
-  const handleDragStart = useCallback(() => {
+  const handleDragStart = useCallback((useTrashcan: boolean) => {
     setTile((prev) => ({
       ...prev,
       startingPosition: calcCenterPoint(pieceRef),
       animate: "active",
     }));
-    setDragState(true); // true
+
+    useTrashcan ? setDragState(true) : removeSomeGold(p.buy);
   }, []);
 
   const handleDragEnd = useCallback(
-    (event: PointerEvent) => {
+    (event: PointerEvent, useTrashcan: boolean) => {
       const nearestCell = findNearestCell(game, event, tile);
-      setDragState(false);
+      if (useTrashcan) setDragState(false);
 
       if (!nearestCell) {
-        if (possibleToSell(trashcan, event) && tile.animate !== "exit") {
+        if (
+          possibleToSell(trashcan, event) &&
+          tile.animate !== "exit" &&
+          useTrashcan
+        ) {
           sellPiece();
           setActiveTrashcan("bounce");
           return;
         }
 
+        setTile((prev) => ({
+          ...prev,
+          animate: "return",
+        }));
+        return;
+      }
+
+      setTile((prev) => ({
+        ...prev,
+        animate: "drag",
+        nearestCell: nearestCell.cell,
+        vector: nearestCell.vector,
+      }));
+    },
+    [tile]
+  );
+
+  const handleDragEndWithoutSell = useCallback(
+    (event: PointerEvent) => {
+      const nearestCell = findNearestCell(game, event, tile);
+      setDragState(false);
+
+      if (!nearestCell) {
         setTile((prev) => ({
           ...prev,
           animate: "return",
@@ -78,6 +106,7 @@ export const usePiece = (p: PieceType) => {
     tile,
     pieceRef,
     handleDragEnd,
+    handleDragEndWithoutSell,
     handleDragStart,
     addToGrid,
     resetCycle,
