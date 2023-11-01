@@ -40,3 +40,13 @@ body {
     }
   }
 }
+
+.text {
+  font-family: $font;
+}
+
+.btn-main {
+  background: $secondary !important;
+  color: white !important;
+  border: none !important;
+}
