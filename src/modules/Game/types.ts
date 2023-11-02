@@ -3,7 +3,7 @@ import { GridEntry } from "../Grid/types";
 type GameType = {
   gameOver: boolean;
   grid: GridEntry[];
-  currentGridSize: number;
+  size: number;
 };
 
 export type { GameType };

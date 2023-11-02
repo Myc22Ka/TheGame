@@ -12,16 +12,16 @@ const ResizeGridButton: React.FC = () => {
   const { score, removeSomeGold } = useScore();
 
   const resizeGridHandler = () => {
-    const { maxSize, gridUpgrades, size } = options.grid;
-    if (game.currentGridSize === maxSize) return;
+    const { maxSize, gridUpgrades } = options.grid;
+    if (Math.sqrt(game.grid.length) === maxSize) return;
 
-    if (gridUpgrades[game.currentGridSize - size].cost <= score.gold) {
-      removeSomeGold(gridUpgrades[game.currentGridSize - size].cost);
+    if (gridUpgrades[Math.sqrt(game.grid.length) - 2].cost <= score.gold) {
+      removeSomeGold(gridUpgrades[Math.sqrt(game.grid.length) - 2].cost);
       resizeGrid();
     }
   };
 
-  const isMaxed = game.currentGridSize === options.grid.maxSize;
+  const isMaxed = Math.sqrt(game.grid.length) === options.grid.maxSize;
 
   return (
     <motion.div whileTap={{ scale: isMaxed ? 1 : 0.95 }}>

@@ -6,7 +6,7 @@
   },
   "trashMaxAmount": 20,
   "grid": {
-    "size": 2,
+    "defaultSize": 2,
     "maxSize": 5,
     "gridUpgrades": [
       { "level": 1, "cost": 1 },

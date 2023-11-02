@@ -1,35 +1,8 @@
 import { PieceType } from "./types";
-import {
-  Cords,
-  DefaultCycleType,
-  GridEntry,
-  NearestCellType,
-  TileType,
-} from "./types";
+import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
-import { TrashcanType } from "../../contexts/TrashcanContext";
-
-const emptyPiece: PieceType = {
-  name: "",
-  sell: 0,
-  buy: 0,
-  rule: "",
-  level: 0,
-};
-
-const emptyCell: GridEntry = {
-  insideCell: emptyPiece,
-  ref: null,
-  isEmpty: true,
-  animate: "inactive",
-};
-
-const initGameState: GameType = {
-  gameOver: false,
-  grid: Array(Math.pow(options.grid.size, 2)).fill(emptyCell),
-  currentGridSize: options.grid.size,
-};
+import { emptyCell } from "../../contexts/GameContext";
 
 const defaultCords: Cords = { x: 0, y: 0 };
 
@@ -107,32 +80,13 @@ const findNearestCell = (
 };
 
 /**
- * Checks if Piece is able to be sold.
- *
- * @param {GameType} game - The game instance.
- * @param {PointerEvent | MouseEvent | TouchEvent} event - The pointer event containing the position.
- * @returns {boolean} A boolean value representing if Piece can be sold.
- */
-const possibleToSell = (
-  trashcan: TrashcanType,
-  event: PointerEvent
-): boolean => {
-  if (!trashcan.ref) return false;
-  const trashcanPos = calcCenterPoint(trashcan.ref);
-
-  return [trashcanPos.x - event.x, trashcanPos.y - event.y].every(
-    (e) => Math.abs(e) < options.grid.maxTrashDistance
-  );
-};
-
-/**
  * Calculates center point of an HTML element.
  *
- * @param {React.RefObject<HTMLDivElement>} ref - The reference to the HTML element.
+ * @param {HTMLDivElement} ref - The reference to the HTML element.
  * @returns {Cords} An object representing the x and y coordinates of center.
  */
-const calcCenterPoint = (ref: React.RefObject<HTMLDivElement>): Cords => {
-  const rect = ref.current?.getBoundingClientRect();
+const calcCenterPoint = (ref: HTMLDivElement): Cords => {
+  const rect = ref.getBoundingClientRect();
 
   let position = defaultCords;
   if (rect)
@@ -181,13 +135,10 @@ export {
   calcCenterPoint,
   findNearestCell,
   defaultTile,
+  defaultCords,
   generateRandomPiece,
   pieceTransition,
   pieceVariants,
-  possibleToSell,
   defaultCycle,
   setCycleSteps,
-  emptyPiece,
-  emptyCell,
-  initGameState,
 };

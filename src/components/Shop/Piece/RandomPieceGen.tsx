@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Piece from "./Piece";
-import {
-  defaultCycle,
-  generateRandomPiece,
-  setCycleSteps,
-} from "../../../modules/Piece/utils";
+import { defaultCycle, setCycleSteps } from "../../../modules/Piece/utils";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState(defaultCycle);
-
-  useEffect(() => {
-    console.log(cycle);
-  }, [cycle]);
 
   useEffect(() => {
     const delay = 1000;

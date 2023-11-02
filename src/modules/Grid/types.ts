@@ -2,7 +2,7 @@ import { PieceType } from "../Piece/types";
 
 type GridEntry = {
   insideCell: PieceType;
-  ref: React.RefObject<HTMLDivElement> | null;
+  ref: HTMLDivElement | null;
   isEmpty: boolean;
   animate: "inactive" | "active";
 };

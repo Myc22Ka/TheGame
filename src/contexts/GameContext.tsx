@@ -7,69 +7,102 @@ import React, {
 } from "react";
 import options from "../config.json";
 import { GridEntry, PieceType } from "../modules/Piece/types";
-import { emptyCell, initGameState } from "../modules/Piece/utils";
 import { GameType } from "../modules/Game/types";
+
+export const emptyPiece: PieceType = {
+  name: "",
+  sell: 0,
+  buy: 0,
+  rule: "",
+  level: 0,
+};
+
+export const emptyCell: GridEntry = {
+  insideCell: emptyPiece,
+  ref: null,
+  isEmpty: true,
+  animate: "inactive",
+};
+
+export const initGameState: GameType = {
+  gameOver: false,
+  grid: Array(Math.pow(options.grid.defaultSize, 2)).fill(emptyCell),
+  size: options.grid.defaultSize,
+};
 
 const useGameContext = (defaultGame: GameType) => {
   const [game, setGame] = useState(defaultGame);
 
-  const gameLoseEvent = useCallback(
-    () => setGame((prev) => ({ ...prev, gameOver: true })),
-    []
-  );
+  const gameLoseEvent = useCallback(() => {
+    setGame((prev) => ({
+      ...prev,
+      gameOver: true,
+    }));
+  }, [setGame]);
 
   const addPieceToCell = useCallback(
     (cell: GridEntry, piece: PieceType) => {
-      const foundIndex = game.grid.findIndex((entry) => entry.ref === cell.ref);
-
-      const newGrid = [...game.grid];
-      newGrid[foundIndex] = {
-        ...newGrid[foundIndex],
-        insideCell: piece,
-        isEmpty: false,
-        animate: "active",
-      };
-
-      setGame((prev) => ({ ...prev, grid: newGrid }));
-    },
-    [game]
-  );
-
-  const addRefToCell = useCallback(
-    (newRef: React.RefObject<HTMLDivElement> | null, index: number) => {
       setGame((prev) => {
-        // Create a new copy of the grid array with the updated ref at the specified index
+        const foundIndex = prev.grid.findIndex(
+          (entry) => entry.ref === cell.ref
+        );
         const newGrid = [...prev.grid];
-        newGrid[index] = { ...newGrid[index], ref: newRef };
+        newGrid[foundIndex] = {
+          ...newGrid[foundIndex],
+          insideCell: piece,
+          isEmpty: false,
+          animate: "active",
+        };
 
-        // Return a new state with the updated grid
-        return { ...prev, grid: newGrid };
+        return {
+          ...prev,
+          grid: newGrid,
+        };
       });
     },
-    []
+    [setGame]
+  );
+
+  const defineRefForCells = useCallback(
+    (newRefs: HTMLCollection) => {
+      setGame((prev) => {
+        const newGrid = prev.grid.map((entry, index) => ({
+          ...entry,
+          ref: newRefs[index] as HTMLDivElement,
+        }));
+
+        return {
+          ...prev,
+          grid: newGrid,
+        };
+      });
+    },
+    [setGame]
   );
 
   const resizeGrid = useCallback(() => {
-    if (game.currentGridSize === options.grid.maxSize) return;
+    if (game.size === options.grid.maxSize) return;
 
-    const updatedCurrentGridSize = game.currentGridSize + 1;
-    const newTable = new Array(Math.pow(updatedCurrentGridSize, 2));
-    newTable.fill(emptyCell);
+    setGame((prev) => {
+      const newTable = new Array(Math.pow(prev.size + 1, 2)).fill(emptyCell);
 
-    for (let i = 0; i < game.grid.length; i++) newTable[i] = game.grid[i];
+      for (let i = 0; i < prev.grid.length; i++) {
+        newTable[i] = prev.grid[i];
+      }
 
-    setGame((prev) => ({
-      ...prev,
-      grid: newTable,
-      currentGridSize: updatedCurrentGridSize,
-    }));
-  }, [game]);
+      return {
+        ...prev,
+        grid: newTable,
+        size: prev.size + 1,
+      };
+    });
+  }, [game, options.grid.maxSize, setGame]);
 
   return {
     game,
     gameLoseEvent,
     resizeGrid,
-    addRefToCell,
+    defineRefForCells,
     addPieceToCell,
   };
 };
@@ -78,7 +111,7 @@ const initContextState: ReturnType<typeof useGameContext> = {
   game: initGameState,
   gameLoseEvent: () => {},
   resizeGrid: () => {},
-  addRefToCell: () => {},
+  defineRefForCells: () => {},
   addPieceToCell: () => {},
 };
 
@@ -100,14 +133,14 @@ export const GameProvider = ({
 };
 
 export const useGame = () => {
-  const { game, gameLoseEvent, resizeGrid, addRefToCell, addPieceToCell } =
+  const { game, gameLoseEvent, resizeGrid, defineRefForCells, addPieceToCell } =
     useContext(GameContext);
 
   return {
     game,
     gameLoseEvent,
     resizeGrid,
-    addRefToCell,
+    defineRefForCells,
     addPieceToCell,
   };
 };

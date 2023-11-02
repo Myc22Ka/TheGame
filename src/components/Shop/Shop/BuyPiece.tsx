@@ -17,10 +17,6 @@ const BuyPiece: React.FC<BuyPiecePropsType> = ({ piece }) => {
   const { pieceRef, tile, handleDragStart, handleDragEnd } = usePiece(piece);
   const { score } = useScore();
 
-  const dragEnd = (e: PointerEvent) => {
-    handleDragEnd(e, false);
-  };
-
   if (score.gold < piece.buy)
     return (
       <motion.div className={`piece ${piece.rule} locked`} initial="initial">
@@ -32,8 +28,8 @@ const BuyPiece: React.FC<BuyPiecePropsType> = ({ piece }) => {
     <motion.div
       className={`piece ${piece.rule}`}
       drag={score.gold > piece.buy}
-      onDragStart={() => handleDragStart(false)}
-      onDragEnd={dragEnd}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       animate={tile.animate}
       initial="initial"
       variants={{
