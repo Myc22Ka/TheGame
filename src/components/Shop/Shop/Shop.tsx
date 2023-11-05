@@ -7,7 +7,7 @@ const Shop: React.FC = () => {
   return (
     <div className="shop">
       <RandomPieceGen />
-      {/* <Market /> */}
+      <Market />
     </div>
   );
 };
