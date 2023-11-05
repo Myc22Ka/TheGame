@@ -14,7 +14,7 @@ const Market: React.FC = () => {
   };
 
   return (
-    <Container className="m-2 market w-auto">
+    <Container className="m-3 market w-auto">
       {splitArray().map((row, key) => {
         return (
           <Row key={key}>

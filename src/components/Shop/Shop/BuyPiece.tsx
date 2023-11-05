@@ -17,13 +17,6 @@ const BuyPiece: React.FC<BuyPiecePropsType> = ({ piece }) => {
   const { pieceRef, tile, handleDragStart, handleDragEnd } = usePiece(piece);
   const { score } = useScore();
 
-  if (score.gold < piece.buy)
-    return (
-      <motion.div className={`piece ${piece.rule} locked`} initial="initial">
-        <FontAwesomeIcon icon={faLock} size="2x" style={{ color: "white" }} />
-      </motion.div>
-    );
-
   return (
     <motion.div
       className={`piece ${piece.rule}`}
