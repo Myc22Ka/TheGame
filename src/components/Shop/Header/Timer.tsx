@@ -29,14 +29,15 @@ const Timer: React.FC = () => {
 
   return (
     <Stack
-      className="justify-content-center align-items-center"
+      className="justify-content-center align-items-center p-2"
       direction="horizontal"
+      style={{ width: "200px" }}
       gap={2}
     >
       <FontAwesomeIcon icon={faClock} size="xl" color={styles.main} />
       <Stack className="timer h2 rounded m-0">
         <Stack
-          className="justify-content-center align-items-center"
+          className="justify-content-center align-items-center h6 m-0"
           style={{ fontFamily: styles.font, zIndex: 2 }}
         >
           {formatTime(currentTime)}

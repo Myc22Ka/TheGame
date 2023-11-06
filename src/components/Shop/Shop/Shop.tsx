@@ -9,7 +9,7 @@ const Shop: React.FC = () => {
     <Stack
       direction="vertical"
       gap={2}
-      className="shop justify-content-between"
+      className="shop justify-content-between h-100"
     >
       <RandomPieceGen />
       <Market />

@@ -7,12 +7,9 @@ body {
 }
 
 .app {
-  @include flex-center;
-  flex-direction: column;
   height: 100vh;
   background-color: $background;
   .timer {
-    width: clamp(2rem, 25vw, 13rem);
     background: $third;
     overflow: hidden;
     color: white;
@@ -25,12 +22,6 @@ body {
       top: 0;
       left: 0;
     }
-  }
-  .main {
-    flex: 15;
-    @include flex-center;
-    width: 100%;
-    gap: 1rem;
   }
 }
 

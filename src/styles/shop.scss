@@ -1,18 +1,14 @@
 @import "./constants.scss";
 
+.shop {
+  background: $third;
+}
+
 .random-component-gen {
-  background: $background;
-  width: 100%;
-  @include flex-center;
-  justify-content: space-around;
-  flex-direction: column;
   color: $main;
   font-family: $font;
   font-size: $font-size-small;
   .inner-piece-meter {
-    width: 80%;
-    display: flex;
-    justify-content: center;
     input[type="range"] {
       display: block;
       margin: 0;
@@ -111,11 +107,13 @@
   background: lightsalmon;
 }
 
+.devider {
+  background: transparentize($background, 0.2);
+}
+
 .market {
-  background: lighten($third, 5);
   display: grid;
   gap: 2px;
-  margin: 0 auto;
   .cell {
     background: transparentize($background, 0.2);
     cursor: pointer;
