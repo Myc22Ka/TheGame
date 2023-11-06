@@ -31,13 +31,6 @@ body {
     @include flex-center;
     width: 100%;
     gap: 1rem;
-    & > div {
-      flex: 1;
-    }
-    .shop {
-      background: $third;
-      height: 100%;
-    }
   }
 }
 

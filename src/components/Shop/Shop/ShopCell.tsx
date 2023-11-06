@@ -14,8 +14,7 @@ const ShopCell: React.FC<ShopCellProps> = ({ piece }) => {
   return (
     <Stack
       direction="horizontal"
-      style={{ margin: "1px" }}
-      className={`justify-content-center align-items-center p-2 cell${
+      className={`justify-content-center align-items-center cell p-3${
         score.gold < piece.buy ? " locked" : ""
       }`}
     >

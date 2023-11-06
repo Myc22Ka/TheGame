@@ -4,10 +4,6 @@ import usePiece from "../../../hooks/usePiece";
 import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
 import { PieceType } from "../../../modules/Piece/types";
 import { useScore } from "../../../contexts/ScoreContext";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Stack } from "react-bootstrap";
-import styles from "../../../styles/style.module.scss";
 
 type BuyPiecePropsType = {
   piece: PieceType;
