@@ -20,7 +20,6 @@ const BuyPiece: React.FC<BuyPiecePropsType> = ({ piece }) => {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       animate={tile.animate}
-      initial="initial"
       variants={{
         ...pieceVariants,
         drag: { ...pieceVariants.drag, ...tile.vector },

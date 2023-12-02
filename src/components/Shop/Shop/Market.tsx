@@ -4,16 +4,19 @@ import ShopCell from "./ShopCell";
 import { Stack } from "react-bootstrap";
 import Switch from "./Switch";
 
-const Market: React.FC = () => {
-  const [activeState, setActiveState] = useState(true);
+export type activeStateType = "Shop" | "Upgrades";
 
-  const changeActiveState = (stateState: boolean) => setActiveState(stateState);
+const Market: React.FC = () => {
+  const [activeState, setActiveState] = useState<activeStateType>("Shop");
+
+  const changeActiveState = (stateState: activeStateType) =>
+    setActiveState(stateState);
 
   return (
     <Stack direction="vertical" className="justify-content-end">
       <Switch activeState={activeState} changeActiveState={changeActiveState} />
       <div className="p-5 devider"></div>
-      {activeState ? (
+      {activeState === "Shop" ? (
         <div
           className="market p-3"
           style={{

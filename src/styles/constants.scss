@@ -2,10 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Rubik&display=swap");
 
 // colors:
-$cell: #00c896;
+$main: #ff3974;
+$cell: darken($main, 10);
+$secondary: darken($main, 20);
 $background: #323641;
-$main: #2ffcee;
-$secondary: #00664d;
 $third: #222222;
 $error: #ff3333;
 

@@ -115,7 +115,7 @@
   display: grid;
   gap: 2px;
   .cell {
-    background: transparentize($background, 0.2);
+    background: transparentize($background, 0.4);
     cursor: pointer;
     @include flex-center;
     transition: background-color 0.1s ease-in-out;
@@ -124,7 +124,6 @@
     }
     position: relative;
     &.locked {
-      background: none;
       .piece {
         background-color: darken($third, 2);
       }
@@ -140,5 +139,28 @@
       font-family: $font;
       color: white;
     }
+  }
+}
+.shop-button {
+  color: white;
+  font-family: $font;
+  cursor: pointer;
+  background: $main;
+  margin: 2px;
+  user-select: none;
+  transition: background-color 0.1s ease-in-out;
+  &:not(.active):hover {
+    background: lighten($main, 10);
+  }
+  &.active {
+    @extend .devider;
+    margin: 0;
+    cursor: default;
+  }
+  &.shop {
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  &.upgrades {
+    clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
   }
 }

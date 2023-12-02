@@ -1,16 +1,20 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faBagShopping, faCircleUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  IconDefinition,
+  faBagShopping,
+  faCircleUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 import { Stack } from "react-bootstrap";
+import { activeStateType } from "./Market";
 
 type SwitchState = {
-  activeState: boolean;
-  changeActiveState: (stateState: boolean) => void;
+  activeState: activeStateType;
+  changeActiveState: (stateState: activeStateType) => void;
 };
 
 const Switch: React.FC<SwitchState> = ({ activeState, changeActiveState }) => {
-  const buttons = [
+  const buttons: { name: activeStateType; icon: IconDefinition }[] = [
     { name: "Shop", icon: faBagShopping },
     {
       name: "Upgrades",
@@ -18,22 +22,31 @@ const Switch: React.FC<SwitchState> = ({ activeState, changeActiveState }) => {
     },
   ];
 
+  const isActive = useCallback(
+    (i: number) => {
+      return (
+        (activeState === "Shop" && i === 0) ||
+        (activeState === "Upgrades" && i === 1)
+      );
+    },
+    [activeState]
+  );
+
   return (
     <Stack direction="horizontal" className="justify-content-center">
       {buttons.map((e, i) => {
         return (
           <Stack
             key={i}
+            gap={isActive(i) ? 2 : 0}
             direction="horizontal"
-            className="p-3"
-            onClick={() => changeActiveState(e.name === "Shop")}
+            className={`p-2 px-5 justify-content-center align-items-center shop-button ${
+              isActive(i) ? `${e.name.toLowerCase()} active` : ""
+            }`}
+            onClick={() => changeActiveState(e.name)}
           >
-            <FontAwesomeIcon icon={e.icon} />
-            <div className="shop-button">
-              {(activeState && i === 0) || (!activeState && i === 1)
-                ? e.name
-                : null}
-            </div>
+            <FontAwesomeIcon icon={e.icon} size="lg" />
+            <div className="h6 m-0">{isActive(i) ? e.name : null}</div>
           </Stack>
         );
       })}
