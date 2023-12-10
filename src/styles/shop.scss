@@ -4,102 +4,36 @@
   background: $third;
 }
 
-.random-component-gen {
-  color: $main;
-  font-family: $font;
-  font-size: $font-size-small;
-  .inner-piece-meter {
-    input[type="range"] {
-      display: block;
-      margin: 0;
-      padding: 0;
-      font-size: inherit;
-      width: 80%;
-      height: 20px;
-      border-radius: 0.25em;
-      border: 3px solid $main;
-      background-color: $third;
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      overflow: hidden;
-      transition: 0.2s linear;
-    }
+.piece-spawn {
+  width: $pieceSize;
+  height: $pieceSize;
+}
 
-    input[type="range"] {
-      @mixin thumb() {
-        margin: 0.05em;
-        padding: 0;
-        height: 15px;
-        width: 0.9em;
-        border-radius: 0.1em;
-        box-sizing: border-box;
-        border: none;
-        background-color: red;
-        // box-shadow:
-        //   -10em 0 0 0 #313131,
-        //   -9em 0 0 0 #313131,
-        //   -8em 0 0 0 #2f343f,
-        //   -7em 0 0 0 #283f6b,
-        //   -6em 0 0 0 #214893,
-        //   -5em 0 0 0 #1a52bc,
-        //   -4em 0 0 0 #2769d3,
-        //   -3em 0 0 0 #3e87dc,
-        //   -2em 0 0 0 #55a5e6,
-        //   -1em 0 0 0 #6fc5f0,
-        //   1em 0 0 0 $third,
-        //   2em 0 0 0 $third,
-        //   3em 0 0 0 $third,
-        //   4em 0 0 0 $third,
-        //   5em 0 0 0 $third,
-        //   6em 0 0 0 $third,
-        //   7em 0 0 0 $third,
-        //   8em 0 0 0 $third,
-        //   9em 0 0 0 $third;
-      }
-      &::-webkit-slider-thumb {
-        @include thumb();
-      }
-      &::-moz-range-thumb {
-        @include thumb();
-      }
-      &::-ms-thumb {
-        @include thumb();
-      }
-    }
-
-    /* ## Browser tweaks */
-    /* ### webkit */
-    input[type="range"] {
-      &,
-      &::-webkit-slider-runnable-track,
-      &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-      }
-    }
-
-    /* ### IE */
-    input[type="range"] {
-      &::-ms-track {
-        color: transparent;
-      }
-      &::-ms-fill-lower,
-      &::-ms-fill-upper,
-      &::-ms-tooltip {
-        display: none;
-      }
-    }
+.piece-metter {
+  appearance: none;
+  outline: none;
+  border-radius: 15px;
+  overflow: hidden;
+  &::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
   }
-  .random-piece-spawn {
-    width: 100px;
-    height: 100px;
-  }
+}
+
+.generator {
+  background: $main;
+  clip-path: polygon(100% 0, 100% 81%, 75% 100%, 25% 100%, 0 81%, 0% 0%);
+  padding: 1.5rem;
+  position: absolute;
+  top: -50%;
 }
 
 .gold,
 .gold_add {
   background: lightseagreen;
-  width: 100px;
-  height: 100px;
+  width: $pieceSize;
+  height: $pieceSize;
   border-radius: 1rem;
   position: relative;
 }
@@ -114,6 +48,7 @@
 .market {
   display: grid;
   gap: 2px;
+  margin: 2px;
   .cell {
     background: transparentize($background, 0.4);
     cursor: pointer;
@@ -123,6 +58,9 @@
       background: lighten(transparentize($background, 0.2), 15);
     }
     position: relative;
+    .piece {
+      box-shadow: 0px 0px 15px 5px $third;
+    }
     &.locked {
       .piece {
         background-color: darken($third, 2);

@@ -13,12 +13,12 @@ const Market: React.FC = () => {
     setActiveState(stateState);
 
   return (
-    <Stack direction="vertical" className="justify-content-end">
+    <Stack direction="vertical" style={{ flex: 0 }}>
       <Switch activeState={activeState} changeActiveState={changeActiveState} />
-      <div className="p-5 devider"></div>
+      <div className="p-3 devider"></div>
       {activeState === "Shop" ? (
         <div
-          className="market p-3"
+          className="market"
           style={{
             gridTemplateColumns: `repeat(${Math.floor(
               Math.sqrt(options.pieces.types.length)
@@ -35,6 +35,7 @@ const Market: React.FC = () => {
       ) : (
         <div>Hi</div>
       )}
+      <div className="p-3 devider"></div>
     </Stack>
   );
 };
