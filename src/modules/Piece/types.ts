@@ -11,13 +11,15 @@ type PieceType = {
   buy: number;
   rule: string;
   level: number;
+  uses: number;
+  id: number;
 };
 
 type TileType = {
   nearestCell: GridEntry;
   startingPosition: Cords;
   vector: Cords;
-  animate: "active" | "drag" | "return" | "exit";
+  animate: "active" | "drag" | "return" | "exit" | "reset" | "inactive";
 };
 
 type NearestCellType = {

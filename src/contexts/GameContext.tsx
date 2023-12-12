@@ -15,6 +15,8 @@ export const emptyPiece: PieceType = {
   buy: 0,
   rule: "",
   level: 0,
+  uses: 0,
+  id: 0,
 };
 
 export const emptyCell: GridEntry = {

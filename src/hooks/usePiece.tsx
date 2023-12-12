@@ -7,21 +7,22 @@ import {
   defaultCords,
 } from "../modules/Piece/utils";
 import { PieceType } from "../modules/Piece/types";
+import { useScore } from "../contexts/ScoreContext";
 
 export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
+  const { removeSomeGold } = useScore();
 
   const handleDragStart = useCallback(() => {
-    if (pieceRef.current)
-      setTile((prev) => ({
-        ...prev,
-        startingPosition: pieceRef.current
-          ? calcCenterPoint(pieceRef.current)
-          : defaultCords,
-        animate: "active",
-      }));
+    setTile((prev) => ({
+      ...prev,
+      startingPosition: pieceRef.current
+        ? calcCenterPoint(pieceRef.current)
+        : defaultCords,
+      animate: "active",
+    }));
   }, []);
 
   const handleDragEnd = useCallback(
@@ -46,8 +47,37 @@ export const usePiece = (p: PieceType) => {
     [tile]
   );
 
+  const handleDragEndWithSell = useCallback(
+    (event: PointerEvent) => {
+      const nearestCell = findNearestCell(game, event, tile);
+
+      if (!nearestCell) {
+        setTile((prev) => ({
+          ...prev,
+          animate: "return",
+        }));
+        return;
+      }
+
+      removeSomeGold(p.buy);
+      setTile((prev) => ({
+        ...prev,
+        animate: "drag",
+        nearestCell: nearestCell.cell,
+        vector: nearestCell.vector,
+      }));
+    },
+    [tile]
+  );
+
+  const resetValues = useCallback(() => {
+    setTile({ ...defaultTile, animate: "reset" });
+  }, [tile]);
+
   const addToGrid = useCallback(() => {
-    addPieceToCell(tile.nearestCell, p);
+    setTimeout(() => {
+      addPieceToCell(tile.nearestCell, p);
+    }, 500);
   }, [tile]);
 
   const resetCycle = useCallback(() => {
@@ -55,17 +85,19 @@ export const usePiece = (p: PieceType) => {
   }, [tile]);
 
   const unlockPiece = useCallback(() => {
-    setTile((prev) => ({ ...prev, animate: "active" }));
+    setTile((prev) => ({ ...prev, animate: "inactive" }));
   }, [tile]);
 
   return {
     tile,
     pieceRef,
     handleDragEnd,
+    handleDragEndWithSell,
     handleDragStart,
     addToGrid,
     resetCycle,
     unlockPiece,
+    resetValues,
   };
 };
 

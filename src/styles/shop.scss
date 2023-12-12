@@ -36,6 +36,7 @@
   height: $pieceSize;
   border-radius: 1rem;
   position: relative;
+  box-shadow: 0px 0px 15px 5px $third;
 }
 .gold_add {
   background: lightsalmon;
@@ -58,9 +59,6 @@
       background: lighten(transparentize($background, 0.2), 15);
     }
     position: relative;
-    .piece {
-      box-shadow: 0px 0px 15px 5px $third;
-    }
     &.locked {
       .piece {
         background-color: darken($third, 2);

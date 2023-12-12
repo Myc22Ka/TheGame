@@ -10,7 +10,7 @@ const defaultTile: TileType = {
   nearestCell: emptyCell,
   startingPosition: defaultCords,
   vector: defaultCords,
-  animate: "active",
+  animate: "inactive",
 };
 
 const defaultCycle: DefaultCycleType = {
@@ -22,19 +22,21 @@ const defaultCycle: DefaultCycleType = {
 
 // Piece variables
 const pieceVariants = {
-  initial: { scale: 0 },
-  active: { scale: 1, rotate: 0 },
-  drag: { scale: 0, rotate: 270 },
+  initial: { scale: 0, rotate: 0 },
+  active: { scale: 1, rotate: 0, zIndex: 10 },
+  inactive: { scale: 1, rotate: 0, zIndex: 1 },
+  drag: { scale: 0, rotate: [270, 0] },
   return: {
     scale: 1,
     rotate: 0,
+    zIndex: 2,
   },
-  sell: {
-    scale: 0,
-    rotate: 45,
-    radius: "50%",
+  reset: {
+    scale: 1,
+    rotate: 0,
+    zIndex: 2,
   },
-  exit: { scale: 0, rotate: 0, radius: 0 },
+  exit: { scale: 0, rotate: 0, radius: 0, zIndex: 2 },
 };
 
 const pieceTransition = {

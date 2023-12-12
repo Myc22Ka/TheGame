@@ -1,6 +1,6 @@
 {
   "points": {
-    "gold": 15,
+    "gold": 265,
     "multiplier": 1,
     "baseIncome": 1
   },
@@ -24,67 +24,85 @@
     "cycleTime": 5,
     "types": [
       {
+        "id": 1,
         "name": "1",
         "sell": 100,
         "buy": 20,
         "rule": "gold",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 2,
         "name": "2",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 1
       },
       {
+        "id": 3,
         "name": "3",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 4,
         "name": "4",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 5,
         "name": "5",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 6,
         "name": "5",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 7,
         "name": "5",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 8,
         "name": "5",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       },
       {
+        "id": 9,
         "name": "5",
         "sell": 300,
         "buy": 40,
         "rule": "gold_add",
-        "level": 1
+        "level": 1,
+        "uses": 3
       }
     ]
   }

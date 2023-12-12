@@ -1,16 +1,33 @@
 import React, { useState } from "react";
 import options from "../../../config.json";
-import ShopCell from "./ShopCell";
+import BuyPiece from "./BuyPiece";
 import { Stack } from "react-bootstrap";
 import Switch from "./Switch";
+import { PieceType } from "../../../modules/Piece/types";
 
 export type activeStateType = "Shop" | "Upgrades";
 
 const Market: React.FC = () => {
   const [activeState, setActiveState] = useState<activeStateType>("Shop");
+  const [market, setMarket] = useState<PieceType[]>(options.pieces.types);
 
-  const changeActiveState = (stateState: activeStateType) =>
-    setActiveState(stateState);
+  const changeActiveState = (newActivetate: activeStateType) =>
+    setActiveState(newActivetate);
+
+  const changeMarketState = (newPieceState: PieceType) => {
+    setMarket((prevMarket) => {
+      const updatedMarket = [...prevMarket];
+      const index = updatedMarket.findIndex(
+        (piece) => piece.id === newPieceState.id
+      );
+
+      if (index !== -1) {
+        updatedMarket[index] = newPieceState;
+      }
+
+      return updatedMarket;
+    });
+  };
 
   return (
     <Stack direction="vertical" style={{ flex: 0 }}>
@@ -28,8 +45,12 @@ const Market: React.FC = () => {
             )}, 1fr)`,
           }}
         >
-          {options.pieces.types.map((piece, i) => (
-            <ShopCell piece={piece} key={i} />
+          {market.map((piece, i) => (
+            <BuyPiece
+              piece={piece}
+              key={i}
+              changeMarketState={changeMarketState}
+            />
           ))}
         </div>
       ) : (

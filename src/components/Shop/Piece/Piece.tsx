@@ -29,7 +29,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
   return (
     <motion.div
       className={piece.rule}
-      drag={tile.animate === "active"}
+      drag={["active", "inactive"].includes(tile.animate)}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       animate={animate || tile.animate}
