@@ -1,9 +1,9 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useGame } from "../../../contexts/GameContext";
-import { useScore } from "../../../contexts/ScoreContext";
-import options from "../../../config.json";
+import { useGame } from "../../contexts/GameContext";
+import { useScore } from "../../contexts/ScoreContext";
+import options from "../../config.json";
 import { Button, Stack } from "react-bootstrap";
 import { motion } from "framer-motion";
 

@@ -1,21 +1,25 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
+import { PieceType } from "../../../../modules/Piece/types";
+import { useScore } from "../../../../contexts/ScoreContext";
+import usePiece from "../../../../hooks/usePiece";
 import { motion } from "framer-motion";
-import { PieceType } from "../../../modules/Piece/types";
-import { useScore } from "../../../contexts/ScoreContext";
-import usePiece from "../../../hooks/usePiece";
-import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
-import options from "../../../config.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import Info from "./Info";
+import PieceInfo from "./PieceInfo";
+import {
+  pieceTransition,
+  pieceVariants,
+} from "../../../../modules/Piece/utils";
 
-type BuyPieceProps = {
+type MarketCellProps = {
   piece: PieceType;
   changeMarketState: (newMarketState: PieceType) => void;
 };
 
-const BuyPiece: React.FC<BuyPieceProps> = ({ piece, changeMarketState }) => {
+const MarketCell: React.FC<MarketCellProps> = ({
+  piece,
+  changeMarketState,
+}) => {
+  const { score } = useScore();
   const {
     pieceRef,
     tile,
@@ -25,7 +29,6 @@ const BuyPiece: React.FC<BuyPieceProps> = ({ piece, changeMarketState }) => {
     unlockPiece,
     resetValues,
   } = usePiece(piece);
-  const { score } = useScore();
 
   const decreasePieceUse = (piece: PieceType) => {
     return { ...piece, uses: piece.uses - 1 };
@@ -45,11 +48,11 @@ const BuyPiece: React.FC<BuyPieceProps> = ({ piece, changeMarketState }) => {
   return (
     <Stack
       direction="horizontal"
-      className={`justify-content-center align-items-center cell p-5${
+      className={`justify-content-center align-items-center cell ${
         (score.gold < piece.buy || piece.uses === 0) && tile.animate !== "drag"
           ? " locked"
           : ""
-      } ${tile.animate}`}
+      }`}
     >
       <motion.div
         className={`piece ${piece.rule}`}
@@ -76,15 +79,9 @@ const BuyPiece: React.FC<BuyPieceProps> = ({ piece, changeMarketState }) => {
         onAnimationComplete={animationCompleteHandle}
         ref={pieceRef}
       />
-      <Info piece={piece} />
-      <div className="h6 m-0 uses py-1 px-3">
-        {piece.uses}/{options.pieces.types.find((e) => e.id === piece.id)?.uses}
-      </div>
-      <div className="h6 m-0 price py-1 px-3">
-        {piece.buy} <FontAwesomeIcon icon={faCoins} size="sm" />
-      </div>
+      <PieceInfo piece={piece} />
     </Stack>
   );
 };
 
-export default BuyPiece;
+export default MarketCell;

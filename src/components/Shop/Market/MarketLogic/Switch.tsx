@@ -15,7 +15,7 @@ type SwitchState = {
 
 const Switch: React.FC<SwitchState> = ({ activeState, changeActiveState }) => {
   const buttons: { name: activeStateType; icon: IconDefinition }[] = [
-    { name: "Shop", icon: faBagShopping },
+    { name: "Market", icon: faBagShopping },
     {
       name: "Upgrades",
       icon: faCircleUp,
@@ -25,7 +25,7 @@ const Switch: React.FC<SwitchState> = ({ activeState, changeActiveState }) => {
   const isActive = useCallback(
     (i: number) => {
       return (
-        (activeState === "Shop" && i === 0) ||
+        (activeState === "Market" && i === 0) ||
         (activeState === "Upgrades" && i === 1)
       );
     },

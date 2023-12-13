@@ -1,8 +1,8 @@
-import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { PieceType } from "../../../modules/Piece/types";
+import { PieceType } from "../../../../modules/Piece/types";
 
 type InfoPropsType = {
   piece: PieceType;
@@ -16,8 +16,8 @@ const Info: React.FC<InfoPropsType> = ({ piece }) => {
 
   return (
     <React.Fragment>
-      <div className="h6 m-0 px-3 py-1 info" onClick={handleShow}>
-        <FontAwesomeIcon icon={faInfo} size="sm" />
+      <div className="h6 m-0 info" onClick={handleShow}>
+        <FontAwesomeIcon icon={faInfoCircle} size="sm" />
       </div>
 
       <Modal show={show} onHide={handleClose}>

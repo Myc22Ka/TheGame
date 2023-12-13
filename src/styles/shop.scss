@@ -32,6 +32,7 @@
 
 .gold,
 .gold_add {
+  transition: background-color 0.1s ease-in-out;
   background: lightseagreen;
   width: $pieceSize;
   height: $pieceSize;
@@ -54,24 +55,23 @@
   .cell {
     background: transparentize($background, 0.4);
     cursor: pointer;
-    @include flex-center;
+    padding: 2.5rem;
     transition: background-color 0.1s ease-in-out;
     &:not(.locked):hover {
-      background: lighten(transparentize($background, 0.2), 15);
+      background: lighten(transparentize($background, 0.2), 10);
     }
     position: relative;
     &.locked {
-      .piece {
+      .piece,
+      .uses,
+      .price {
         background-color: darken($third, 2);
       }
-      // .price,
-      // .uses {
-      //   width: max-content;
-      // }
     }
     .price,
     .uses,
     .info {
+      transition: background-color 0.1s ease-in-out;
       position: absolute;
       user-select: none;
       font-family: $font;
@@ -79,8 +79,9 @@
       font-weight: bold;
     }
     .info {
+      padding: 0.25rem 1rem 0.25rem 0.75rem;
       transition: background-color 0.2s ease-in-out;
-      background: transparentize($main, 0.75);
+      background: transparentize($main, 0.25);
       top: 0;
       left: 0;
       clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
@@ -92,7 +93,7 @@
       right: 0;
       bottom: 0;
       clip-path: polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);
-      background: $main;
+      background: transparentize($main, 0.5);
     }
     .uses {
       left: 0;
@@ -119,7 +120,7 @@
     margin: 0;
     cursor: default;
   }
-  &.shop {
+  &.market {
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
   }
   &.upgrades {

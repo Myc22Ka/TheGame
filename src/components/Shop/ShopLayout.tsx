@@ -1,12 +1,12 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-import "../../../styles/shop.scss";
-import RandomPieceGen from "../Piece/RandomPieceGen";
-import Market from "./Market";
+import "../../styles/shop.scss";
+import RandomPieceGen from "./Piece/RandomPieceGen";
+import Market from "./Market/MarketLogic/Market";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCarBattery } from "@fortawesome/free-solid-svg-icons";
 
-const Shop: React.FC = () => {
+const ShopLayout: React.FC = () => {
   return (
     <Stack direction="vertical" className="shop justify-content-between h-100">
       <Stack
@@ -23,4 +23,4 @@ const Shop: React.FC = () => {
   );
 };
 
-export default Shop;
+export default ShopLayout;

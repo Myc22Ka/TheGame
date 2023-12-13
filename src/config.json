@@ -1,6 +1,6 @@
 {
   "points": {
-    "gold": 265,
+    "gold": 215,
     "multiplier": 1,
     "baseIncome": 1
   },
@@ -17,8 +17,7 @@
   },
   "time": {
     "defaultTimeTick": 1,
-    "maxTime": 3600,
-    "trashcanAnimationTime": 0.7
+    "maxTime": 3600
   },
   "pieces": {
     "cycleTime": 5,
