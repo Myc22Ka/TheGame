@@ -18,6 +18,7 @@
     width: 20px;
     height: 20px;
     -webkit-appearance: none;
+    appearance: none;
   }
 }
 
@@ -63,17 +64,42 @@
       .piece {
         background-color: darken($third, 2);
       }
-      .price {
-        color: $error;
-      }
+      // .price,
+      // .uses {
+      //   width: max-content;
+      // }
     }
-    .price {
+    .price,
+    .uses,
+    .info {
       position: absolute;
-      bottom: 0%;
-      right: 1%;
       user-select: none;
       font-family: $font;
       color: white;
+      font-weight: bold;
+    }
+    .info {
+      transition: background-color 0.2s ease-in-out;
+      background: transparentize($main, 0.75);
+      top: 0;
+      left: 0;
+      clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+      &:hover {
+        background-color: lighten($main, 15);
+      }
+    }
+    .price {
+      right: 0;
+      bottom: 0;
+      clip-path: polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);
+      background: $main;
+    }
+    .uses {
+      left: 0;
+      bottom: 0;
+      letter-spacing: 2px;
+      clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
+      background: transparentize($main, 0.5);
     }
   }
 }

@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Stack } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { PieceType } from "../../../modules/Piece/types";
 import { useScore } from "../../../contexts/ScoreContext";
 import usePiece from "../../../hooks/usePiece";
 import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
+import options from "../../../config.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import Info from "./Info";
 
 type BuyPieceProps = {
   piece: PieceType;
@@ -38,14 +42,10 @@ const BuyPiece: React.FC<BuyPieceProps> = ({ piece, changeMarketState }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(tile.animate);
-  }, [tile]);
-
   return (
     <Stack
       direction="horizontal"
-      className={`justify-content-center align-items-center cell p-4${
+      className={`justify-content-center align-items-center cell p-5${
         (score.gold < piece.buy || piece.uses === 0) && tile.animate !== "drag"
           ? " locked"
           : ""
@@ -76,7 +76,13 @@ const BuyPiece: React.FC<BuyPieceProps> = ({ piece, changeMarketState }) => {
         onAnimationComplete={animationCompleteHandle}
         ref={pieceRef}
       />
-      <div className="h5 m-0 price">{piece.buy}</div>
+      <Info piece={piece} />
+      <div className="h6 m-0 uses py-1 px-3">
+        {piece.uses}/{options.pieces.types.find((e) => e.id === piece.id)?.uses}
+      </div>
+      <div className="h6 m-0 price py-1 px-3">
+        {piece.buy} <FontAwesomeIcon icon={faCoins} size="sm" />
+      </div>
     </Stack>
   );
 };
