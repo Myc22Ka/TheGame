@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { useGame } from "../../../contexts/GameContext";
-import { useScore } from "../../../contexts/ScoreContext";
+import { useGame } from "../../contexts/GameContext";
+import { useScore } from "../../contexts/ScoreContext";
 import { Stack } from "react-bootstrap";
-import styles from "../../../styles/style.module.scss";
+import styles from "../../styles/style.module.scss";
 
 const Score: React.FC = () => {
   const { game } = useGame();

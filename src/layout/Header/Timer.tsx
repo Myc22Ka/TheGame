@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { useGame } from "../../../contexts/GameContext";
-import { formatTime } from "../../../utils/timeDisplay";
-import options from "../../../config.json";
-import styles from "../../../styles/style.module.scss";
+import { useGame } from "../../contexts/GameContext";
+import { formatTime } from "../../utils/timeDisplay";
+import options from "../../config.json";
+import styles from "../../styles/style.module.scss";
 import { Stack } from "react-bootstrap";
 
 const Timer: React.FC = () => {
