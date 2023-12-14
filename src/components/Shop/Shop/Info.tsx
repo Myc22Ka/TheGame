@@ -1,7 +1,7 @@
 import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 import { PieceType } from "../../../modules/Piece/types";
 
 type InfoPropsType = {
@@ -20,18 +20,12 @@ const Info: React.FC<InfoPropsType> = ({ piece }) => {
         <FontAwesomeIcon icon={faInfo} size="sm" />
       </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Info</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{piece.id}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary">Understood</Button>
-        </Modal.Footer>
-      </Modal>
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header>
+          <Offcanvas.Title>Info</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>{piece.id}</Offcanvas.Body>
+      </Offcanvas>
     </React.Fragment>
   );
 };

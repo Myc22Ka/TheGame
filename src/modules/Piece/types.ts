@@ -7,7 +7,7 @@ type Cords = {
 
 type PieceType = {
   name: string;
-  sell: number;
+  description: string;
   buy: number;
   rule: string;
   level: number;

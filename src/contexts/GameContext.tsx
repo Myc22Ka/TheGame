@@ -11,7 +11,7 @@ import { GameType } from "../modules/Game/types";
 
 export const emptyPiece: PieceType = {
   name: "",
-  sell: 0,
+  description: "",
   buy: 0,
   rule: "",
   level: 0,

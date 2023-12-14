@@ -64,10 +64,10 @@
       .piece {
         background-color: darken($third, 2);
       }
-      // .price,
-      // .uses {
-      //   width: max-content;
-      // }
+      .price,
+      .uses {
+        background-color: $third;
+      }
     }
     .price,
     .uses,
