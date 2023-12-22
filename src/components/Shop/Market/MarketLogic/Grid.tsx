@@ -1,24 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { PieceType } from "../../../../modules/Piece/types";
 import options from "../../../../config.json";
 import MarketCell from "../Cell/MarketCell";
 
-const Grid: React.FC = () => {
-  const [market, setMarket] = useState<PieceType[]>(options.pieces.types);
+type GridPropsType = {
+  market: PieceType[];
+  changeMarketState: (newPieceState: PieceType) => void;
+};
 
-  const changeMarketState = (newPieceState: PieceType) => {
-    setMarket((prevMarket) => {
-      const updatedMarket = [...prevMarket];
-      const index = updatedMarket.findIndex(
-        (piece) => piece.id === newPieceState.id
-      );
-
-      if (index !== -1) updatedMarket[index] = newPieceState;
-
-      return updatedMarket;
-    });
-  };
-
+const Grid: React.FC<GridPropsType> = ({ market, changeMarketState }) => {
   return (
     <div
       className="market"
