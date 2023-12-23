@@ -2,6 +2,7 @@ import React from "react";
 import Score from "./Score";
 import { Stack } from "react-bootstrap";
 import ResizeGridButton from "./ResizeGridButton";
+import Timer from "./Timer";
 
 const Header: React.FC = () => {
   return (
@@ -11,7 +12,10 @@ const Header: React.FC = () => {
       gap={3}
     >
       <Score />
-      <ResizeGridButton />
+      <Stack direction="horizontal" gap={3}>
+        <ResizeGridButton />
+        <Timer />
+      </Stack>
     </Stack>
   );
 };

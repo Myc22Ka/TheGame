@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <GameProvider {...initGameState}>
-        <ScoreProvider {...options.points}>
+        <ScoreProvider {...options.score}>
           <Layout />
         </ScoreProvider>
       </GameProvider>

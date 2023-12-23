@@ -1,0 +1,15 @@
+@import "./constants.scss";
+
+.stats-display {
+  background: $third;
+  color: white;
+  font-family: $font;
+  font-weight: bold;
+  clip-path: polygon(85% 0%, 100% 30%, 100% 100%, 0 100%, 0 0);
+  width: max-content;
+  .stats-btn {
+    @include flex-center;
+    font-weight: normal;
+    font-size: small;
+  }
+}

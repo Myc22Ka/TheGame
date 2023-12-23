@@ -9,11 +9,13 @@ import config from "../config.json";
 
 type ScoreType = {
   gold: number;
-  multiplier: number;
-  baseIncome: number;
+  gameStats: {
+    multiplier: number;
+    flatIncome: number;
+  };
 };
 
-export const initState: ScoreType = config.points;
+export const initState: ScoreType = config.score;
 
 const useScoreContext = (defaultScore: ScoreType) => {
   const [score, setScore] = useState(defaultScore);
@@ -22,7 +24,8 @@ const useScoreContext = (defaultScore: ScoreType) => {
     () =>
       setScore((prev) => ({
         ...prev,
-        gold: prev.gold + score.multiplier * score.baseIncome,
+        gold:
+          prev.gold + score.gameStats.multiplier * score.gameStats.flatIncome,
       })),
     []
   );

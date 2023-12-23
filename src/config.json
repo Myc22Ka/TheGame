@@ -1,8 +1,10 @@
 {
-  "points": {
+  "score": {
     "gold": 215,
-    "multiplier": 1,
-    "baseIncome": 1
+    "gameStats": {
+      "multiplier": 1,
+      "flatIncome": 1
+    }
   },
   "grid": {
     "defaultSize": 2,

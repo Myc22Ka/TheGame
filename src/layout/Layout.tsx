@@ -3,10 +3,9 @@ import { useGame } from "../contexts/GameContext";
 import GameOver from "./GameOver";
 import ShopLayout from "../components/Shop/ShopLayout";
 import { Stack } from "react-bootstrap";
-import Header from "./Header/Header";
-import Gambler from "./Gambler";
+import Header from "../components/Header/Header";
 import Grid from "../components/Grid/Grid";
-import Timer from "./Header/Timer";
+import SidePanel from "../components/SidePanel/SidePanel";
 
 const Layout = () => {
   const { game } = useGame();
@@ -15,16 +14,15 @@ const Layout = () => {
     <React.Fragment>
       <Stack direction="horizontal" className="h-100">
         <Stack
-          style={{ flex: 1000, paddingRight: "1rem" }}
+          style={{ flex: 1000 }}
           direction="vertical"
           className="justify-content-between"
         >
           <Header />
-          <Stack direction="horizontal" gap={2}>
-            <Gambler />
+          <Stack direction="horizontal">
+            <SidePanel />
             <Grid />
           </Stack>
-          <Timer />
         </Stack>
         <ShopLayout />
       </Stack>

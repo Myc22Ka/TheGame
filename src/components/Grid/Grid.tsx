@@ -12,7 +12,7 @@ const Grid: React.FC = () => {
   }, [game.grid.length]);
 
   return (
-    <div className="grid-container">
+    <div className="grid-container p-3 pt-0">
       <div
         className="grid-elements"
         ref={gridRef}
