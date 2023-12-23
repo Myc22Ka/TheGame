@@ -5,6 +5,7 @@ import RandomPieceGen from "./Piece/RandomPieceGen";
 import Market from "./Market/MarketLogic/Market";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCarBattery } from "@fortawesome/free-solid-svg-icons";
+import { MarketProvider, initMarketState } from "../../contexts/MarketContext";
 
 const ShopLayout: React.FC = () => {
   return (
@@ -18,7 +19,9 @@ const ShopLayout: React.FC = () => {
         </div>
       </Stack>
       <RandomPieceGen />
-      <Market />
+      <MarketProvider {...initMarketState}>
+        <Market />
+      </MarketProvider>
     </Stack>
   );
 };

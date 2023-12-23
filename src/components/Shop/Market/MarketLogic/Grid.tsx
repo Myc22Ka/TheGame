@@ -1,14 +1,11 @@
 import React from "react";
-import { PieceType } from "../../../../modules/Piece/types";
 import options from "../../../../config.json";
 import MarketCell from "../Cell/MarketCell";
+import { useMarket } from "../../../../contexts/MarketContext";
 
-type GridPropsType = {
-  market: PieceType[];
-  changeMarketState: (newPieceState: PieceType) => void;
-};
+const Grid: React.FC = () => {
+  const { marketContent } = useMarket();
 
-const Grid: React.FC<GridPropsType> = ({ market, changeMarketState }) => {
   return (
     <div
       className="market"
@@ -21,12 +18,8 @@ const Grid: React.FC<GridPropsType> = ({ market, changeMarketState }) => {
         )}, 1fr)`,
       }}
     >
-      {market.map((piece, i) => (
-        <MarketCell
-          piece={piece}
-          key={i}
-          changeMarketState={changeMarketState}
-        />
+      {marketContent.pieces.map((piece, i) => (
+        <MarketCell piece={piece} key={i} />
       ))}
     </div>
   );

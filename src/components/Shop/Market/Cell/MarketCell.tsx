@@ -4,22 +4,20 @@ import { PieceType } from "../../../../modules/Piece/types";
 import { useScore } from "../../../../contexts/ScoreContext";
 import usePiece from "../../../../hooks/usePiece";
 import { motion } from "framer-motion";
-import PieceInfo from "./PieceInfo";
+import PieceInfo from "./Info/PieceInfo";
 import {
   pieceTransition,
   pieceVariants,
 } from "../../../../modules/Piece/utils";
+import { useMarket } from "../../../../contexts/MarketContext";
 
 type MarketCellProps = {
   piece: PieceType;
-  changeMarketState: (newMarketState: PieceType) => void;
 };
 
-const MarketCell: React.FC<MarketCellProps> = ({
-  piece,
-  changeMarketState,
-}) => {
+const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
   const { score } = useScore();
+  const { changeMarketState } = useMarket();
   const {
     pieceRef,
     tile,

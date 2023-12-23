@@ -1,8 +1,8 @@
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Offcanvas } from "react-bootstrap";
-import { PieceType } from "../../../../modules/Piece/types";
+import { PieceType } from "../../../../../modules/Piece/types";
+import InfoMenu from "./InfoMenu";
 
 type InfoPropsType = {
   piece: PieceType;
@@ -20,12 +20,7 @@ const Info: React.FC<InfoPropsType> = ({ piece }) => {
         <FontAwesomeIcon icon={faInfoCircle} size="sm" />
       </div>
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header>
-          <Offcanvas.Title>Info</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>{piece.id}</Offcanvas.Body>
-      </Offcanvas>
+      <InfoMenu piece={piece} show={show} handleClose={handleClose} />
     </React.Fragment>
   );
 };

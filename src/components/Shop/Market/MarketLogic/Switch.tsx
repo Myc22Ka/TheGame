@@ -6,15 +6,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
 import { Stack } from "react-bootstrap";
-import { activeStateType } from "./Market";
+import { ActiveStateType, useMarket } from "../../../../contexts/MarketContext";
 
-type SwitchState = {
-  activeState: activeStateType;
-  changeActiveState: (stateState: activeStateType) => void;
-};
-
-const Switch: React.FC<SwitchState> = ({ activeState, changeActiveState }) => {
-  const buttons: { name: activeStateType; icon: IconDefinition }[] = [
+const Switch: React.FC = () => {
+  const { changeActiveState, marketContent } = useMarket();
+  const buttons: { name: ActiveStateType; icon: IconDefinition }[] = [
     { name: "Market", icon: faBagShopping },
     {
       name: "Upgrades",
@@ -25,11 +21,11 @@ const Switch: React.FC<SwitchState> = ({ activeState, changeActiveState }) => {
   const isActive = useCallback(
     (i: number) => {
       return (
-        (activeState === "Market" && i === 0) ||
-        (activeState === "Upgrades" && i === 1)
+        (marketContent.activeState === "Market" && i === 0) ||
+        (marketContent.activeState === "Upgrades" && i === 1)
       );
     },
-    [activeState]
+    [marketContent.activeState]
   );
 
   return (
