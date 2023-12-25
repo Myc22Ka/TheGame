@@ -13,7 +13,7 @@ export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold } = useScore();
+  const { removeSomeGold, updateActivators } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -77,6 +77,8 @@ export const usePiece = (p: PieceType) => {
   const addToGrid = useCallback(() => {
     setTimeout(() => {
       addPieceToCell(tile.nearestCell, p);
+      updateActivators(p.activators);
+      resetCycle();
     }, 500);
   }, [tile]);
 

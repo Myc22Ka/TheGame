@@ -8,15 +8,19 @@ import React, {
 import options from "../config.json";
 import { GridEntry, PieceType } from "../modules/Piece/types";
 import { GameType } from "../modules/Game/types";
+import { useScore } from "./ScoreContext";
 
 export const emptyPiece: PieceType = {
-  name: "",
   description: "",
   buy: 0,
   rule: "",
   level: 0,
   uses: 0,
   id: 0,
+  activators: {
+    multiplier: 0,
+    flatIncome: 0,
+  },
 };
 
 export const emptyCell: GridEntry = {

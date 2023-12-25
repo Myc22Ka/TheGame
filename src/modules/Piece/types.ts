@@ -1,3 +1,4 @@
+import { ActivatorsType } from "../../contexts/ScoreContext";
 import { GridEntry } from "../Grid/types";
 
 type Cords = {
@@ -6,13 +7,13 @@ type Cords = {
 };
 
 type PieceType = {
-  name: string;
   description: string;
   buy: number;
   rule: string;
   level: number;
   uses: number;
   id: number;
+  activators: ActivatorsType;
 };
 
 type TileType = {

@@ -38,7 +38,7 @@ const Score: React.FC = () => {
             fontFamily: styles.font,
           }}
         >
-          {score.gold}
+          {Math.round(score.gold)}
         </div>
         <FontAwesomeIcon icon={faCoins} size="xl" color={styles.main} />
       </Stack>

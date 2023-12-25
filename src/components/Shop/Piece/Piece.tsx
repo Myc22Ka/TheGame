@@ -21,8 +21,11 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
   } = usePiece(piece);
 
   const animationCompleteHandle = () => {
+    console.log(tile.animate);
     if (animate === "exit") resetCycle();
-    if (tile.animate === "drag") addToGrid();
+    if (tile.animate === "drag") {
+      addToGrid();
+    }
     if (tile.animate === "return") unlockPiece();
   };
 

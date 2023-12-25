@@ -26,84 +26,25 @@
     "types": [
       {
         "id": 1,
-        "name": "1",
         "description": "Some text1",
         "buy": 20,
         "rule": "gold",
         "level": 1,
-        "uses": 3
+        "uses": 3,
+        "activators": {
+          "multiplier": 0.2
+        }
       },
       {
         "id": 2,
-        "name": "2",
         "description": "Some text",
         "buy": 40,
         "rule": "gold_add",
         "level": 1,
-        "uses": 1
-      },
-      {
-        "id": 3,
-        "name": "3",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
-      },
-      {
-        "id": 4,
-        "name": "4",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
-      },
-      {
-        "id": 5,
-        "name": "5",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
-      },
-      {
-        "id": 6,
-        "name": "5",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
-      },
-      {
-        "id": 7,
-        "name": "5",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
-      },
-      {
-        "id": 8,
-        "name": "5",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
-      },
-      {
-        "id": 9,
-        "name": "5",
-        "description": "Some text",
-        "buy": 40,
-        "rule": "gold_add",
-        "level": 1,
-        "uses": 3
+        "uses": 1,
+        "activators": {
+          "flatIncome": 1
+        }
       }
     ]
   }

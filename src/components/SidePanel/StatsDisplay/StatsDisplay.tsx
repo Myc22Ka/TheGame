@@ -52,7 +52,7 @@ const StatsDisplay: React.FC = () => {
                 </div>
               </Col>
               <Col style={{ flex: 0 }}>
-                <div>{value}</div>
+                <div>{parseFloat(value.toFixed(1))}</div>
               </Col>
             </Row>
           );
