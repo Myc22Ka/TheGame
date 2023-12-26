@@ -5,8 +5,13 @@ import {
   findNearestCell,
   calcCenterPoint,
   defaultCords,
+  pieceTransition,
 } from "../modules/Piece/utils";
-import { PieceType } from "../modules/Piece/types";
+import {
+  AnimationsType,
+  PieceEventType,
+  PieceType,
+} from "../modules/Piece/types";
 import { useScore } from "../contexts/ScoreContext";
 
 export const usePiece = (p: PieceType) => {
@@ -26,7 +31,7 @@ export const usePiece = (p: PieceType) => {
   }, []);
 
   const handleDragEnd = useCallback(
-    (event: PointerEvent) => {
+    (event: PieceEventType, takeMoney: boolean) => {
       const nearestCell = findNearestCell(game, event, tile);
 
       if (!nearestCell) {
@@ -36,7 +41,7 @@ export const usePiece = (p: PieceType) => {
         }));
         return;
       }
-
+      if (takeMoney) removeSomeGold(p.buy);
       setTile((prev) => ({
         ...prev,
         animate: "drag",
@@ -47,59 +52,36 @@ export const usePiece = (p: PieceType) => {
     [tile]
   );
 
-  const handleDragEndWithSell = useCallback(
-    (event: PointerEvent) => {
-      const nearestCell = findNearestCell(game, event, tile);
-
-      if (!nearestCell) {
-        setTile((prev) => ({
-          ...prev,
-          animate: "return",
-        }));
-        return;
-      }
-
-      removeSomeGold(p.buy);
-      setTile((prev) => ({
-        ...prev,
-        animate: "drag",
-        nearestCell: nearestCell.cell,
-        vector: nearestCell.vector,
-      }));
-    },
-    [tile]
-  );
-
-  const resetValues = useCallback(() => {
+  const setDefaultValues = useCallback(() => {
     setTile({ ...defaultTile, animate: "reset" });
   }, [tile]);
 
   const addToGrid = useCallback(() => {
-    setTimeout(() => {
-      addPieceToCell(tile.nearestCell, p);
-      updateActivators(p.activators);
-      resetCycle();
-    }, 500);
+    setTimeout(
+      () => {
+        addPieceToCell(tile.nearestCell, p);
+        updateActivators(p.activators);
+        changePieceAnimation("exit");
+      },
+      (+pieceTransition.duration - 0.2) * 1000
+    );
   }, [tile]);
 
-  const resetCycle = useCallback(() => {
-    setTile((prev) => ({ ...prev, animate: "exit" }));
-  }, [tile]);
-
-  const unlockPiece = useCallback(() => {
-    setTile((prev) => ({ ...prev, animate: "inactive" }));
-  }, [tile]);
+  const changePieceAnimation = useCallback(
+    (animationName: AnimationsType) => {
+      setTile((prev) => ({ ...prev, animate: animationName }));
+    },
+    [setTile]
+  );
 
   return {
     tile,
     pieceRef,
     handleDragEnd,
-    handleDragEndWithSell,
     handleDragStart,
     addToGrid,
-    resetCycle,
-    unlockPiece,
-    resetValues,
+    setDefaultValues,
+    changePieceAnimation,
   };
 };
 

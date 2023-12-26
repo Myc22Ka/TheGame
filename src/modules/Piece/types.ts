@@ -1,6 +1,14 @@
 import { ActivatorsType } from "../../contexts/ScoreContext";
 import { GridEntry } from "../Grid/types";
 
+type AnimationsType =
+  | "active"
+  | "drag"
+  | "return"
+  | "exit"
+  | "reset"
+  | "inactive";
+
 type Cords = {
   x: number;
   y: number;
@@ -20,7 +28,7 @@ type TileType = {
   nearestCell: GridEntry;
   startingPosition: Cords;
   vector: Cords;
-  animate: "active" | "drag" | "return" | "exit" | "reset" | "inactive";
+  animate: AnimationsType;
 };
 
 type NearestCellType = {
@@ -36,6 +44,8 @@ type DefaultCycleType = {
   animate: "" | "exit";
 };
 
+type PieceEventType = PointerEvent | MouseEvent | TouchEvent;
+
 export type {
   Cords,
   TileType,
@@ -43,4 +53,6 @@ export type {
   DefaultCycleType,
   PieceType,
   GridEntry,
+  AnimationsType,
+  PieceEventType,
 };

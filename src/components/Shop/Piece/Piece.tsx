@@ -16,17 +16,15 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
     handleDragStart,
     handleDragEnd,
     addToGrid,
-    resetCycle,
-    unlockPiece,
+    changePieceAnimation,
   } = usePiece(piece);
 
   const animationCompleteHandle = () => {
-    console.log(tile.animate);
-    if (animate === "exit") resetCycle();
+    if (animate === "exit") changePieceAnimation("exit");
     if (tile.animate === "drag") {
       addToGrid();
     }
-    if (tile.animate === "return") unlockPiece();
+    if (tile.animate === "return") changePieceAnimation("return");
   };
 
   return (
@@ -34,7 +32,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
       className={piece.rule}
       drag={["active", "inactive"].includes(tile.animate)}
       onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
+      onDragEnd={(e) => handleDragEnd(e, false)}
       animate={animate || tile.animate}
       initial="initial"
       variants={{

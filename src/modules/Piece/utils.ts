@@ -1,4 +1,4 @@
-import { PieceType } from "./types";
+import { PieceEventType, PieceType } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
@@ -54,13 +54,13 @@ const pieceTransition = {
  */
 const findNearestCell = (
   game: GameType,
-  event: PointerEvent,
+  event: PieceEventType,
   tile: TileType
 ): NearestCellType => {
   return game.grid
     .filter((cell) => cell.isEmpty)
     .map((cell) => {
-      if (!cell.ref)
+      if (!cell.ref || event instanceof TouchEvent)
         return { cell: emptyCell, distance: 0, vector: defaultCords };
 
       const centerPoint = calcCenterPoint(cell.ref);

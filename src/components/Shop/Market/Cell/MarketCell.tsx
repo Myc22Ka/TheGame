@@ -22,10 +22,10 @@ const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
     pieceRef,
     tile,
     handleDragStart,
-    handleDragEndWithSell,
+    handleDragEnd,
     addToGrid,
-    unlockPiece,
-    resetValues,
+    setDefaultValues,
+    changePieceAnimation,
   } = usePiece(piece);
 
   const decreasePieceUse = (piece: PieceType) => {
@@ -36,10 +36,10 @@ const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
     if (tile.animate === "drag") {
       addToGrid();
       changeMarketState(decreasePieceUse(piece));
-      setTimeout(resetValues, 500);
+      setTimeout(setDefaultValues, 500);
     }
     if (["return", "reset"].includes(tile.animate)) {
-      unlockPiece();
+      changePieceAnimation("inactive");
     }
   };
 
@@ -60,7 +60,7 @@ const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
           ["active", "inactive"].includes(tile.animate)
         }
         onDragStart={handleDragStart}
-        onDragEnd={handleDragEndWithSell}
+        onDragEnd={(e) => handleDragEnd(e, true)}
         animate={tile.animate}
         initial="inactive"
         variants={{
