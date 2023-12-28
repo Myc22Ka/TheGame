@@ -1,9 +1,16 @@
 {
   "score": {
-    "gold": 215,
+    "gold": 222215,
     "gameStats": {
       "multiplier": 1,
-      "flatIncome": 1
+      "flatIncome": 1,
+      "power": 1,
+      "luck": 0,
+      "speed": 100,
+      "time": 100,
+      "discount": 0,
+      "resistance": 0,
+      "achievements": 0
     }
   },
   "grid": {
@@ -28,7 +35,7 @@
         "id": 1,
         "description": "Some text1",
         "buy": 20,
-        "rule": "gold",
+        "rule": "multiplier",
         "level": 1,
         "uses": 3,
         "activators": {
@@ -39,9 +46,86 @@
         "id": 2,
         "description": "Some text",
         "buy": 40,
-        "rule": "gold_add",
+        "rule": "flatIncome",
         "level": 1,
         "uses": 1,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 3,
+        "description": "Some text",
+        "buy": 120,
+        "rule": "power",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 4,
+        "description": "Some text",
+        "buy": 100,
+        "rule": "luck",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 5,
+        "description": "Some text",
+        "buy": 60,
+        "rule": "speed",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 6,
+        "description": "Some text",
+        "buy": 1000,
+        "rule": "time",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 7,
+        "description": "Some text",
+        "buy": 1200,
+        "rule": "discount",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 8,
+        "description": "Some text",
+        "buy": 120,
+        "rule": "resistance",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "flatIncome": 1
+        }
+      },
+      {
+        "id": 9,
+        "description": "Some text",
+        "buy": 10000,
+        "rule": "booster",
+        "level": 1,
+        "uses": 3,
         "activators": {
           "flatIncome": 1
         }

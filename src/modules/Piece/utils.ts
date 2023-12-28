@@ -25,7 +25,7 @@ const pieceVariants = {
   initial: { scale: 0, rotate: 0 },
   active: { scale: 1, rotate: 0, zIndex: 10 },
   inactive: { scale: 1, rotate: 0, zIndex: 1 },
-  drag: { scale: 0, rotate: [270, 0] },
+  drag: { scale: 0, rotate: [360, 0] },
   return: {
     scale: 1,
     rotate: 0,

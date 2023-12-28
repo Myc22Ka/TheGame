@@ -17,6 +17,17 @@ $font-size-small: clamp(0.6rem, 4vw, 2rem);
 
 // Piece:
 $pieceSize: 85px;
+$pieceCol: #ed8f8f;
+$pieces: (
+  "multiplier": adjust-hue($pieceCol, 0),
+  "flatIncome": adjust-hue($pieceCol, 20),
+  "luck": adjust-hue($pieceCol, 40),
+  "power": adjust-hue($pieceCol, 60),
+  "speed": adjust-hue($pieceCol, 80),
+  "time": adjust-hue($pieceCol, 100),
+  "discount": adjust-hue($pieceCol, 120),
+  "resistance": adjust-hue($pieceCol, 140),
+);
 
 // misc:
 $shadow:
@@ -30,4 +41,14 @@ $border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+// keyframes:
+@keyframes rainbow {
+  @for $i from 0 through 25 {
+    #{$i * 4%} {
+      background-color: adjust-hue($pieceCol, $i * calc(360 / 26));
+      fill: darken(adjust-hue($pieceCol, $i * calc(360 / 26)), 35);
+    }
+  }
 }

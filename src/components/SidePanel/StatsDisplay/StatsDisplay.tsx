@@ -3,8 +3,15 @@ import { useScore } from "../../../contexts/ScoreContext";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import {
   IconDefinition,
+  faArrowsDownToLine,
+  faBolt,
+  faClock,
+  faClover,
+  faForwardFast,
   faGaugeHigh,
+  faLightbulb,
   faMoneyBillTrendUp,
+  faShieldCat,
   faSquarePollVertical,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +20,17 @@ import styles from "../../../styles/style.module.scss";
 const StatsDisplay: React.FC = () => {
   const { score } = useScore();
 
-  const icons: IconDefinition[] = [faGaugeHigh, faMoneyBillTrendUp];
+  const icons: IconDefinition[] = [
+    faGaugeHigh,
+    faMoneyBillTrendUp,
+    faBolt,
+    faClover,
+    faForwardFast,
+    faClock,
+    faArrowsDownToLine,
+    faShieldCat,
+    faLightbulb,
+  ];
 
   const changeCammelCaseToSpace = (text: string) => {
     const result = text.replace(/([A-Z])/g, " $1");
@@ -52,7 +69,9 @@ const StatsDisplay: React.FC = () => {
                 </div>
               </Col>
               <Col style={{ flex: 0 }}>
-                <div>{parseFloat(value.toFixed(1))}</div>
+                <div>{`${parseFloat(value.toFixed(1))}${
+                  [4, 5, 6, 7].includes(index) ? "%" : ""
+                }`}</div>
               </Col>
             </Row>
           );

@@ -10,11 +10,9 @@ interface CellProps {
 const variants = {
   active: {
     scale: 1,
-    borderRadius: 10,
   },
   inactive: {
     scale: 0,
-    borderRadius: 100,
   },
 };
 
@@ -22,7 +20,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
   return (
     <div className="cell">
       <motion.div
-        className={cell.insideCell.rule}
+        className={`piece ${cell.insideCell.rule}`}
         initial="initial"
         variants={variants}
         transition={pieceTransition}

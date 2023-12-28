@@ -10,6 +10,8 @@ import {
   pieceVariants,
 } from "../../../../modules/Piece/utils";
 import { useMarket } from "../../../../contexts/MarketContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 type MarketCellProps = {
   piece: PieceType;
@@ -76,7 +78,9 @@ const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
         transition={pieceTransition}
         onAnimationComplete={animationCompleteHandle}
         ref={pieceRef}
-      />
+      >
+        <FontAwesomeIcon icon={faCoins} size="3x" className="icon" />
+      </motion.div>
       <PieceInfo piece={piece} />
     </Stack>
   );

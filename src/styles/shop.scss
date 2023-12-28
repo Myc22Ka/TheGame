@@ -30,18 +30,28 @@
   top: -50%;
 }
 
-.gold,
-.gold_add {
+.piece {
   transition: background-color 0.1s ease-in-out;
-  background: lightseagreen;
   width: $pieceSize;
   height: $pieceSize;
   border-radius: 1rem;
   position: relative;
   box-shadow: 0px 0px 15px 5px $third;
-}
-.gold_add {
-  background: lightsalmon;
+  @include flex-center;
+  @each $name, $color in $pieces {
+    &.#{$name} {
+      background-color: $color;
+      path {
+        fill: darken($color, 35);
+      }
+    }
+  }
+  &.booster {
+    animation: rainbow 1s infinite alternate;
+    path {
+      fill: inherit;
+    }
+  }
 }
 
 .devider {
@@ -62,6 +72,9 @@
     }
     position: relative;
     &.locked {
+      .icon path {
+        fill: $background;
+      }
       .piece,
       .uses,
       .price {
