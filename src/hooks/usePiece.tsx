@@ -5,7 +5,6 @@ import {
   findNearestCell,
   calcCenterPoint,
   defaultCords,
-  pieceTransition,
 } from "../modules/Piece/utils";
 import {
   AnimationsType,
@@ -13,12 +12,13 @@ import {
   PieceType,
 } from "../modules/Piece/types";
 import { useScore } from "../contexts/ScoreContext";
+import { getPieceTransition } from "../modules/game_utils";
 
 export const usePiece = (p: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold, updateActivators } = useScore();
+  const { removeSomeGold, updateActivators, score } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -63,7 +63,7 @@ export const usePiece = (p: PieceType) => {
         updateActivators(p.activators);
         changePieceAnimation("exit");
       },
-      (+pieceTransition.duration - 0.2) * 1000
+      (getPieceTransition(score).duration - 0.2) * 1000
     );
   }, [tile]);
 

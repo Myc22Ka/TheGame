@@ -11,8 +11,17 @@ type InfoPropsType = {
 const Info: React.FC<InfoPropsType> = ({ piece }) => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  /**
+   * Function closes info menu.
+   * @returns {void}
+   */
+  const handleClose = (): void => setShow(false);
+
+  /**
+   * Function opens info menu.
+   * @returns {void}
+   */
+  const handleShow = (): void => setShow(true);
 
   return (
     <React.Fragment>

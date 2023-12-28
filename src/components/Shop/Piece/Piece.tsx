@@ -1,8 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import usePiece from "../../../hooks/usePiece";
-import { pieceTransition, pieceVariants } from "../../../modules/Piece/utils";
+import { pieceVariants, piecesIcons } from "../../../modules/Piece/utils";
 import { PieceType } from "../../../modules/Piece/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getPieceTransition } from "../../../modules/game_utils";
+import { useScore } from "../../../contexts/ScoreContext";
 
 interface PieceProps {
   piece: PieceType;
@@ -10,6 +13,7 @@ interface PieceProps {
 }
 
 const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
+  const { score } = useScore();
   const {
     pieceRef,
     tile,
@@ -40,10 +44,15 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
         drag: { ...pieceVariants.drag, ...tile.vector },
         return: { ...pieceVariants.return, ...tile.vector },
       }}
-      transition={pieceTransition}
+      transition={getPieceTransition(score)}
       onAnimationComplete={animationCompleteHandle}
       ref={pieceRef}
-    />
+    >
+      <FontAwesomeIcon
+        icon={piecesIcons.find((e) => e.role === piece.rule)!.icon}
+        size="3x"
+      />
+    </motion.div>
   );
 };
 

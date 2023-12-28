@@ -46,9 +46,11 @@ const StatsDisplay: React.FC = () => {
                 </div>
               </Col>
               <Col style={{ flex: 0 }}>
-                <div>{`${parseFloat(value.toFixed(1))}${
-                  [4, 5, 6, 7].includes(index) ? "%" : ""
-                }`}</div>
+                <div>
+                  {[4, 5, 6, 7].includes(index)
+                    ? `${parseFloat((value * 100).toFixed(1))}%`
+                    : parseFloat(value.toFixed(1))}
+                </div>
               </Col>
             </Row>
           );

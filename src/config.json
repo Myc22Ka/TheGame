@@ -1,13 +1,13 @@
 {
   "score": {
-    "gold": 222215,
+    "gold": 200,
     "gameStats": {
       "multiplier": 1,
       "flatIncome": 1,
       "power": 1,
       "luck": 0,
-      "speed": 100,
-      "time": 100,
+      "speed": 1,
+      "time": 1,
       "discount": 0,
       "resistance": 0,
       "achievements": 0
@@ -21,15 +21,15 @@
       { "level": 2, "cost": 2 },
       { "level": 3, "cost": 3 }
     ],
-    "maxDragDistance": 200,
-    "maxTrashDistance": 100
+    "maxDragDistance": 200
   },
   "time": {
     "defaultTimeTick": 1,
+    "defaultPieceTransition": 0.7,
     "maxTime": 3600
   },
   "pieces": {
-    "cycleTime": 5,
+    "cycleTime": 15,
     "types": [
       {
         "id": 1,
@@ -48,7 +48,7 @@
         "buy": 40,
         "rule": "flatIncome",
         "level": 1,
-        "uses": 1,
+        "uses": 3,
         "activators": {
           "flatIncome": 1
         }
@@ -61,7 +61,7 @@
         "level": 1,
         "uses": 3,
         "activators": {
-          "flatIncome": 1
+          "power": 1
         }
       },
       {
@@ -72,7 +72,7 @@
         "level": 1,
         "uses": 3,
         "activators": {
-          "flatIncome": 1
+          "luck": 0.1
         }
       },
       {
@@ -83,7 +83,7 @@
         "level": 1,
         "uses": 3,
         "activators": {
-          "flatIncome": 1
+          "speed": 5
         }
       },
       {
@@ -94,7 +94,7 @@
         "level": 1,
         "uses": 3,
         "activators": {
-          "flatIncome": 1
+          "time": 0.25
         }
       },
       {
@@ -105,7 +105,7 @@
         "level": 1,
         "uses": 3,
         "activators": {
-          "flatIncome": 1
+          "discount": 0.25
         }
       },
       {
@@ -116,7 +116,7 @@
         "level": 1,
         "uses": 3,
         "activators": {
-          "flatIncome": 1
+          "resistance": 3
         }
       },
       {
@@ -126,9 +126,7 @@
         "rule": "booster",
         "level": 1,
         "uses": 3,
-        "activators": {
-          "flatIncome": 1
-        }
+        "activators": {}
       }
     ]
   }

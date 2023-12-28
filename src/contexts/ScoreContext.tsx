@@ -10,9 +10,15 @@ import options from "../config.json";
 export type ActivatorsType = {
   multiplier?: number;
   flatIncome?: number;
+  power?: number;
+  luck?: number;
+  speed?: number;
+  time?: number;
+  discount?: number;
+  resistance?: number;
 };
 
-type ScoreType = {
+export type ScoreType = {
   gold: number;
   gameStats: ActivatorsType;
 };

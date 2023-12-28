@@ -14,6 +14,7 @@ import {
   faLightbulb,
   faMoneyBillTrendUp,
   faShieldCat,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 const statsIcons: { role: Roles; icon: IconDefinition }[] = [
@@ -32,7 +33,7 @@ type PieceRoles = Roles | "booster";
 
 const piecesIcons: { role: PieceRoles; icon: IconDefinition }[] = [
   ...statsIcons.slice(0, -1),
-  { icon: faLightbulb, role: "booster" },
+  { icon: faStar, role: "booster" },
 ];
 
 const defaultCords: Cords = { x: 0, y: 0 };
@@ -49,6 +50,7 @@ const defaultCycle: DefaultCycleType = {
   time: options.pieces.cycleTime,
   show: true,
   animate: "",
+  speed: options.time.defaultTimeTick * 1000,
 };
 
 // Piece variables
@@ -68,11 +70,6 @@ const pieceVariants = {
     zIndex: 2,
   },
   exit: { scale: 0, rotate: 0, radius: 0, zIndex: 2 },
-};
-
-const pieceTransition = {
-  duration: 0.7,
-  ease: "anticipate",
 };
 
 /**
@@ -170,7 +167,6 @@ export {
   defaultTile,
   defaultCords,
   generateRandomPiece,
-  pieceTransition,
   pieceVariants,
   defaultCycle,
   setCycleSteps,

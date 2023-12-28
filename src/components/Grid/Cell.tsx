@@ -1,31 +1,26 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { pieceTransition, piecesIcons } from "../../modules/Piece/utils";
+import { piecesIcons } from "../../modules/Piece/utils";
 import { GridEntry } from "../../modules/Piece/types";
 import { Stack } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { gridVariants } from "../../modules/Grid/utils";
+import { getPieceTransition } from "../../modules/game_utils";
+import { useScore } from "../../contexts/ScoreContext";
 
-interface CellProps {
+type CellProps = {
   cell: GridEntry;
-}
-
-const variants = {
-  active: {
-    scale: 1,
-  },
-  inactive: {
-    scale: 0,
-  },
 };
 
 const Cell: React.FC<CellProps> = ({ cell }) => {
+  const { score } = useScore();
   return (
     <Stack className="cell justify-content-center align-items-center">
       <motion.div
         className={`piece ${cell.insideCell.rule}`}
         initial="inactive"
-        variants={variants}
-        transition={pieceTransition}
+        variants={gridVariants}
+        transition={getPieceTransition(score)}
         animate={cell.animate}
       >
         {cell.insideCell.rule ? (

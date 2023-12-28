@@ -11,7 +11,11 @@ const ResizeGridButton: React.FC = () => {
   const { game, resizeGrid } = useGame();
   const { score, removeSomeGold } = useScore();
 
-  const resizeGridHandler = () => {
+  /**
+   * Function is used to change size of grid.
+   * @returns {void}
+   */
+  const resizeGridHandler = (): void => {
     const { maxSize, gridUpgrades } = options.grid;
     if (Math.sqrt(game.grid.length) === maxSize) return;
 

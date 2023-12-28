@@ -43,6 +43,7 @@ type NearestCellType = {
 type DefaultCycleType = {
   piece: PieceType;
   time: number;
+  speed: number;
   show: boolean;
   animate: "" | "exit";
 };
