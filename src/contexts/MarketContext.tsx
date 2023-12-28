@@ -16,7 +16,7 @@ type MarketContentType = {
 };
 
 export const initMarketState: MarketContentType = {
-  pieces: options.pieces.types,
+  pieces: options.pieces.types as PieceType[],
   activeState: "Market",
 };
 

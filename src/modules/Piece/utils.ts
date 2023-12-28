@@ -1,8 +1,39 @@
-import { PieceEventType, PieceType } from "./types";
+import { PieceEventType, PieceType, Roles } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
 import { emptyCell } from "../../contexts/GameContext";
+import {
+  IconDefinition,
+  faArrowsDownToLine,
+  faBolt,
+  faClock,
+  faClover,
+  faForwardFast,
+  faGaugeHigh,
+  faLightbulb,
+  faMoneyBillTrendUp,
+  faShieldCat,
+} from "@fortawesome/free-solid-svg-icons";
+
+const statsIcons: { role: Roles; icon: IconDefinition }[] = [
+  { icon: faGaugeHigh, role: "multiplier" },
+  { icon: faMoneyBillTrendUp, role: "flatIncome" },
+  { icon: faBolt, role: "power" },
+  { icon: faClover, role: "luck" },
+  { icon: faForwardFast, role: "speed" },
+  { icon: faClock, role: "time" },
+  { icon: faArrowsDownToLine, role: "discount" },
+  { icon: faShieldCat, role: "resistance" },
+  { icon: faLightbulb, role: "achievements" },
+];
+
+type PieceRoles = Roles | "booster";
+
+const piecesIcons: { role: PieceRoles; icon: IconDefinition }[] = [
+  ...statsIcons.slice(0, -1),
+  { icon: faLightbulb, role: "booster" },
+];
 
 const defaultCords: Cords = { x: 0, y: 0 };
 
@@ -108,7 +139,7 @@ const calcCenterPoint = (ref: HTMLDivElement): Cords => {
 function generateRandomPiece(): PieceType {
   return options.pieces.types[
     Math.floor(Math.random() * options.pieces.types.length)
-  ];
+  ] as PieceType;
 }
 
 /**
@@ -143,4 +174,6 @@ export {
   pieceVariants,
   defaultCycle,
   setCycleSteps,
+  statsIcons,
+  piecesIcons,
 };

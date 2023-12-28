@@ -1,7 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { pieceTransition } from "../../modules/Piece/utils";
+import { pieceTransition, piecesIcons } from "../../modules/Piece/utils";
 import { GridEntry } from "../../modules/Piece/types";
+import { Stack } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface CellProps {
   cell: GridEntry;
@@ -18,15 +20,24 @@ const variants = {
 
 const Cell: React.FC<CellProps> = ({ cell }) => {
   return (
-    <div className="cell">
+    <Stack className="cell justify-content-center align-items-center">
       <motion.div
         className={`piece ${cell.insideCell.rule}`}
-        initial="initial"
+        initial="inactive"
         variants={variants}
         transition={pieceTransition}
         animate={cell.animate}
-      />
-    </div>
+      >
+        {cell.insideCell.rule ? (
+          <FontAwesomeIcon
+            icon={
+              piecesIcons.find((e) => e.role === cell.insideCell.rule)!.icon
+            }
+            size="3x"
+          />
+        ) : null}
+      </motion.div>
+    </Stack>
   );
 };
 

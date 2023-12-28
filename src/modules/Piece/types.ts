@@ -1,5 +1,8 @@
 import { ActivatorsType } from "../../contexts/ScoreContext";
 import { GridEntry } from "../Grid/types";
+import options from "../../config.json";
+
+type Roles = keyof typeof options.score.gameStats | "";
 
 type AnimationsType =
   | "active"
@@ -17,7 +20,7 @@ type Cords = {
 type PieceType = {
   description: string;
   buy: number;
-  rule: string;
+  rule: Roles;
   level: number;
   uses: number;
   id: number;
@@ -55,4 +58,5 @@ export type {
   GridEntry,
   AnimationsType,
   PieceEventType,
+  Roles,
 };

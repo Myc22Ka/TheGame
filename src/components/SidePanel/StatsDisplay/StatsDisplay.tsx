@@ -1,36 +1,13 @@
 import React from "react";
 import { useScore } from "../../../contexts/ScoreContext";
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import {
-  IconDefinition,
-  faArrowsDownToLine,
-  faBolt,
-  faClock,
-  faClover,
-  faForwardFast,
-  faGaugeHigh,
-  faLightbulb,
-  faMoneyBillTrendUp,
-  faShieldCat,
-  faSquarePollVertical,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "../../../styles/style.module.scss";
+import { statsIcons } from "../../../modules/Piece/utils";
 
 const StatsDisplay: React.FC = () => {
   const { score } = useScore();
-
-  const icons: IconDefinition[] = [
-    faGaugeHigh,
-    faMoneyBillTrendUp,
-    faBolt,
-    faClover,
-    faForwardFast,
-    faClock,
-    faArrowsDownToLine,
-    faShieldCat,
-    faLightbulb,
-  ];
 
   const changeCammelCaseToSpace = (text: string) => {
     const result = text.replace(/([A-Z])/g, " $1");
@@ -58,7 +35,7 @@ const StatsDisplay: React.FC = () => {
             <Row key={key}>
               <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
                 <FontAwesomeIcon
-                  icon={icons[index]}
+                  icon={statsIcons[index].icon}
                   size="lg"
                   color={styles.main}
                 />

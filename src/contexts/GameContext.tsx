@@ -8,7 +8,6 @@ import React, {
 import options from "../config.json";
 import { GridEntry, PieceType } from "../modules/Piece/types";
 import { GameType } from "../modules/Game/types";
-import { useScore } from "./ScoreContext";
 
 export const emptyPiece: PieceType = {
   description: "",

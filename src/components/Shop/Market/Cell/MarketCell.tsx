@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Stack } from "react-bootstrap";
 import { PieceType } from "../../../../modules/Piece/types";
 import { useScore } from "../../../../contexts/ScoreContext";
@@ -10,14 +10,13 @@ import {
   pieceVariants,
 } from "../../../../modules/Piece/utils";
 import { useMarket } from "../../../../contexts/MarketContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 type MarketCellProps = {
   piece: PieceType;
+  children?: ReactNode;
 };
 
-const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
+const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
   const { score } = useScore();
   const { changeMarketState } = useMarket();
   const {
@@ -79,7 +78,7 @@ const MarketCell: React.FC<MarketCellProps> = ({ piece }) => {
         onAnimationComplete={animationCompleteHandle}
         ref={pieceRef}
       >
-        <FontAwesomeIcon icon={faCoins} size="3x" className="icon" />
+        {children}
       </motion.div>
       <PieceInfo piece={piece} />
     </Stack>
