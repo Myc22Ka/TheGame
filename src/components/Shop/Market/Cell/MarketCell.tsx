@@ -16,7 +16,7 @@ type MarketCellProps = {
 
 const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
   const { score } = useScore();
-  const { changeMarketState } = useMarket();
+  const { changeMarketState, changePrices } = useMarket();
   const {
     pieceRef,
     tile,

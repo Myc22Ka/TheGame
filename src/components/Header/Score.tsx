@@ -16,7 +16,7 @@ const Score: React.FC = () => {
     if (!game.gameOver) interval = setInterval(() => addGold(), getTime(score));
 
     return () => clearInterval(interval);
-  });
+  }, []);
 
   return (
     <Stack

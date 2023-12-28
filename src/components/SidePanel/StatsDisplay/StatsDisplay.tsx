@@ -30,12 +30,12 @@ const StatsDisplay: React.FC = () => {
         <div>Stats Display</div>
       </Stack>
       <Container>
-        {Object.entries(score.gameStats).map(([key, value], index) => {
+        {Object.entries(score.gameStats).map(([key, value]) => {
           return (
             <Row key={key}>
               <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
                 <FontAwesomeIcon
-                  icon={statsIcons[index].icon}
+                  icon={statsIcons.find((e) => e.role === key)!.icon}
                   size="lg"
                   color={styles.main}
                 />
@@ -47,7 +47,7 @@ const StatsDisplay: React.FC = () => {
               </Col>
               <Col style={{ flex: 0 }}>
                 <div>
-                  {[4, 5, 6, 7].includes(index)
+                  {["speed", "discount", "resistance"].includes(key)
                     ? `${parseFloat((value * 100).toFixed(1))}%`
                     : parseFloat(value.toFixed(1))}
                 </div>

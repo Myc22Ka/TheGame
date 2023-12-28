@@ -1,8 +1,10 @@
-import { ActivatorsType } from "../../contexts/ScoreContext";
 import { GridEntry } from "../Grid/types";
 import options from "../../config.json";
+import { ActivatorsType } from "../Score/types";
 
 type Roles = keyof typeof options.score.gameStats | "";
+
+type ExtraRoles = "booster" | "ads_remover";
 
 type AnimationsType =
   | "active"
@@ -60,4 +62,5 @@ export type {
   AnimationsType,
   PieceEventType,
   Roles,
+  ExtraRoles,
 };

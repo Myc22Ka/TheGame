@@ -7,13 +7,8 @@ import React, {
 } from "react";
 import { PieceType } from "../modules/Piece/types";
 import options from "../config.json";
-
-export type ActiveStateType = "Market" | "Upgrades";
-
-type MarketContentType = {
-  pieces: PieceType[];
-  activeState: ActiveStateType;
-};
+import { ActiveStateType, MarketContentType } from "../modules/Market/types";
+import { ScoreType } from "../modules/Score/types";
 
 export const initMarketState: MarketContentType = {
   pieces: options.pieces.types as PieceType[],
@@ -45,13 +40,28 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
     [setMarketContent]
   );
 
-  return { changeActiveState, changeMarketState, marketContent };
+  const changePrices = useCallback(
+    (score: ScoreType) => {
+      console.log("hi");
+      setMarketContent((prev) => ({
+        ...prev,
+        pieces: prev.pieces.map((e) => ({
+          ...e,
+          buy: Math.round(e.buy * (1 - (score.gameStats?.discount || 0))),
+        })),
+      }));
+    },
+    [setMarketContent]
+  );
+
+  return { changeActiveState, changeMarketState, marketContent, changePrices };
 };
 
 const initContextState: ReturnType<typeof useMarketContext> = {
   marketContent: initMarketState,
   changeActiveState: () => {},
   changeMarketState: () => {},
+  changePrices: () => {},
 };
 
 export const MarketContext = createContext(initContextState);
@@ -72,12 +82,13 @@ export const MarketProvider = ({
 };
 
 export const useMarket = () => {
-  const { changeActiveState, changeMarketState, marketContent } =
+  const { changeActiveState, changeMarketState, marketContent, changePrices } =
     useContext(MarketContext);
 
   return {
     changeActiveState,
     changeMarketState,
     marketContent,
+    changePrices,
   };
 };

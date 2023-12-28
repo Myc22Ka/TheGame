@@ -12,13 +12,13 @@ const RandomPieceGen: React.FC = () => {
 
   useEffect(() => {
     let currentIndex = 0;
-    let timeoutId: number;
+    let timeout: ReturnType<typeof setTimeout>;
 
     const cycleSequence = async () => {
       const cycles = setCycleSteps(currentIndex);
       await new Promise((resolve) => {
         setCycle(cycles[currentIndex]);
-        timeoutId = window.setTimeout(resolve, getTime(score));
+        timeout = setTimeout(resolve, getTime(score));
       });
 
       currentIndex = (currentIndex + 1) % cycles.length;
@@ -27,7 +27,7 @@ const RandomPieceGen: React.FC = () => {
 
     cycleSequence();
 
-    return () => window.clearTimeout(timeoutId);
+    return () => clearTimeout(timeout);
   }, [score.gameStats.speed]);
 
   return (

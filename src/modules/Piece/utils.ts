@@ -1,13 +1,12 @@
-import { PieceEventType, PieceType, Roles } from "./types";
+import { PieceEventType, PieceType, Roles, ExtraRoles } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
-import { emptyCell } from "../../contexts/GameContext";
 import {
   IconDefinition,
   faArrowsDownToLine,
+  faBan,
   faBolt,
-  faClock,
   faClover,
   faForwardFast,
   faGaugeHigh,
@@ -16,6 +15,7 @@ import {
   faShieldCat,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import { emptyCell } from "../Game/utils";
 
 const statsIcons: { role: Roles; icon: IconDefinition }[] = [
   { icon: faGaugeHigh, role: "multiplier" },
@@ -23,17 +23,17 @@ const statsIcons: { role: Roles; icon: IconDefinition }[] = [
   { icon: faBolt, role: "power" },
   { icon: faClover, role: "luck" },
   { icon: faForwardFast, role: "speed" },
-  { icon: faClock, role: "time" },
   { icon: faArrowsDownToLine, role: "discount" },
   { icon: faShieldCat, role: "resistance" },
   { icon: faLightbulb, role: "achievements" },
 ];
 
-type PieceRoles = Roles | "booster";
+type PieceRoles = Roles | ExtraRoles;
 
 const piecesIcons: { role: PieceRoles; icon: IconDefinition }[] = [
   ...statsIcons.slice(0, -1),
   { icon: faStar, role: "booster" },
+  { icon: faBan, role: "ads_remover" },
 ];
 
 const defaultCords: Cords = { x: 0, y: 0 };

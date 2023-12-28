@@ -8,26 +8,7 @@ import React, {
 import options from "../config.json";
 import { GridEntry, PieceType } from "../modules/Piece/types";
 import { GameType } from "../modules/Game/types";
-
-export const emptyPiece: PieceType = {
-  description: "",
-  buy: 0,
-  rule: "",
-  level: 0,
-  uses: 0,
-  id: 0,
-  activators: {
-    multiplier: 0,
-    flatIncome: 0,
-  },
-};
-
-export const emptyCell: GridEntry = {
-  insideCell: emptyPiece,
-  ref: null,
-  isEmpty: true,
-  animate: "inactive",
-};
+import { emptyCell } from "../modules/Game/utils";
 
 export const initGameState: GameType = {
   gameOver: false,
@@ -86,7 +67,9 @@ const useGameContext = (defaultGame: GameType) => {
   );
 
   const resizeGrid = useCallback(() => {
-    if (game.size === options.grid.maxSize) return;
+    const { defaultSize, gridUpgrades } = options.grid;
+
+    if (game.size === defaultSize + gridUpgrades.length) return;
 
     setGame((prev) => {
       const newTable = new Array(Math.pow(prev.size + 1, 2)).fill(emptyCell);
@@ -101,7 +84,7 @@ const useGameContext = (defaultGame: GameType) => {
         size: prev.size + 1,
       };
     });
-  }, [game, options.grid.maxSize, setGame]);
+  }, [game, setGame]);
 
   return {
     game,

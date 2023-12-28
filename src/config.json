@@ -1,13 +1,12 @@
 {
   "score": {
-    "gold": 200,
+    "gold": 12200,
     "gameStats": {
       "multiplier": 1,
       "flatIncome": 1,
       "power": 1,
       "luck": 0,
       "speed": 1,
-      "time": 1,
       "discount": 0,
       "resistance": 0,
       "achievements": 0
@@ -15,11 +14,10 @@
   },
   "grid": {
     "defaultSize": 2,
-    "maxSize": 5,
     "gridUpgrades": [
-      { "level": 1, "cost": 1 },
-      { "level": 2, "cost": 2 },
-      { "level": 3, "cost": 3 }
+      { "level": 1, "cost": 100 },
+      { "level": 2, "cost": 200 },
+      { "level": 3, "cost": 300 }
     ],
     "maxDragDistance": 200
   },
@@ -89,17 +87,6 @@
       {
         "id": 6,
         "description": "Some text",
-        "buy": 1000,
-        "rule": "time",
-        "level": 1,
-        "uses": 3,
-        "activators": {
-          "time": 0.25
-        }
-      },
-      {
-        "id": 7,
-        "description": "Some text",
         "buy": 1200,
         "rule": "discount",
         "level": 1,
@@ -109,7 +96,7 @@
         }
       },
       {
-        "id": 8,
+        "id": 7,
         "description": "Some text",
         "buy": 120,
         "rule": "resistance",
@@ -120,13 +107,24 @@
         }
       },
       {
-        "id": 9,
+        "id": 8,
         "description": "Some text",
         "buy": 10000,
         "rule": "booster",
         "level": 1,
         "uses": 3,
         "activators": {}
+      },
+      {
+        "id": 9,
+        "description": "Some text",
+        "buy": 9999,
+        "rule": "ads_remover",
+        "level": 1,
+        "uses": 3,
+        "activators": {
+          "luck": 0.1
+        }
       }
     ]
   }

@@ -20,11 +20,13 @@ const Grid: React.FC = () => {
         )}, 1fr)`,
       }}
     >
-      {marketContent.pieces.map((piece, i) => (
-        <MarketCell piece={piece} key={i}>
-          <FontAwesomeIcon icon={piecesIcons[i].icon} size="3x" />
-        </MarketCell>
-      ))}
+      {marketContent.pieces.map((piece, i) => {
+        return (
+          <MarketCell piece={piece} key={i}>
+            <FontAwesomeIcon icon={piecesIcons[i].icon} size="3x" />
+          </MarketCell>
+        );
+      })}
     </div>
   );
 };

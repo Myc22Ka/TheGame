@@ -13,8 +13,9 @@ import {
 } from "../modules/Piece/types";
 import { useScore } from "../contexts/ScoreContext";
 import { getPieceTransition } from "../modules/game_utils";
+import { useMarket } from "../contexts/MarketContext";
 
-export const usePiece = (p: PieceType) => {
+export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
@@ -41,7 +42,7 @@ export const usePiece = (p: PieceType) => {
         }));
         return;
       }
-      if (takeMoney) removeSomeGold(p.buy);
+      if (takeMoney) removeSomeGold(piece.buy);
       setTile((prev) => ({
         ...prev,
         animate: "drag",
@@ -59,8 +60,8 @@ export const usePiece = (p: PieceType) => {
   const addToGrid = useCallback(() => {
     setTimeout(
       () => {
-        addPieceToCell(tile.nearestCell, p);
-        updateActivators(p.activators);
+        addPieceToCell(tile.nearestCell, piece);
+        updateActivators(piece.activators);
         changePieceAnimation("exit");
       },
       (getPieceTransition(score).duration - 0.2) * 1000

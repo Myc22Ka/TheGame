@@ -6,22 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import options from "../config.json";
-
-export type ActivatorsType = {
-  multiplier?: number;
-  flatIncome?: number;
-  power?: number;
-  luck?: number;
-  speed?: number;
-  time?: number;
-  discount?: number;
-  resistance?: number;
-};
-
-export type ScoreType = {
-  gold: number;
-  gameStats: ActivatorsType;
-};
+import { ActivatorsType, ScoreType } from "../modules/Score/types";
 
 export const initState: ScoreType = options.score;
 
