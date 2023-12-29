@@ -12,8 +12,7 @@ import {
   PieceType,
 } from "../modules/Piece/types";
 import { useScore } from "../contexts/ScoreContext";
-import { getPieceTransition } from "../modules/game_utils";
-import { useMarket } from "../contexts/MarketContext";
+import { getPieceTransition, getTime } from "../modules/game_utils";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
@@ -54,7 +53,10 @@ export const usePiece = (piece: PieceType) => {
   );
 
   const setDefaultValues = useCallback(() => {
-    setTile({ ...defaultTile, animate: "reset" });
+    setTimeout(
+      () => setTile({ ...defaultTile, animate: "reset" }),
+      getTime(score) / 2
+    );
   }, [tile]);
 
   const addToGrid = useCallback(() => {

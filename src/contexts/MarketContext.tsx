@@ -4,11 +4,13 @@ import React, {
   createContext,
   ReactElement,
   useCallback,
+  useEffect,
 } from "react";
 import { PieceType } from "../modules/Piece/types";
 import options from "../config.json";
 import { ActiveStateType, MarketContentType } from "../modules/Market/types";
 import { ScoreType } from "../modules/Score/types";
+import { useScore } from "./ScoreContext";
 
 export const initMarketState: MarketContentType = {
   pieces: options.pieces.types as PieceType[],
@@ -42,7 +44,6 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
 
   const changePrices = useCallback(
     (score: ScoreType) => {
-      console.log("hi");
       setMarketContent((prev) => ({
         ...prev,
         pieces: prev.pieces.map((e) => ({
@@ -74,8 +75,15 @@ export const MarketProvider = ({
   children,
   ...initState
 }: ChildrenType & MarketContentType) => {
+  const { score } = useScore();
+  const { changePrices, ...contextValue } = useMarketContext(initState);
+
+  useEffect(() => {
+    changePrices(score);
+  }, [score.gameStats.discount]);
+
   return (
-    <MarketContext.Provider value={useMarketContext(initState)}>
+    <MarketContext.Provider value={{ ...contextValue, changePrices }}>
       {children}
     </MarketContext.Provider>
   );

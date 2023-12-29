@@ -1,6 +1,6 @@
 {
   "score": {
-    "gold": 12200,
+    "gold": 200,
     "gameStats": {
       "multiplier": 1,
       "flatIncome": 1,
@@ -87,7 +87,7 @@
       {
         "id": 6,
         "description": "Some text",
-        "buy": 1200,
+        "buy": 100,
         "rule": "discount",
         "level": 1,
         "uses": 3,

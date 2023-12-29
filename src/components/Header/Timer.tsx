@@ -16,9 +16,10 @@ const Timer: React.FC = () => {
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
+
     if (currentTime > 0)
       interval = setInterval(
-        () => setCurrentTime(currentTime - 1),
+        () => setCurrentTime((prev) => prev - 1),
         getTime(score)
       );
 

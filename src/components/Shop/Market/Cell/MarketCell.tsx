@@ -16,7 +16,7 @@ type MarketCellProps = {
 
 const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
   const { score } = useScore();
-  const { changeMarketState, changePrices } = useMarket();
+  const { changeMarketState } = useMarket();
   const {
     pieceRef,
     tile,
@@ -41,7 +41,8 @@ const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
     if (tile.animate === "drag") {
       addToGrid();
       changeMarketState(decreasePieceUse(piece));
-      setTimeout(setDefaultValues, 500);
+
+      setDefaultValues();
     }
     if (["return", "reset"].includes(tile.animate)) {
       changePieceAnimation("inactive");
