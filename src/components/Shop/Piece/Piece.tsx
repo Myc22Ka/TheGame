@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import usePiece from "../../../hooks/usePiece";
 import { pieceVariants, piecesIcons } from "../../../modules/Piece/utils";
@@ -28,8 +28,18 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
     if (tile.animate === "drag") {
       addToGrid();
     }
-    if (tile.animate === "return") changePieceAnimation("return");
+    if (tile.animate === "return") {
+      changePieceAnimation("return");
+      setTimeout(
+        () => changePieceAnimation("inactive"),
+        getPieceTransition(score).duration
+      );
+    }
   };
+
+  useEffect(() => {
+    console.log(tile.animate);
+  }, [tile]);
 
   return (
     <motion.div

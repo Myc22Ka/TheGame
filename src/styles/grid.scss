@@ -5,12 +5,11 @@
     $size: clamp(350px, 80vw, 800px);
     height: $size;
     width: $size;
-    color: $main;
     display: grid;
     gap: 3px;
     .cell {
       box-sizing: border-box;
-      border: 3px solid $main;
+      border: 3px solid white;
       border-radius: $border-radius;
       background-color: $third;
       box-shadow: $shadow;

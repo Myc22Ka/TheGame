@@ -27,7 +27,7 @@
     "maxTime": 3600
   },
   "pieces": {
-    "cycleTime": 15,
+    "cycleTime": 4,
     "types": [
       {
         "id": 1,

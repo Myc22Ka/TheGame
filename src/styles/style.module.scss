@@ -6,4 +6,8 @@
   main: $main;
   font: $font;
   background: $background;
+
+  @each $name, $color in $pieces {
+    #{$name}: $color;
+  }
 }

@@ -1,11 +1,12 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCoins, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useGame } from "../../contexts/GameContext";
 import { useScore } from "../../contexts/ScoreContext";
 import options from "../../config.json";
-import { Button, Stack } from "react-bootstrap";
+import { Button, OverlayTrigger, Popover, Stack } from "react-bootstrap";
 import { motion } from "framer-motion";
+import styles from "../../styles/style.module.scss";
 
 const ResizeGridButton: React.FC = () => {
   const { game, resizeGrid } = useGame();
@@ -33,16 +34,39 @@ const ResizeGridButton: React.FC = () => {
     options.grid.defaultSize + options.grid.gridUpgrades.length;
 
   return (
-    <motion.div whileTap={{ scale: isMaxed ? 1 : 0.95 }}>
-      <Button variant="main" onClick={resizeGridHandler} disabled={isMaxed}>
-        <Stack gap={3} direction="horizontal">
-          <FontAwesomeIcon icon={faPlus} />
-          <span className="text text-uppercase fw-bold">
-            {isMaxed ? "Max Cells" : "Add Cells"}
-          </span>
-        </Stack>
-      </Button>
-    </motion.div>
+    <Stack direction="horizontal" gap={2}>
+      <OverlayTrigger
+        trigger="hover"
+        placement="left"
+        overlay={
+          <Popover id="popover-positioned-right">
+            <Popover.Body className="p-2">
+              <Stack direction="horizontal" gap={1} className="cost-btn">
+                <div className="amount">
+                  {
+                    options.grid.gridUpgrades[
+                      Math.sqrt(game.grid.length) - options.grid.defaultSize
+                    ].cost
+                  }
+                </div>
+                <div>
+                  <FontAwesomeIcon icon={faCoins} color={styles.main} />
+                </div>
+              </Stack>
+            </Popover.Body>
+          </Popover>
+        }
+      >
+        <Button variant="main" onClick={resizeGridHandler} disabled={isMaxed}>
+          <Stack gap={3} direction="horizontal">
+            <FontAwesomeIcon icon={faPlus} />
+            <span className="text text-uppercase fw-bold">
+              {isMaxed ? "Max Cells" : "Add Cells"}
+            </span>
+          </Stack>
+        </Button>
+      </OverlayTrigger>
+    </Stack>
   );
 };
 

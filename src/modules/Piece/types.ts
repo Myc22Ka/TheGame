@@ -6,6 +6,8 @@ type Roles = keyof typeof options.score.gameStats | "";
 
 type ExtraRoles = "booster" | "ads_remover";
 
+type PieceRoles = Roles | ExtraRoles;
+
 type AnimationsType =
   | "active"
   | "drag"
@@ -62,5 +64,5 @@ export type {
   AnimationsType,
   PieceEventType,
   Roles,
-  ExtraRoles,
+  PieceRoles,
 };

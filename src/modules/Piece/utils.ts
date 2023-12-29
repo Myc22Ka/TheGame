@@ -1,4 +1,4 @@
-import { PieceEventType, PieceType, Roles, ExtraRoles } from "./types";
+import { PieceEventType, PieceType, Roles, PieceRoles } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
@@ -28,8 +28,6 @@ const statsIcons: { role: Roles; icon: IconDefinition }[] = [
   { icon: faLightbulb, role: "achievements" },
 ];
 
-type PieceRoles = Roles | ExtraRoles;
-
 const piecesIcons: { role: PieceRoles; icon: IconDefinition }[] = [
   ...statsIcons.slice(0, -1),
   { icon: faStar, role: "booster" },
@@ -55,7 +53,10 @@ const defaultCycle: DefaultCycleType = {
 
 // Piece variables
 const pieceVariants = {
-  initial: { scale: 0, rotate: 0 },
+  initial: {
+    scale: 0,
+    rotate: 0,
+  },
   active: { scale: 1, rotate: 0, zIndex: 10 },
   inactive: { scale: 1, rotate: 0, zIndex: 1 },
   drag: { scale: 0, rotate: [360, 0] },
@@ -69,7 +70,7 @@ const pieceVariants = {
     rotate: 0,
     zIndex: 2,
   },
-  exit: { scale: 0, rotate: 0, radius: 0, zIndex: 2 },
+  exit: { scale: 0, rotate: 0, zIndex: 2 },
 };
 
 /**
