@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "../../styles/grid.scss";
-import Cell from "./Cell";
+import Cell from "./Cell/Cell";
 import { useGame } from "../../contexts/GameContext";
 
 const Grid: React.FC = () => {

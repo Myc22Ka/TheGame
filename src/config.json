@@ -34,7 +34,7 @@
         "description": "Some text1",
         "buy": 20,
         "rule": "multiplier",
-        "level": 1,
+        "level": 2,
         "uses": 3,
         "activators": {
           "multiplier": 0.2

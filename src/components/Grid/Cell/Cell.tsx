@@ -1,13 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { piecesIcons } from "../../modules/Piece/utils";
-import { GridEntry } from "../../modules/Piece/types";
+import { GridEntry } from "../../../modules/Piece/types";
 import { Stack } from "react-bootstrap";
+import { gridVariants } from "../../../modules/Grid/utils";
+import { getPieceTransition } from "../../../modules/game_utils";
+import { useScore } from "../../../contexts/ScoreContext";
+import styles from "../../../styles/style.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { gridVariants } from "../../modules/Grid/utils";
-import { getPieceTransition } from "../../modules/game_utils";
-import { useScore } from "../../contexts/ScoreContext";
-import styles from "../../styles/style.module.scss";
+import { piecesIcons } from "../../../modules/Piece/utils";
+import Levels from "./Levels";
+import { useGame } from "../../../contexts/GameContext";
 
 type CellProps = {
   cell: GridEntry;
@@ -15,11 +17,24 @@ type CellProps = {
 
 const Cell: React.FC<CellProps> = ({ cell }) => {
   const { score } = useScore();
+  const { levelUp } = useGame();
   return (
     <Stack
       className="cell justify-content-center align-items-center"
       style={{ borderColor: styles[cell.insideCell.rule] }}
+      onClick={() => levelUp(cell)}
     >
+      {cell.insideCell.rule ? (
+        <motion.div
+          initial="inactive"
+          variants={gridVariants}
+          className="levels"
+          transition={getPieceTransition(score)}
+          animate={cell.animate}
+        >
+          <Levels cell={cell} />
+        </motion.div>
+      ) : null}
       <motion.div
         className={`piece ${cell.insideCell.rule}`}
         initial="inactive"

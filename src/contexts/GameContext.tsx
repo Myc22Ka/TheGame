@@ -86,12 +86,35 @@ const useGameContext = (defaultGame: GameType) => {
     });
   }, [game, setGame]);
 
+  const levelUp = useCallback(
+    (cell: GridEntry) => {
+      setGame((prev) => {
+        const updatedGrid = prev.grid.map((gridCell) => {
+          if (gridCell.insideCell.id === cell.insideCell.id) {
+            return {
+              ...gridCell,
+              insideCell: {
+                ...gridCell.insideCell,
+                level: gridCell.insideCell.level + 1,
+              },
+            };
+          }
+          return gridCell;
+        });
+
+        return { ...prev, grid: updatedGrid };
+      });
+    },
+    [setGame]
+  );
+
   return {
     game,
     gameLoseEvent,
     resizeGrid,
     defineRefForCells,
     addPieceToCell,
+    levelUp,
   };
 };
 
@@ -101,6 +124,7 @@ const initContextState: ReturnType<typeof useGameContext> = {
   resizeGrid: () => {},
   defineRefForCells: () => {},
   addPieceToCell: () => {},
+  levelUp: () => {},
 };
 
 export const GameContext = createContext(initContextState);
@@ -121,8 +145,14 @@ export const GameProvider = ({
 };
 
 export const useGame = () => {
-  const { game, gameLoseEvent, resizeGrid, defineRefForCells, addPieceToCell } =
-    useContext(GameContext);
+  const {
+    game,
+    gameLoseEvent,
+    resizeGrid,
+    defineRefForCells,
+    addPieceToCell,
+    levelUp,
+  } = useContext(GameContext);
 
   return {
     game,
@@ -130,5 +160,6 @@ export const useGame = () => {
     resizeGrid,
     defineRefForCells,
     addPieceToCell,
+    levelUp,
   };
 };

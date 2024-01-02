@@ -4,6 +4,7 @@ import React, {
   createContext,
   ReactElement,
   useCallback,
+  useEffect,
 } from "react";
 import options from "../config.json";
 import { ActivatorsType, ScoreType } from "../modules/Score/types";
@@ -38,6 +39,10 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [setScore]
   );
 
+  const speedUp = useCallback(() => {
+    return (options.time.defaultTimeTick / (score.gameStats.speed || 1)) * 1000;
+  }, [score]);
+
   const updateActivators = useCallback(
     (activators: ActivatorsType) => {
       setScore((prev) => {
@@ -54,7 +59,14 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [setScore]
   );
 
-  return { score, addGold, updateActivators, removeSomeGold, addSomeGold };
+  return {
+    score,
+    addGold,
+    updateActivators,
+    removeSomeGold,
+    addSomeGold,
+    speedUp,
+  };
 };
 
 const initContextState: ReturnType<typeof useScoreContext> = {
@@ -63,6 +75,9 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   updateActivators: () => {},
   removeSomeGold: () => {},
   addSomeGold: () => {},
+  speedUp: () => {
+    return 0;
+  },
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -83,8 +98,21 @@ export const ScoreProvider = ({
 };
 
 export const useScore = () => {
-  const { score, updateActivators, addGold, removeSomeGold, addSomeGold } =
-    useContext(ScoreContext);
+  const {
+    score,
+    updateActivators,
+    addGold,
+    removeSomeGold,
+    addSomeGold,
+    speedUp,
+  } = useContext(ScoreContext);
 
-  return { score, updateActivators, addGold, removeSomeGold, addSomeGold };
+  return {
+    score,
+    updateActivators,
+    addGold,
+    removeSomeGold,
+    addSomeGold,
+    speedUp,
+  };
 };

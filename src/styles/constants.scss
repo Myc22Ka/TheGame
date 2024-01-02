@@ -52,3 +52,15 @@ $border-radius: 10px;
     }
   }
 }
+
+@keyframes fadeColor {
+  0% {
+    color: #ffffff;
+  }
+  50% {
+    color: $error;
+  }
+  100% {
+    color: #ffffff;
+  }
+}

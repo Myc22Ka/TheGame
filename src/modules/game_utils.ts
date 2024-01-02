@@ -1,11 +1,13 @@
 import options from "../config.json";
 import { ScoreType } from "./Score/types";
 
-const getTime = (score: ScoreType) => {
+const getTime = (
+  score: ScoreType,
+  defaultTime: number = options.time.defaultTimeTick
+) => {
   const { speed } = score.gameStats;
-  const { defaultTimeTick } = options.time;
 
-  return (defaultTimeTick / (speed || 1)) * 1000;
+  return (defaultTime / (speed || 1)) * 1000;
 };
 
 const getPieceTransition = (score: ScoreType) => {
