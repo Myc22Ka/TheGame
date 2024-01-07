@@ -1,4 +1,5 @@
 import { GridEntry } from "../Grid/types";
+import options from "../../config.json";
 
 type GameType = {
   gameOver: boolean;
@@ -6,4 +7,6 @@ type GameType = {
   size: number;
 };
 
-export type { GameType };
+type GameStats = keyof typeof options.score.gameStats | "";
+
+export type { GameType, GameStats };

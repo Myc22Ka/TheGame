@@ -37,10 +37,6 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(tile.animate);
-  }, [tile]);
-
   return (
     <motion.div
       className={`piece ${piece.rule}`}
@@ -59,7 +55,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
       ref={pieceRef}
     >
       <FontAwesomeIcon
-        icon={piecesIcons.find((e) => e.role === piece.rule)!.icon}
+        icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon}
         size="3x"
       />
     </motion.div>

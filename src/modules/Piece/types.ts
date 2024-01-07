@@ -1,12 +1,10 @@
 import { GridEntry } from "../Grid/types";
-import options from "../../config.json";
 import { ActivatorsType } from "../Score/types";
+import { GameStats } from "../Game/types";
 
-type Roles = keyof typeof options.score.gameStats | "";
+type ExtraRules = "booster" | "ads_remover";
 
-type ExtraRoles = "booster" | "ads_remover";
-
-type PieceRoles = Roles | ExtraRoles;
+type PieceRules = GameStats | ExtraRules;
 
 type AnimationsType =
   | "active"
@@ -23,8 +21,9 @@ type Cords = {
 
 type PieceType = {
   description: string;
+  name: string;
   buy: number;
-  rule: Roles;
+  rule: GameStats;
   level: number;
   uses: number;
   id: number;
@@ -63,6 +62,6 @@ export type {
   GridEntry,
   AnimationsType,
   PieceEventType,
-  Roles,
-  PieceRoles,
+  GameStats,
+  PieceRules,
 };

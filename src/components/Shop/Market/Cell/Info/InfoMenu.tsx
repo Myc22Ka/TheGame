@@ -1,6 +1,9 @@
 import React from "react";
-import { Offcanvas } from "react-bootstrap";
+import { Offcanvas, Stack } from "react-bootstrap";
 import { PieceType } from "../../../../../modules/Piece/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { piecesIcons } from "../../../../../modules/Piece/utils";
+import Activators from "./Activators";
 
 type InfoMenuPropsType = {
   show: boolean;
@@ -15,10 +18,27 @@ const InfoMenu: React.FC<InfoMenuPropsType> = ({
 }) => {
   return (
     <Offcanvas show={show} onHide={handleClose}>
-      <Offcanvas.Header>
-        <Offcanvas.Title>Info</Offcanvas.Title>
+      <Offcanvas.Header className="justify-content-center align-items-center">
+        <Stack
+          direction="vertical"
+          className="justify-content-center align-items-center"
+        >
+          <Offcanvas.Title className="my-2">{piece.name}</Offcanvas.Title>
+          <div className={`piece ${piece.rule} info-piece my-1`}>
+            <FontAwesomeIcon
+              icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon}
+              size="3x"
+            />
+          </div>
+        </Stack>
       </Offcanvas.Header>
-      <Offcanvas.Body>{piece.id}</Offcanvas.Body>
+      <hr className="hr" />
+      <Offcanvas.Body>
+        <Stack>
+          <div className="piece-description">{piece.description}</div>
+          <Activators piece={piece} />
+        </Stack>
+      </Offcanvas.Body>
     </Offcanvas>
   );
 };

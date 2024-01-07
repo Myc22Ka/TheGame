@@ -32,17 +32,21 @@
       {
         "id": 1,
         "description": "Some text1",
+        "name": "Cash Flow Catalyst",
         "buy": 20,
         "rule": "multiplier",
         "level": 2,
         "uses": 3,
         "activators": {
-          "multiplier": 0.2
+          "multiplier": 2,
+          "power": 1,
+          "flatIncome": 3
         }
       },
       {
         "id": 2,
         "description": "Some text",
+        "name": "Income Flow Forge",
         "buy": 40,
         "rule": "flatIncome",
         "level": 1,
@@ -54,6 +58,7 @@
       {
         "id": 3,
         "description": "Some text",
+        "name": "Volt Vortex Box",
         "buy": 120,
         "rule": "power",
         "level": 1,
@@ -65,6 +70,7 @@
       {
         "id": 4,
         "description": "Some text",
+        "name": "Fortune Flick Box",
         "buy": 100,
         "rule": "luck",
         "level": 1,
@@ -76,6 +82,7 @@
       {
         "id": 5,
         "description": "Some text",
+        "name": "Velocity Vault Box",
         "buy": 60,
         "rule": "speed",
         "level": 1,
@@ -87,6 +94,7 @@
       {
         "id": 6,
         "description": "Some text",
+        "name": "Bargain Boost Box",
         "buy": 100,
         "rule": "discount",
         "level": 1,
@@ -98,6 +106,7 @@
       {
         "id": 7,
         "description": "Some text",
+        "name": "Guardian Guard Box",
         "buy": 120,
         "rule": "resistance",
         "level": 1,
@@ -109,6 +118,7 @@
       {
         "id": 8,
         "description": "Some text",
+        "name": "Star Energy Amplifier",
         "buy": 10000,
         "rule": "booster",
         "level": 1,
@@ -118,6 +128,7 @@
       {
         "id": 9,
         "description": "Some text",
+        "name": "No CATS Box",
         "buy": 9999,
         "rule": "ads_remover",
         "level": 1,

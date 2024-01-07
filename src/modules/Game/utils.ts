@@ -1,7 +1,9 @@
-import { GridEntry, PieceType } from "../Piece/types";
+import { GameStats, GridEntry, PieceType } from "../Piece/types";
+import options from "../../config.json";
 
 const emptyPiece: PieceType = {
   description: "",
+  name: "",
   buy: 0,
   rule: "",
   level: 0,
@@ -19,4 +21,7 @@ const emptyCell: GridEntry = {
   isEmpty: true,
   animate: "inactive",
 };
-export { emptyCell, emptyPiece };
+
+const rules: GameStats[] = Object.keys(options.score.gameStats) as GameStats[];
+
+export { emptyCell, emptyPiece, rules };

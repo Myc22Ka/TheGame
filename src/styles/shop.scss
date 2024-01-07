@@ -148,3 +148,15 @@
     clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
   }
 }
+
+.piece-description {
+  padding-bottom: 2rem;
+  font-family: $font;
+  color: lighten($background, 30);
+}
+
+.activator,
+.activator-value {
+  font-family: $font;
+  font-weight: bold;
+}

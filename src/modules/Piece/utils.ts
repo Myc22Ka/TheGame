@@ -1,4 +1,4 @@
-import { PieceEventType, PieceType, Roles, PieceRoles } from "./types";
+import { PieceEventType, PieceType, PieceRules, GameStats } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
@@ -15,24 +15,48 @@ import {
   faShieldCat,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import { emptyCell } from "../Game/utils";
+import { emptyCell, rules } from "../Game/utils";
+import { Variants } from "framer-motion";
 
-const statsIcons: { role: Roles; icon: IconDefinition }[] = [
-  { icon: faGaugeHigh, role: "multiplier" },
-  { icon: faMoneyBillTrendUp, role: "flatIncome" },
-  { icon: faBolt, role: "power" },
-  { icon: faClover, role: "luck" },
-  { icon: faForwardFast, role: "speed" },
-  { icon: faArrowsDownToLine, role: "discount" },
-  { icon: faShieldCat, role: "resistance" },
-  { icon: faLightbulb, role: "achievements" },
+const icons = [
+  faGaugeHigh,
+  faMoneyBillTrendUp,
+  faBolt,
+  faClover,
+  faForwardFast,
+  faArrowsDownToLine,
+  faShieldCat,
+  faLightbulb,
 ];
 
-const piecesIcons: { role: PieceRoles; icon: IconDefinition }[] = [
+const statsIcons: { rule: GameStats; icon: IconDefinition }[] = icons.map(
+  (icon, index) => ({
+    rule: rules[index] as GameStats,
+    icon: icon,
+  })
+);
+
+const piecesIcons: { rule: PieceRules; icon: IconDefinition }[] = [
   ...statsIcons.slice(0, -1),
-  { icon: faStar, role: "booster" },
-  { icon: faBan, role: "ads_remover" },
+  { icon: faStar, rule: "booster" },
+  { icon: faBan, rule: "ads_remover" },
 ];
+
+const range: number[][] = [
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5],
+];
+
+const piecesRangeValues: { rule: PieceRules; range: number[] }[] = rules.map(
+  (rule, index) => ({ rule: rule, range: range[index] })
+);
 
 const defaultCords: Cords = { x: 0, y: 0 };
 
@@ -52,7 +76,7 @@ const defaultCycle: DefaultCycleType = {
 };
 
 // Piece variables
-const pieceVariants = {
+const pieceVariants: Variants = {
   initial: {
     scale: 0,
     rotate: 0,
@@ -173,4 +197,5 @@ export {
   setCycleSteps,
   statsIcons,
   piecesIcons,
+  piecesRangeValues,
 };

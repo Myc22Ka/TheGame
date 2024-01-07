@@ -5,14 +5,10 @@ import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "../../../styles/style.module.scss";
 import { statsIcons } from "../../../modules/Piece/utils";
+import { changeCammelCaseToSpace } from "../../../utils/changeToCamelCase";
 
 const StatsDisplay: React.FC = () => {
   const { score } = useScore();
-
-  const changeCammelCaseToSpace = (text: string) => {
-    const result = text.replace(/([A-Z])/g, " $1");
-    return result.charAt(0).toUpperCase() + result.slice(1);
-  };
 
   return (
     <Stack
@@ -35,7 +31,7 @@ const StatsDisplay: React.FC = () => {
             <Row key={key}>
               <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
                 <FontAwesomeIcon
-                  icon={statsIcons.find((e) => e.role === key)!.icon}
+                  icon={statsIcons.find((e) => e.rule === key)!.icon}
                   size="lg"
                   color={styles.main}
                 />
