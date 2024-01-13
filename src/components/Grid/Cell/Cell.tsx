@@ -27,7 +27,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
       className="cell justify-content-center align-items-center"
       style={{ borderColor: styles[cell.insideCell.rule] }}
     >
-      {cell.insideCell.rule ? (
+      {cell.insideCell.rule && (
         <motion.div
           initial="inactive"
           variants={gridVariants}
@@ -37,7 +37,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
         >
           <Levels cell={cell} />
         </motion.div>
-      ) : null}
+      )}
       <motion.div
         className={`piece ${cell.insideCell.rule}`}
         initial="inactive"
@@ -46,14 +46,14 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
         animate={cell.animate}
         onClick={handleShow}
       >
-        {cell.insideCell.rule ? (
+        {cell.insideCell.rule && (
           <FontAwesomeIcon
             icon={
               piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon
             }
             size="3x"
           />
-        ) : null}
+        )}
       </motion.div>
       <PieceConfig show={show} handleClose={handleClose} />
     </Stack>

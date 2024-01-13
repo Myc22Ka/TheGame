@@ -43,7 +43,7 @@ const piecesIcons: { rule: PieceRules; icon: IconDefinition }[] = [
 ];
 
 const range: number[][] = [
-  [1, 2, 3, 4, 5],
+  [0.2, 0.4, 0.6, 0.8, 1],
   [1, 2, 3, 4, 5],
   [1, 2, 3, 4, 5],
   [1, 2, 3, 4, 5],
