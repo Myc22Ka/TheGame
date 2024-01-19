@@ -2,53 +2,16 @@ import React from "react";
 import { Stack } from "react-bootstrap";
 import { GameStats, PieceType } from "../../../../../modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  piecesRangeValues,
-  statsIcons,
-} from "../../../../../modules/Piece/utils";
+import { statsIcons } from "../../../../../modules/Piece/utils";
 import styles from "../../../../../styles/style.module.scss";
 import { changeCammelCaseToSpace } from "../../../../../utils/changeToCamelCase";
+import VisualizeValue from "./VisualizeValue";
 
 type ActivatorsPropsType = {
   piece: PieceType;
 };
 
 const Activators: React.FC<ActivatorsPropsType> = ({ piece }) => {
-  const visualizeValue = (activator: GameStats, value: number) => {
-    let closest: number;
-    let length: number = 0;
-
-    const foundRange = piecesRangeValues.find(
-      (element) => element.rule === activator
-    );
-
-    if (foundRange) {
-      closest = foundRange.range.reduce(function (prev, curr) {
-        return Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev;
-      });
-
-      length = foundRange.range.findIndex((e) => e === closest) + 1;
-    }
-
-    const size = "20px";
-
-    return (
-      <Stack direction="horizontal" gap={1}>
-        {[...Array(length)].map((_, i) => (
-          <div
-            style={{
-              backgroundColor: styles[activator],
-              width: size,
-              height: size,
-              borderRadius: "4px",
-            }}
-            key={i}
-          />
-        ))}
-      </Stack>
-    );
-  };
-
   return (
     <Stack>
       {Object.entries(piece.activators).map(([activator, value]) => {
@@ -69,7 +32,7 @@ const Activators: React.FC<ActivatorsPropsType> = ({ piece }) => {
                 {changeCammelCaseToSpace(activator)}
               </div>
             </Stack>
-            {visualizeValue(activator as GameStats, value)}
+            <VisualizeValue activator={activator as GameStats} value={value} />
           </Stack>
         );
       })}

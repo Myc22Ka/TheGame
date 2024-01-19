@@ -31,7 +31,7 @@
     "types": [
       {
         "id": 1,
-        "description": "Some text1",
+        "description": "This block enhances the money multiplier, acting as an economic catalyst to boost in-game income and accelerate financial progress.",
         "name": "Cash Flow Catalyst",
         "buy": 20,
         "rule": "multiplier",
@@ -45,7 +45,7 @@
       },
       {
         "id": 2,
-        "description": "Some text",
+        "description": "This block provides a steady and consistent stream of money.",
         "name": "Income Flow Forge",
         "buy": 40,
         "rule": "flatIncome",
@@ -57,7 +57,7 @@
       },
       {
         "id": 3,
-        "description": "Some text",
+        "description": "This block supplies electrical power, acting as a source of energy.",
         "name": "Volt Vortex Box",
         "buy": 120,
         "rule": "power",
@@ -69,7 +69,7 @@
       },
       {
         "id": 4,
-        "description": "Some text",
+        "description": "This block bestows a touch of luck upon the player.",
         "name": "Fortune Flick Box",
         "buy": 100,
         "rule": "luck",
