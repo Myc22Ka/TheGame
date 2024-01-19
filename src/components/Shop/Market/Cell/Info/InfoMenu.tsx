@@ -1,8 +1,8 @@
 import React from "react";
 import { Offcanvas, Stack } from "react-bootstrap";
-import { PieceType } from "../../../../../modules/Piece/types";
+import { PieceType } from "src/modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { piecesIcons } from "../../../../../modules/Piece/utils";
+import { piecesIcons } from "src/modules/Piece/utils";
 import Activators from "./Activators";
 
 type InfoMenuPropsType = {

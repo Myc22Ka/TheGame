@@ -22,10 +22,9 @@
         left: $p;
         width: calc(100% - 2 * $p);
         .level {
-          width: 20px;
-          height: 40px;
+          width: 10px;
+          height: 30px;
           border-radius: 5px;
-          padding: $p;
         }
       }
       .piece {

@@ -2,11 +2,11 @@ import { faCoins, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { useGame } from "../../contexts/GameContext";
-import { useScore } from "../../contexts/ScoreContext";
-import options from "../../config.json";
+import { useGame } from "src/contexts/GameContext";
+import { useScore } from "src/contexts/ScoreContext";
+import options from "src/config.json";
 import { Button, OverlayTrigger, Popover, Stack } from "react-bootstrap";
-import styles from "../../styles/style.module.scss";
+import styles from "src/styles/style.module.scss";
 
 const colorVariants = {
   color: {

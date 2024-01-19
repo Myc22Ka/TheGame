@@ -2,7 +2,7 @@ import React from "react";
 import { Stack } from "react-bootstrap";
 import Switch from "./Switch";
 import Grid from "./Grid";
-import { useMarket } from "../../../../contexts/MarketContext";
+import { useMarket } from "src/contexts/MarketContext";
 
 const Market: React.FC = () => {
   const { marketContent } = useMarket();

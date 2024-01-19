@@ -6,10 +6,10 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { PieceType } from "../modules/Piece/types";
-import options from "../config.json";
-import { ActiveStateType, MarketContentType } from "../modules/Market/types";
-import { ScoreType } from "../modules/Score/types";
+import { PieceType } from "src/modules/Piece/types";
+import options from "src/config.json";
+import { ActiveStateType, MarketContentType } from "src/modules/Market/types";
+import { ScoreType } from "src/modules/Score/types";
 import { useScore } from "./ScoreContext";
 
 export const initMarketState: MarketContentType = {

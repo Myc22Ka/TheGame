@@ -6,8 +6,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
 import { Stack } from "react-bootstrap";
-import { useMarket } from "../../../../contexts/MarketContext";
-import { ActiveStateType } from "../../../../modules/Market/types";
+import { useMarket } from "src/contexts/MarketContext";
+import { ActiveStateType } from "src/modules/Market/types";
 
 const Switch: React.FC = () => {
   const { changeActiveState, marketContent } = useMarket();

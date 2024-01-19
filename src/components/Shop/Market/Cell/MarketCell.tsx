@@ -1,13 +1,13 @@
 import React, { ReactNode } from "react";
 import { Stack } from "react-bootstrap";
-import { PieceType } from "../../../../modules/Piece/types";
-import { useScore } from "../../../../contexts/ScoreContext";
-import usePiece from "../../../../hooks/usePiece";
+import { PieceType } from "src/modules/Piece/types";
+import { useScore } from "src/contexts/ScoreContext";
+import usePiece from "src/hooks/usePiece";
 import { motion } from "framer-motion";
 import PieceInfo from "./Info/PieceInfo";
-import { pieceVariants } from "../../../../modules/Piece/utils";
-import { useMarket } from "../../../../contexts/MarketContext";
-import { getPieceTransition } from "../../../../modules/game_utils";
+import { pieceVariants } from "src/modules/Piece/utils";
+import { useMarket } from "src/contexts/MarketContext";
+import { getPieceTransition } from "src/modules/game_utils";
 
 type MarketCellProps = {
   piece: PieceType;

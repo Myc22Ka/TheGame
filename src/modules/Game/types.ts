@@ -1,5 +1,5 @@
 import { GridEntry } from "../Grid/types";
-import options from "../../config.json";
+import options from "src/config.json";
 
 type GameType = {
   gameOver: boolean;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Piece from "./Piece";
-import { defaultCycle, setCycleSteps } from "../../../modules/Piece/utils";
+import { defaultCycle, setCycleSteps } from "src/modules/Piece/utils";
 import { Stack } from "react-bootstrap";
-import styles from "../../../styles/style.module.scss";
-import { getTime } from "../../../modules/game_utils";
-import { useScore } from "../../../contexts/ScoreContext";
+import styles from "src/styles/style.module.scss";
+import { getTime } from "src/modules/game_utils";
+import { useScore } from "src/contexts/ScoreContext";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState(defaultCycle);

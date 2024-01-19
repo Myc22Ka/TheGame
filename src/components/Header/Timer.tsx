@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { useGame } from "../../contexts/GameContext";
-import { formatTime } from "../../utils/timeDisplay";
-import options from "../../config.json";
-import styles from "../../styles/style.module.scss";
+import { useGame } from "src/contexts/GameContext";
+import { formatTime } from "src/utils/timeDisplay";
+import options from "src/config.json";
+import styles from "src/styles/style.module.scss";
 import { Stack } from "react-bootstrap";
-import { getTime } from "../../modules/game_utils";
-import { useScore } from "../../contexts/ScoreContext";
+import { getTime } from "src/modules/game_utils";
+import { useScore } from "src/contexts/ScoreContext";
 
 const Timer: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(options.time.maxTime);

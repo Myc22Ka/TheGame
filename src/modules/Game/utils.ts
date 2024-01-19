@@ -1,5 +1,5 @@
 import { GameStats, GridEntry, PieceType } from "../Piece/types";
-import options from "../../config.json";
+import options from "src/config.json";
 
 const emptyPiece: PieceType = {
   description: "",

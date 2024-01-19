@@ -1,10 +1,10 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-import { GameStats, PieceType } from "../../../../../modules/Piece/types";
+import { GameStats, PieceType } from "src/modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { statsIcons } from "../../../../../modules/Piece/utils";
-import styles from "../../../../../styles/style.module.scss";
-import { changeCammelCaseToSpace } from "../../../../../utils/changeToCamelCase";
+import { statsIcons } from "src/modules/Piece/utils";
+import styles from "src/styles/style.module.scss";
+import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import VisualizeValue from "./VisualizeValue";
 
 type ActivatorsPropsType = {

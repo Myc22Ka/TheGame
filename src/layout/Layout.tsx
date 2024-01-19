@@ -1,11 +1,11 @@
 import React from "react";
-import { useGame } from "../contexts/GameContext";
+import { useGame } from "src/contexts/GameContext";
 import GameOver from "./GameOver";
-import ShopLayout from "../components/Shop/ShopLayout";
+import ShopLayout from "src/components/Shop/ShopLayout";
 import { Stack } from "react-bootstrap";
-import Header from "../components/Header/Header";
-import Grid from "../components/Grid/Grid";
-import SidePanel from "../components/SidePanel/SidePanel";
+import Header from "src/components/Header/Header";
+import Grid from "src/components/Grid/Grid";
+import SidePanel from "src/components/SidePanel/SidePanel";
 
 const Layout = () => {
   const { game } = useGame();

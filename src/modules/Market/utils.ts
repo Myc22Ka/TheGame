@@ -1,5 +1,5 @@
 import { MarketContentType } from "./types";
-import options from "../../config.json";
+import options from "src/config.json";
 import { PieceType } from "../Piece/types";
 import { ScoreType } from "../Score/types";
 

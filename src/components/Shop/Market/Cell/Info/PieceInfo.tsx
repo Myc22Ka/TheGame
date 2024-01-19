@@ -1,7 +1,7 @@
 import React from "react";
 import Info from "./Info";
-import { PieceType } from "../../../../../modules/Piece/types";
-import options from "../../../../../config.json";
+import { PieceType } from "src/modules/Piece/types";
+import options from "src/config.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 

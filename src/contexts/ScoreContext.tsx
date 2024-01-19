@@ -4,10 +4,9 @@ import React, {
   createContext,
   ReactElement,
   useCallback,
-  useEffect,
 } from "react";
-import options from "../config.json";
-import { ActivatorsType, ScoreType } from "../modules/Score/types";
+import options from "src/config.json";
+import { ActivatorsType, ScoreType } from "src/modules/Score/types";
 
 export const initState: ScoreType = options.score;
 

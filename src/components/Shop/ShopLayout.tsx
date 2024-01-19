@@ -1,11 +1,11 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-import "../../styles/shop.scss";
+import "src/styles/shop.scss";
 import RandomPieceGen from "./Piece/RandomPieceGen";
 import Market from "./Market/MarketLogic/Market";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCarBattery } from "@fortawesome/free-solid-svg-icons";
-import { MarketProvider, initMarketState } from "../../contexts/MarketContext";
+import { MarketProvider, initMarketState } from "src/contexts/MarketContext";
 
 const ShopLayout: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
-import { GameStats } from "../../../../../modules/Piece/types";
-import { piecesRangeValues } from "../../../../../modules/Piece/utils";
+import { GameStats } from "src/modules/Piece/types";
+import { piecesRangeValues } from "src/modules/Piece/utils";
 import { Stack } from "react-bootstrap";
-import styles from "../../../../../styles/style.module.scss";
+import styles from "src/styles/style.module.scss";
 
 type VisualizeValuePropsType = {
   activator: GameStats;

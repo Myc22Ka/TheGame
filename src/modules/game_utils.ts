@@ -1,4 +1,4 @@
-import options from "../config.json";
+import options from "src/config.json";
 import { ScoreType } from "./Score/types";
 
 const getTime = (

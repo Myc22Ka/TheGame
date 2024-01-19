@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import "../../styles/grid.scss";
+import "src/styles/grid.scss";
 import Cell from "./Cell/Cell";
-import { useGame } from "../../contexts/GameContext";
+import { useGame } from "src/contexts/GameContext";
 
 const Grid: React.FC = () => {
   const { game, defineRefForCells } = useGame();

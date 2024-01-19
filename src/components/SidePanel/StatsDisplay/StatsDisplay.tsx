@@ -1,11 +1,11 @@
 import React from "react";
-import { useScore } from "../../../contexts/ScoreContext";
+import { useScore } from "src/contexts/ScoreContext";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "../../../styles/style.module.scss";
-import { statsIcons } from "../../../modules/Piece/utils";
-import { changeCammelCaseToSpace } from "../../../utils/changeToCamelCase";
+import styles from "src/styles/style.module.scss";
+import { statsIcons } from "src/modules/Piece/utils";
+import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 
 const StatsDisplay: React.FC = () => {
   const { score } = useScore();

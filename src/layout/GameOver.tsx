@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/gameover.scss";
-import { useScore } from "../contexts/ScoreContext";
+import "src/styles/gameover.scss";
+import { useScore } from "src/contexts/ScoreContext";
 
 const GameOver: React.FC = () => {
   const { score } = useScore();

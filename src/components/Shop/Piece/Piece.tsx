@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import usePiece from "../../../hooks/usePiece";
-import { pieceVariants, piecesIcons } from "../../../modules/Piece/utils";
-import { PieceType } from "../../../modules/Piece/types";
+import usePiece from "src/hooks/usePiece";
+import { pieceVariants, piecesIcons } from "src/modules/Piece/utils";
+import { PieceType } from "src/modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getPieceTransition } from "../../../modules/game_utils";
-import { useScore } from "../../../contexts/ScoreContext";
+import { getPieceTransition } from "src/modules/game_utils";
+import { useScore } from "src/contexts/ScoreContext";
 
 interface PieceProps {
   piece: PieceType;

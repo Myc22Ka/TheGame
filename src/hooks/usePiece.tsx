@@ -1,18 +1,18 @@
 import { useState, useRef, useCallback } from "react";
-import { useGame } from "../contexts/GameContext";
+import { useGame } from "src/contexts/GameContext";
 import {
   defaultTile,
   findNearestCell,
   calcCenterPoint,
   defaultCords,
-} from "../modules/Piece/utils";
+} from "src/modules/Piece/utils";
 import {
   AnimationsType,
   PieceEventType,
   PieceType,
-} from "../modules/Piece/types";
-import { useScore } from "../contexts/ScoreContext";
-import { getPieceTransition, getTime } from "../modules/game_utils";
+} from "src/modules/Piece/types";
+import { useScore } from "src/contexts/ScoreContext";
+import { getPieceTransition, getTime } from "src/modules/game_utils";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);

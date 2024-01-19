@@ -1,7 +1,7 @@
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { PieceType } from "../../../../../modules/Piece/types";
+import { PieceType } from "src/modules/Piece/types";
 import InfoMenu from "./InfoMenu";
 
 type InfoPropsType = {

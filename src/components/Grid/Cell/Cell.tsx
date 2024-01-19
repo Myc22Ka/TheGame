@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { GridEntry } from "../../../modules/Piece/types";
+import { GridEntry } from "src/modules/Piece/types";
 import { Stack } from "react-bootstrap";
-import { gridVariants } from "../../../modules/Grid/utils";
-import { getPieceTransition } from "../../../modules/game_utils";
-import { useScore } from "../../../contexts/ScoreContext";
-import styles from "../../../styles/style.module.scss";
+import { gridVariants } from "src/modules/Grid/utils";
+import { getPieceTransition } from "src/modules/game_utils";
+import { useScore } from "src/contexts/ScoreContext";
+import styles from "src/styles/style.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { piecesIcons } from "../../../modules/Piece/utils";
-import Levels from "./Levels";
+import { piecesIcons } from "src/modules/Piece/utils";
 import PieceConfig from "./PieceConfig";
+import CellHeader from "./CellHeader/CellHeader";
 
 type CellProps = {
   cell: GridEntry;
@@ -27,17 +27,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
       className="cell justify-content-center align-items-center"
       style={{ borderColor: styles[cell.insideCell.rule] }}
     >
-      {cell.insideCell.rule && (
-        <motion.div
-          initial="inactive"
-          variants={gridVariants}
-          className="levels"
-          transition={getPieceTransition(score)}
-          animate={cell.animate}
-        >
-          <Levels cell={cell} />
-        </motion.div>
-      )}
+      {cell.insideCell.rule && <CellHeader cell={cell} />}
       <motion.div
         className={`piece ${cell.insideCell.rule}`}
         initial="inactive"
