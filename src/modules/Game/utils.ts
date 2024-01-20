@@ -17,6 +17,7 @@ const emptyPiece: PieceType = {
 
 const emptyCell: GridEntry = {
   insideCell: emptyPiece,
+  isDestroyed: false,
   ref: null,
   isEmpty: true,
   animate: "inactive",

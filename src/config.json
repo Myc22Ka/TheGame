@@ -37,6 +37,7 @@
         "rule": "multiplier",
         "level": 2,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "multiplier": 0.5,
           "power": 1,
@@ -51,6 +52,7 @@
         "rule": "flatIncome",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "flatIncome": 1
         }
@@ -63,6 +65,7 @@
         "rule": "power",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "power": 1
         }
@@ -75,6 +78,7 @@
         "rule": "luck",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "luck": 0.1
         }
@@ -87,6 +91,7 @@
         "rule": "speed",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "speed": 5
         }
@@ -99,6 +104,7 @@
         "rule": "discount",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "discount": 0.25
         }
@@ -111,6 +117,7 @@
         "rule": "resistance",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "resistance": 3
         }
@@ -123,6 +130,7 @@
         "rule": "booster",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {}
       },
       {
@@ -133,6 +141,7 @@
         "rule": "ads_remover",
         "level": 1,
         "uses": 3,
+        "destroyChance": 0.2,
         "activators": {
           "luck": 0.1
         }

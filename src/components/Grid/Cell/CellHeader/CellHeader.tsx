@@ -25,7 +25,7 @@ const CellHeader: React.FC<CellHeaderPropsType> = ({ cell }) => {
     >
       <Stack gap={2} className="justify-content-between" direction="horizontal">
         <Levels cell={cell} />
-        <CellPieceServiceDisplay />
+        <CellPieceServiceDisplay cell={cell} />
       </Stack>
     </motion.div>
   );

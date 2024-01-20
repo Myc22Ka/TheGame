@@ -26,6 +26,17 @@
           height: 30px;
           border-radius: 5px;
         }
+        .piece-state {
+          $size: 20px;
+          background: $success;
+          transition: background-color 4s ease-out;
+          width: $size;
+          height: $size;
+          border-radius: 3px;
+          &.destroyed {
+            background: $error;
+          }
+        }
       }
       .piece {
         align-self: center;

@@ -45,7 +45,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
           />
         )}
       </motion.div>
-      <PieceConfig show={show} handleClose={handleClose} />
+      <PieceConfig show={show} handleClose={handleClose} cell={cell} />
     </Stack>
   );
 };

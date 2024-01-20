@@ -5,6 +5,7 @@ type GridEntry = {
   ref: HTMLDivElement | null;
   isEmpty: boolean;
   animate: "inactive" | "active";
+  isDestroyed: boolean;
 };
 
 export type { GridEntry };

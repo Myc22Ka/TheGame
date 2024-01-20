@@ -108,6 +108,38 @@ const useGameContext = (defaultGame: GameType) => {
     [setGame]
   );
 
+  const destroyPiece = (cell: GridEntry) => {
+    setGame((prev) => {
+      const updatedGrid = prev.grid.map((gridCell) => {
+        if (gridCell.insideCell.id === cell.insideCell.id) {
+          return {
+            ...gridCell,
+            isDestroyed: true,
+          };
+        }
+        return gridCell;
+      });
+
+      return { ...prev, grid: updatedGrid };
+    });
+  };
+
+  const repairPiece = (cell: GridEntry) => {
+    setGame((prev) => {
+      const updatedGrid = prev.grid.map((gridCell) => {
+        if (gridCell.insideCell.id === cell.insideCell.id) {
+          return {
+            ...gridCell,
+            isDestroyed: false,
+          };
+        }
+        return gridCell;
+      });
+
+      return { ...prev, grid: updatedGrid };
+    });
+  };
+
   return {
     game,
     gameLoseEvent,
@@ -115,6 +147,8 @@ const useGameContext = (defaultGame: GameType) => {
     defineRefForCells,
     addPieceToCell,
     levelUp,
+    destroyPiece,
+    repairPiece,
   };
 };
 
@@ -125,6 +159,8 @@ const initContextState: ReturnType<typeof useGameContext> = {
   defineRefForCells: () => {},
   addPieceToCell: () => {},
   levelUp: () => {},
+  destroyPiece: () => {},
+  repairPiece: () => {},
 };
 
 export const GameContext = createContext(initContextState);
@@ -152,6 +188,8 @@ export const useGame = () => {
     defineRefForCells,
     addPieceToCell,
     levelUp,
+    destroyPiece,
+    repairPiece,
   } = useContext(GameContext);
 
   return {
@@ -161,5 +199,7 @@ export const useGame = () => {
     defineRefForCells,
     addPieceToCell,
     levelUp,
+    destroyPiece,
+    repairPiece,
   };
 };
