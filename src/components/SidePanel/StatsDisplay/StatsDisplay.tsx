@@ -1,11 +1,10 @@
 import React from "react";
 import { useScore } from "src/contexts/ScoreContext";
-import { Col, Container, Row, Stack } from "react-bootstrap";
+import { Container, Stack } from "react-bootstrap";
 import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "src/styles/style.module.scss";
-import { statsIcons } from "src/modules/Piece/utils";
-import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
+import DisplayValue from "./DisplayValue";
+import { GameStats } from "src/modules/Game/types";
 
 const StatsDisplay: React.FC = () => {
   const { score } = useScore();
@@ -28,27 +27,7 @@ const StatsDisplay: React.FC = () => {
       <Container>
         {Object.entries(score.gameStats).map(([key, value]) => {
           return (
-            <Row key={key}>
-              <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
-                <FontAwesomeIcon
-                  icon={statsIcons.find((e) => e.rule === key)!.icon}
-                  size="lg"
-                  color={styles.main}
-                />
-              </Col>
-              <Col style={{ flex: 1 }}>
-                <div style={{ fontSize: "small" }}>
-                  {changeCammelCaseToSpace(key)}
-                </div>
-              </Col>
-              <Col style={{ flex: 0 }}>
-                <div>
-                  {["speed", "discount", "resistance"].includes(key)
-                    ? `${parseFloat((value * 100).toFixed(1))}%`
-                    : parseFloat(value.toFixed(1))}
-                </div>
-              </Col>
-            </Row>
+            <DisplayValue key={key} value={value} gameStat={key as GameStats} />
           );
         })}
       </Container>

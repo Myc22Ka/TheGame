@@ -1,12 +1,7 @@
+import { GameStats } from "../Game/types";
+
 type ActivatorsType = {
-  multiplier?: number;
-  flatIncome?: number;
-  power?: number;
-  luck?: number;
-  speed?: number;
-  time?: number;
-  discount?: number;
-  resistance?: number;
+  [K in GameStats]?: number;
 };
 
 type ScoreType = {

@@ -12,17 +12,19 @@ export const initState: ScoreType = options.score;
 
 const useScoreContext = (defaultScore: ScoreType) => {
   const [score, setScore] = useState(defaultScore);
+  const [prevScore, setPrevScore] = useState(defaultScore);
 
-  const addGold = useCallback(
-    () =>
-      setScore((prev) => ({
+  const addGold = useCallback(() => {
+    setScore((prev) => {
+      setPrevScore(prev);
+      return {
         ...prev,
         gold:
           prev.gold +
           (prev.gameStats?.flatIncome || 1) * (prev.gameStats?.multiplier || 1),
-      })),
-    [setScore, score.gameStats]
-  );
+      };
+    });
+  }, [setScore]);
 
   const addSomeGold = useCallback(
     (amount: number) => {
@@ -45,6 +47,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
   const updateActivators = useCallback(
     (activators: ActivatorsType) => {
       setScore((prev) => {
+        setPrevScore(prev);
         const result: ActivatorsType = {};
 
         Object.entries(activators).map(([key, value]) => {
@@ -60,6 +63,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
 
   return {
     score,
+    prevScore,
     addGold,
     updateActivators,
     removeSomeGold,
@@ -70,6 +74,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
 
 const initContextState: ReturnType<typeof useScoreContext> = {
   score: initState,
+  prevScore: initState,
   addGold: () => {},
   updateActivators: () => {},
   removeSomeGold: () => {},
@@ -99,6 +104,7 @@ export const ScoreProvider = ({
 export const useScore = () => {
   const {
     score,
+    prevScore,
     updateActivators,
     addGold,
     removeSomeGold,
@@ -108,6 +114,7 @@ export const useScore = () => {
 
   return {
     score,
+    prevScore,
     updateActivators,
     addGold,
     removeSomeGold,
