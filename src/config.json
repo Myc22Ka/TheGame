@@ -37,7 +37,7 @@
         "rule": "multiplier",
         "level": 2,
         "uses": 3,
-        "destroyChance": 0.1,
+        "destroyChance": 0.01,
         "activators": {
           "multiplier": 0.5,
           "power": 1,
