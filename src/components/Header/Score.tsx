@@ -5,15 +5,15 @@ import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
-import { getTime } from "src/modules/game_utils";
 
 const Score: React.FC = () => {
   const { game } = useGame();
-  const { addGold, score } = useScore();
+  const { addGold, score, currentGameSpeed } = useScore();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (!game.gameOver) interval = setInterval(() => addGold(), getTime(score));
+    if (!game.gameOver)
+      interval = setInterval(() => addGold(), currentGameSpeed());
 
     return () => clearInterval(interval);
   });

@@ -3,12 +3,11 @@ import Piece from "./Piece";
 import { defaultCycle, setCycleSteps } from "src/modules/Piece/utils";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
-import { getTime } from "src/modules/game_utils";
 import { useScore } from "src/contexts/ScoreContext";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState(defaultCycle);
-  const { score } = useScore();
+  const { score, currentGameSpeed } = useScore();
 
   useEffect(() => {
     let currentIndex = 0;
@@ -18,7 +17,7 @@ const RandomPieceGen: React.FC = () => {
       const cycles = setCycleSteps(currentIndex);
       await new Promise((resolve) => {
         setCycle(cycles[currentIndex]);
-        timeout = setTimeout(resolve, getTime(score));
+        timeout = setTimeout(resolve, currentGameSpeed());
       });
 
       currentIndex = (currentIndex + 1) % cycles.length;

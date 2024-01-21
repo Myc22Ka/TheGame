@@ -1,46 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { GridEntry } from "src/modules/Grid/types";
 import { Variants, motion } from "framer-motion";
 import { useGame } from "src/contexts/GameContext";
 import options from "src/config.json";
+import { useScore } from "src/contexts/ScoreContext";
 
 type CellPieceServiceDisplayPropsType = {
   cell: GridEntry;
-};
-
-const variants: Variants = {
-  on: { scale: 1 },
-  off: {
-    scale: [1, 1.2, 1],
-    boxShadow: "0 0 10px rgba(255, 0, 0, 0.8)", // Add a red glowing effect
-    transition: {
-      duration: 0.3,
-      repeat: Infinity,
-      repeatDelay: 1,
-      repeatType: "reverse",
-    },
-  },
 };
 
 const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
   cell,
 }) => {
   const { destroyPiece } = useGame();
+  const { score, currentGameSpeed } = useScore();
+
+  const variants: Variants = {
+    on: { scale: 1 },
+    off: {
+      scale: [1, 1.2, 1],
+      boxShadow: "0 0 10px rgba(255, 0, 0, 0.8)",
+      transition: {
+        duration: currentGameSpeed({ devider: 1000 }) / 2,
+        repeat: Infinity,
+        repeatDelay: currentGameSpeed({ devider: 1000 }),
+        repeatType: "reverse",
+      },
+    },
+  };
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
 
-    const destroyChance = options.pieces.types.find(
+    const piece = options.pieces.types.find(
       (piece) => piece.id === cell.insideCell.id
-    )!.destroyChance;
+    );
 
-    if (!cell.isDestroyed)
-      interval = setInterval(() => {
-        if (Math.random() < destroyChance) {
-          destroyPiece(cell);
-          clearInterval(interval);
-        }
-      }, 2000);
+    if (!piece || cell.isDestroyed) return;
+
+    interval = setInterval(
+      () => {
+        const resistance = Math.random() + (score.gameStats.resistance || 0);
+        if (resistance > piece.destroyChance) return;
+
+        destroyPiece(cell);
+        clearInterval(interval);
+      },
+      currentGameSpeed({ devider: 0.2 }) // default 5s
+    );
 
     return () => {
       clearInterval(interval);

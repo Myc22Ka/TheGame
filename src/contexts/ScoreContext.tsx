@@ -40,9 +40,14 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [setScore]
   );
 
-  const speedUp = useCallback(() => {
-    return (options.time.defaultTimeTick / (score.gameStats.speed || 1)) * 1000;
-  }, [score]);
+  const currentGameSpeed = useCallback(
+    ({ defaultTimeTick = options.time.defaultTimeTick, devider = 1 } = {}) => {
+      return (
+        ((defaultTimeTick / (score.gameStats.speed || 1)) * 1000) / devider
+      );
+    },
+    [score]
+  );
 
   const updateActivators = useCallback(
     (activators: ActivatorsType) => {
@@ -68,7 +73,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
     updateActivators,
     removeSomeGold,
     addSomeGold,
-    speedUp,
+    currentGameSpeed,
   };
 };
 
@@ -79,7 +84,7 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   updateActivators: () => {},
   removeSomeGold: () => {},
   addSomeGold: () => {},
-  speedUp: () => {
+  currentGameSpeed: () => {
     return 0;
   },
 };
@@ -109,7 +114,7 @@ export const useScore = () => {
     addGold,
     removeSomeGold,
     addSomeGold,
-    speedUp,
+    currentGameSpeed,
   } = useContext(ScoreContext);
 
   return {
@@ -119,6 +124,6 @@ export const useScore = () => {
     addGold,
     removeSomeGold,
     addSomeGold,
-    speedUp,
+    currentGameSpeed,
   };
 };

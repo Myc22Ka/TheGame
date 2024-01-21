@@ -7,6 +7,6 @@ type GameType = {
   size: number;
 };
 
-type GameStats = keyof typeof options.score.gameStats | "";
+type GameStats = keyof typeof options.score.gameStats;
 
 export type { GameType, GameStats };

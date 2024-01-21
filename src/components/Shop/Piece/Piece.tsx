@@ -4,8 +4,8 @@ import usePiece from "src/hooks/usePiece";
 import { pieceVariants, piecesIcons } from "src/modules/Piece/utils";
 import { PieceType } from "src/modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getPieceTransition } from "src/modules/game_utils";
 import { useScore } from "src/contexts/ScoreContext";
+import options from "src/config.json";
 
 interface PieceProps {
   piece: PieceType;
@@ -13,7 +13,7 @@ interface PieceProps {
 }
 
 const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
-  const { score } = useScore();
+  const { currentGameSpeed } = useScore();
   const {
     pieceRef,
     tile,
@@ -32,7 +32,10 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
       changePieceAnimation("return");
       setTimeout(
         () => changePieceAnimation("inactive"),
-        getPieceTransition(score).duration
+        currentGameSpeed({
+          defaultTimeTick: options.time.defaultPieceTransition,
+          devider: 1000,
+        })
       );
     }
   };
@@ -50,7 +53,13 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
         drag: { ...pieceVariants.drag, ...tile.vector },
         return: { ...pieceVariants.return, ...tile.vector },
       }}
-      transition={getPieceTransition(score)}
+      transition={{
+        duration: currentGameSpeed({
+          defaultTimeTick: options.time.defaultPieceTransition,
+          devider: 1000,
+        }),
+        ease: "anticipate",
+      }}
       onAnimationComplete={animationCompleteHandle}
       ref={pieceRef}
     >

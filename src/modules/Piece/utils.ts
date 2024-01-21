@@ -72,7 +72,6 @@ const defaultCycle: DefaultCycleType = {
   time: options.pieces.cycleTime,
   show: true,
   animate: "",
-  speed: options.time.defaultTimeTick * 1000,
 };
 
 // Piece variables

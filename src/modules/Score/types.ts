@@ -1,7 +1,7 @@
 import { GameStats } from "../Game/types";
 
 type ActivatorsType = {
-  [K in GameStats]?: number;
+  [K in Exclude<GameStats, "">]?: number;
 };
 
 type ScoreType = {

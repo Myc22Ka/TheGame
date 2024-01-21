@@ -108,37 +108,43 @@ const useGameContext = (defaultGame: GameType) => {
     [setGame]
   );
 
-  const destroyPiece = (cell: GridEntry) => {
-    setGame((prev) => {
-      const updatedGrid = prev.grid.map((gridCell) => {
-        if (gridCell.insideCell.id === cell.insideCell.id) {
-          return {
-            ...gridCell,
-            isDestroyed: true,
-          };
-        }
-        return gridCell;
+  const destroyPiece = useCallback(
+    (cell: GridEntry) => {
+      setGame((prev) => {
+        const updatedGrid = prev.grid.map((gridCell) => {
+          if (gridCell.ref === cell.ref) {
+            return {
+              ...gridCell,
+              isDestroyed: true,
+            };
+          }
+          return gridCell;
+        });
+
+        return { ...prev, grid: updatedGrid };
       });
+    },
+    [setGame]
+  );
 
-      return { ...prev, grid: updatedGrid };
-    });
-  };
+  const repairPiece = useCallback(
+    (cell: GridEntry) => {
+      setGame((prev) => {
+        const updatedGrid = prev.grid.map((gridCell) => {
+          if (gridCell.insideCell.id === cell.insideCell.id) {
+            return {
+              ...gridCell,
+              isDestroyed: false,
+            };
+          }
+          return gridCell;
+        });
 
-  const repairPiece = (cell: GridEntry) => {
-    setGame((prev) => {
-      const updatedGrid = prev.grid.map((gridCell) => {
-        if (gridCell.insideCell.id === cell.insideCell.id) {
-          return {
-            ...gridCell,
-            isDestroyed: false,
-          };
-        }
-        return gridCell;
+        return { ...prev, grid: updatedGrid };
       });
-
-      return { ...prev, grid: updatedGrid };
-    });
-  };
+    },
+    [setGame]
+  );
 
   return {
     game,

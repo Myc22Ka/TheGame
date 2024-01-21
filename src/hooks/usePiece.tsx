@@ -12,13 +12,14 @@ import {
   PieceType,
 } from "src/modules/Piece/types";
 import { useScore } from "src/contexts/ScoreContext";
-import { getPieceTransition, getTime } from "src/modules/game_utils";
+import options from "src/config.json";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold, updateActivators, score } = useScore();
+  const { removeSomeGold, updateActivators, score, currentGameSpeed } =
+    useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -55,20 +56,27 @@ export const usePiece = (piece: PieceType) => {
   const setDefaultValues = useCallback(() => {
     setTimeout(
       () => setTile({ ...defaultTile, animate: "reset" }),
-      getTime(score) / 2
+      currentGameSpeed({ devider: 1 })
     );
   }, [tile]);
 
   const addToGrid = useCallback(() => {
-    setTimeout(
-      () => {
-        addPieceToCell(tile.nearestCell, piece);
-        updateActivators(piece.activators);
-        changePieceAnimation("exit");
-      },
-      (getPieceTransition(score).duration - 0.2) * 1000
-    );
-  }, [tile]);
+    const { defaultPieceTransition } = options.time;
+
+    const addToGridDelay =
+      (currentGameSpeed({
+        defaultTimeTick: defaultPieceTransition,
+        devider: 1000,
+      }) -
+        0.2) *
+      1000;
+
+    setTimeout(() => {
+      addPieceToCell(tile.nearestCell, piece);
+      updateActivators(piece.activators);
+      changePieceAnimation("exit");
+    }, addToGridDelay);
+  }, [tile, currentGameSpeed]);
 
   const changePieceAnimation = useCallback(
     (animationName: AnimationsType) => {

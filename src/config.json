@@ -37,7 +37,7 @@
         "rule": "multiplier",
         "level": 2,
         "uses": 3,
-        "destroyChance": 0.01,
+        "destroyChance": 0.5,
         "activators": {
           "multiplier": 0.5,
           "power": 1,
@@ -117,9 +117,9 @@
         "rule": "resistance",
         "level": 1,
         "uses": 3,
-        "destroyChance": 0.2,
+        "destroyChance": 0.1,
         "activators": {
-          "resistance": 3
+          "resistance": 0.05
         }
       },
       {

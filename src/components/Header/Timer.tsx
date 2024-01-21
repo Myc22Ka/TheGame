@@ -6,13 +6,12 @@ import { formatTime } from "src/utils/timeDisplay";
 import options from "src/config.json";
 import styles from "src/styles/style.module.scss";
 import { Stack } from "react-bootstrap";
-import { getTime } from "src/modules/game_utils";
 import { useScore } from "src/contexts/ScoreContext";
 
 const Timer: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(options.time.maxTime);
   const { gameLoseEvent } = useGame();
-  const { score } = useScore();
+  const { score, currentGameSpeed } = useScore();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -20,7 +19,7 @@ const Timer: React.FC = () => {
     if (currentTime > 0)
       interval = setInterval(
         () => setCurrentTime((prev) => prev - 1),
-        getTime(score)
+        currentGameSpeed()
       );
 
     if (currentTime === 0) {
