@@ -42,7 +42,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
         animate={cell.animate}
         onClick={handleShow}
       >
-        {cell.insideCell.rule && (
+        {cell.insideCell.rule !== "default" && (
           <FontAwesomeIcon
             icon={
               piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon

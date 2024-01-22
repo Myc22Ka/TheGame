@@ -18,8 +18,7 @@ export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold, updateActivators, score, currentGameSpeed } =
-    useScore();
+  const { removeSomeGold, updateActivators, currentGameSpeed } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({

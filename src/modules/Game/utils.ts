@@ -5,7 +5,7 @@ const emptyPiece: PieceType = {
   description: "",
   name: "",
   buy: 0,
-  rule: "multiplier",
+  rule: "default",
   level: 0,
   uses: 0,
   id: 0,

@@ -4,6 +4,7 @@ import React, {
   createContext,
   ReactElement,
   useCallback,
+  useEffect,
 } from "react";
 import options from "src/config.json";
 import { ActivatorsType, ScoreType } from "src/modules/Score/types";
@@ -99,8 +100,15 @@ export const ScoreProvider = ({
   children,
   ...initState
 }: ChildrenType & ScoreType) => {
+  const { score, currentGameSpeed, ...contextValue } =
+    useScoreContext(initState);
+
+  useEffect(() => {
+    currentGameSpeed();
+  }, [score.gameStats.speed]);
+
   return (
-    <ScoreContext.Provider value={useScoreContext(initState)}>
+    <ScoreContext.Provider value={{ score, currentGameSpeed, ...contextValue }}>
       {children}
     </ScoreContext.Provider>
   );
