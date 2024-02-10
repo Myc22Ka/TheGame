@@ -4,6 +4,7 @@ import React, {
   createContext,
   ReactElement,
   useCallback,
+  useRef,
 } from "react";
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
@@ -18,6 +19,7 @@ export const initGameState: GameType = {
 
 const useGameContext = (defaultGame: GameType) => {
   const [game, setGame] = useState(defaultGame);
+  const id = useRef(1);
 
   const gameLoseEvent = useCallback(() => {
     setGame((prev) => ({
@@ -35,7 +37,7 @@ const useGameContext = (defaultGame: GameType) => {
         const newGrid = [...prev.grid];
         newGrid[foundIndex] = {
           ...newGrid[foundIndex],
-          insideCell: piece,
+          insideCell: { ...piece, id: id.current++ },
           isEmpty: false,
           animate: "active",
         };

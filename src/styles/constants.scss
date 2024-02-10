@@ -6,6 +6,7 @@ $main: #ff3974;
 $cell: darken($main, 10);
 $secondary: darken($main, 20);
 $background: #323641;
+$disabled: lighten($background, 15);
 $third: #222222;
 $error: #ff3333;
 $success: #63ff33;
@@ -17,7 +18,7 @@ $font-size-mid: clamp(1.5rem, 4vw, 2.5rem);
 $font-size-small: clamp(0.6rem, 4vw, 2rem);
 
 // Piece:
-$pieceSize: 100px;
+$pieceSize: 1.5rem;
 $pieceCol: #ed8f8f;
 $pieces: (
   "multiplier": adjust-hue($pieceCol, 0),

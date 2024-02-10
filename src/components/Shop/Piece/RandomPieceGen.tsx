@@ -4,6 +4,7 @@ import { defaultCycle, setCycleSteps } from "src/modules/Piece/utils";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
 import { useScore } from "src/contexts/ScoreContext";
+import Switch from "../Market/MarketLogic/Switch";
 
 const RandomPieceGen: React.FC = () => {
   const [cycle, setCycle] = useState(defaultCycle);
@@ -32,19 +33,20 @@ const RandomPieceGen: React.FC = () => {
   return (
     <Stack
       direction="vertical"
-      className="align-items-center justify-content-center"
-      style={{ flex: 1 }}
+      className="align-items-center justify-content-end h-100"
+      gap={5}
+      style={{ position: "relative" }}
     >
       <input
         type="range"
         min="0"
-        className="w-75 piece-metter m-2"
+        className="piece-metter m-0"
         style={{
-          background: `linear-gradient(to right, ${styles.main} 0%, ${
+          background: `linear-gradient(to top, ${styles.main} 0%, ${
             styles.main
-          } ${(100 * cycle.time) / defaultCycle.time}%, ${styles.background} ${
+          } ${(100 * cycle.time) / defaultCycle.time}%, transparent ${
             (100 * cycle.time) / defaultCycle.time
-          }%, ${styles.background} 100%)`,
+          }%, transparent 100%)`,
         }}
         readOnly
         value={cycle.time}
@@ -53,6 +55,7 @@ const RandomPieceGen: React.FC = () => {
       <div className="piece-spawn">
         {cycle.show && <Piece piece={cycle.piece} animate={cycle.animate} />}
       </div>
+      <Switch />
     </Stack>
   );
 };

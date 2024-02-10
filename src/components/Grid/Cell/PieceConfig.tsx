@@ -25,10 +25,13 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
       </Modal.Header>
       <Modal.Body>
         <Button
+          disabled={!cell.isDestroyed}
           variant="primary"
           onClick={() => {
-            repairPiece(cell);
-            updateActivators(cell.insideCell.activators);
+            if (cell.isDestroyed) {
+              repairPiece(cell);
+              updateActivators(cell.insideCell.activators);
+            }
             handleClose();
           }}
         >

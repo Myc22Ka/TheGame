@@ -35,7 +35,7 @@ const VisualizeValue: React.FC<VisualizeValuePropsType> = ({
       {[...Array(length)].map((_, i) => (
         <div
           style={{
-            backgroundColor: styles[activator],
+            backgroundColor: value < 0 ? styles.disabled : styles[activator],
             width: size,
             height: size,
             borderRadius: "4px",

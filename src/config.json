@@ -40,7 +40,7 @@
         "destroyChance": 0.5,
         "activators": {
           "multiplier": 0.5,
-          "power": 1,
+          "power": -1,
           "flatIncome": 3
         }
       },
@@ -54,7 +54,8 @@
         "uses": 3,
         "destroyChance": 0.2,
         "activators": {
-          "flatIncome": 1
+          "flatIncome": 1,
+          "power": -1
         }
       },
       {
@@ -67,7 +68,7 @@
         "uses": 3,
         "destroyChance": 0.2,
         "activators": {
-          "power": 1
+          "power": 5
         }
       },
       {
@@ -80,7 +81,8 @@
         "uses": 3,
         "destroyChance": 0.2,
         "activators": {
-          "luck": 0.1
+          "luck": 0.1,
+          "power": -1
         }
       },
       {
@@ -93,7 +95,8 @@
         "uses": 3,
         "destroyChance": 0.2,
         "activators": {
-          "speed": 6
+          "speed": 6,
+          "power": -1
         }
       },
       {
@@ -106,7 +109,8 @@
         "uses": 3,
         "destroyChance": 0.2,
         "activators": {
-          "discount": 0.25
+          "discount": 0.25,
+          "power": -1
         }
       },
       {
@@ -119,7 +123,8 @@
         "uses": 3,
         "destroyChance": 0.1,
         "activators": {
-          "resistance": 0.05
+          "resistance": 0.05,
+          "power": -1
         }
       },
       {
@@ -131,7 +136,9 @@
         "level": 1,
         "uses": 3,
         "destroyChance": 0.2,
-        "activators": {}
+        "activators": {
+          "power": -1
+        }
       },
       {
         "id": 9,
@@ -143,7 +150,8 @@
         "uses": 3,
         "destroyChance": 0.2,
         "activators": {
-          "luck": 0.1
+          "luck": 0.1,
+          "power": -1
         }
       }
     ]
