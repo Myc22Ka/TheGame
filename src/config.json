@@ -36,7 +36,7 @@
         "buy": 20,
         "rule": "multiplier",
         "level": 2,
-        "uses": 3,
+        "uses": 5,
         "destroyChance": 0.5,
         "activators": {
           "multiplier": 0.5,

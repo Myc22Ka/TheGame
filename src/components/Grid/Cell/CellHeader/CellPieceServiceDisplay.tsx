@@ -4,6 +4,8 @@ import { Variants, motion, useAnimation } from "framer-motion";
 import { useGame } from "src/contexts/GameContext";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
+import { GameStats } from "src/modules/Game/types";
+import { ActivatorsType } from "src/modules/Score/types";
 
 type CellPieceServiceDisplayPropsType = {
   cell: GridEntry;
@@ -13,7 +15,7 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
   cell,
 }) => {
   const { destroyPiece } = useGame();
-  const { score, currentGameSpeed } = useScore();
+  const { score, currentGameSpeed, updateActivators } = useScore();
   const controls = useAnimation();
 
   const startAnimation = () => {
@@ -28,6 +30,14 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
       },
     });
   };
+
+  const transformedValues = Object.entries(cell.insideCell.activators).reduce(
+    (acc: ActivatorsType, [key, value]) => {
+      acc[key as GameStats] = value * -1; // Transform the value here as needed
+      return acc;
+    },
+    {}
+  );
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -46,9 +56,9 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
       () => {
         const resistance = Math.random() + (score.gameStats.resistance || 0);
         if (resistance > piece.destroyChance) return;
-
         destroyPiece(cell);
         clearInterval(interval);
+        updateActivators(transformedValues);
       },
       currentGameSpeed({ devider: 0.5 })
     );

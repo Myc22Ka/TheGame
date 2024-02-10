@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useGame } from "src/contexts/GameContext";
+import { useScore } from "src/contexts/ScoreContext";
 import { GridEntry } from "src/modules/Grid/types";
 
 type PieceConfigPropsType = {
@@ -15,6 +16,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
   cell,
 }) => {
   const { repairPiece } = useGame();
+  const { updateActivators } = useScore();
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -26,6 +28,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
           variant="primary"
           onClick={() => {
             repairPiece(cell);
+            updateActivators(cell.insideCell.activators);
             handleClose();
           }}
         >
