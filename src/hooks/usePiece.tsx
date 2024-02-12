@@ -18,7 +18,8 @@ export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold, updateActivators, currentGameSpeed } = useScore();
+  const { removeSomeGold, updateActivators, currentGameSpeed, score } =
+    useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -32,6 +33,14 @@ export const usePiece = (piece: PieceType) => {
 
   const handleDragEnd = useCallback(
     (event: PieceEventType, takeMoney: boolean) => {
+      if ((score.gameStats.power || 0) + (piece.activators.power || 0) < 0) {
+        setTile((prev) => ({
+          ...prev,
+          animate: "return",
+        }));
+        return;
+      }
+
       const nearestCell = findNearestCell(game, event, tile);
 
       if (!nearestCell) {

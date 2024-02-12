@@ -13,6 +13,7 @@ import {
 import { useScore } from "src/contexts/ScoreContext";
 import { GameStats } from "src/modules/Game/types";
 import { motion } from "framer-motion";
+import { GameStatsType } from "src/modules/Score/types";
 
 type DisplayValuePropsType = {
   value: number;
@@ -28,11 +29,17 @@ const DisplayValue: React.FC<DisplayValuePropsType> = ({ value, gameStat }) => {
     return value.toFixed(1);
   };
 
-  const count = useMotionValue(Number(prevScore.gameStats[gameStat]));
+  const count = useMotionValue(
+    Number(prevScore.gameStats[gameStat as keyof GameStatsType])
+  );
   const rounded = useTransform(count, transformer);
   const roundedColor = useTransform(
     count,
-    [Number(prevScore.gameStats[gameStat]), (49 * value) / 50, value],
+    [
+      Number(prevScore.gameStats[gameStat as keyof GameStatsType]),
+      (49 * value) / 50,
+      value,
+    ],
     [
       styles[gameStat] || styles.main,
       styles[gameStat] || styles.main,

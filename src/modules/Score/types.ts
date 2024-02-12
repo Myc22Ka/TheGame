@@ -4,9 +4,13 @@ type ActivatorsType = {
   [K in Exclude<GameStats, "">]?: number;
 };
 
-type ScoreType = {
-  gold: number;
-  gameStats: ActivatorsType;
+type GameStatsType = {
+  [K in Exclude<GameStats, "" | "default">]: number;
 };
 
-export type { ActivatorsType, ScoreType };
+type ScoreType = {
+  gold: number;
+  gameStats: GameStatsType;
+};
+
+export type { ActivatorsType, ScoreType, GameStatsType };

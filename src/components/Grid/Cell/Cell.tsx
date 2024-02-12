@@ -7,7 +7,7 @@ import { useScore } from "src/contexts/ScoreContext";
 import styles from "src/styles/style.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { piecesIcons } from "src/modules/Piece/utils";
-import PieceConfig from "./PieceConfig";
+import PieceConfig from "./CellPieceModal/PieceConfig";
 import CellHeader from "./CellHeader/CellHeader";
 import options from "src/config.json";
 

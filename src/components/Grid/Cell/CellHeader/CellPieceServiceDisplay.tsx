@@ -43,7 +43,7 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
     let interval: NodeJS.Timeout;
 
     const piece = options.pieces.types.find(
-      (piece) => piece.id === cell.insideCell.id
+      (piece) => piece.rule === cell.insideCell.rule
     );
     if (!piece) return;
 
@@ -54,7 +54,7 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
 
     interval = setInterval(
       () => {
-        const resistance = Math.random() + (score.gameStats.resistance || 0);
+        const resistance = Math.random() + score.gameStats.resistance;
         if (resistance > piece.destroyChance) return;
         destroyPiece(cell);
         clearInterval(interval);

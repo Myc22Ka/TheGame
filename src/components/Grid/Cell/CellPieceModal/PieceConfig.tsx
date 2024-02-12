@@ -16,7 +16,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
   cell,
 }) => {
   const { repairPiece } = useGame();
-  const { updateActivators } = useScore();
+  const { updateActivators, score } = useScore();
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -25,9 +25,13 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
       </Modal.Header>
       <Modal.Body>
         <Button
-          disabled={!cell.isDestroyed}
+          disabled={
+            !cell.isDestroyed ||
+            score.gameStats.power + (cell.insideCell.activators.power || 0) < 0
+          }
           variant="primary"
           onClick={() => {
+            if (score.gameStats.power === 0) return;
             if (cell.isDestroyed) {
               repairPiece(cell);
               updateActivators(cell.insideCell.activators);

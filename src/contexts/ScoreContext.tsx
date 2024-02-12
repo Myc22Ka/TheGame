@@ -7,7 +7,11 @@ import React, {
   useEffect,
 } from "react";
 import options from "src/config.json";
-import { ActivatorsType, ScoreType } from "src/modules/Score/types";
+import {
+  ActivatorsType,
+  GameStatsType,
+  ScoreType,
+} from "src/modules/Score/types";
 
 export const initState: ScoreType = options.score;
 
@@ -58,7 +62,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
 
         Object.entries(activators).map(([key, value]) => {
           result[key as keyof ActivatorsType] =
-            (value || 0) + (prev.gameStats[key as keyof ActivatorsType] || 0);
+            value + prev.gameStats[key as keyof GameStatsType];
         });
 
         return { ...prev, gameStats: { ...prev.gameStats, ...result } };
