@@ -26,6 +26,7 @@ const StatsDisplay: React.FC = () => {
       </Stack>
       <Container>
         {Object.entries(score.gameStats).map(([key, value]) => {
+          if (key === "power") return;
           return (
             <DisplayValue key={key} value={value} gameStat={key as GameStats} />
           );

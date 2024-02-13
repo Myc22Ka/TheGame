@@ -3,6 +3,7 @@ import Score from "./Score";
 import { Stack } from "react-bootstrap";
 import ResizeGridButton from "./ResizeGridButton";
 import Timer from "./Timer";
+import Power from "./Power";
 
 const Header: React.FC = () => {
   return (
@@ -11,7 +12,10 @@ const Header: React.FC = () => {
       direction="horizontal"
       gap={3}
     >
-      <Score />
+      <Stack direction="horizontal" gap={3}>
+        <Power />
+        <Score />
+      </Stack>
       <Stack direction="horizontal" gap={3}>
         <ResizeGridButton />
         <Timer />
