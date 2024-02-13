@@ -53,7 +53,8 @@ const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
     <Stack
       direction="horizontal"
       className={`justify-content-center align-items-center cell${
-        ((score.gold < piece.buy || piece.uses === 0) &&
+        ((score.gold < piece.upgradeCost[piece.level - 1] ||
+          piece.uses === 0) &&
           tile.animate !== "drag") ||
         (score.gameStats.power === 0 && piece.rule !== "power")
           ? " locked"
@@ -63,7 +64,7 @@ const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
       <motion.div
         className={`piece ${piece.rule}`}
         drag={
-          score.gold > piece.buy &&
+          score.gold > piece.upgradeCost[piece.level - 1] &&
           piece.uses !== 0 &&
           ["active", "inactive"].includes(tile.animate) &&
           ((score.gameStats.power || 0) > 0 || piece.rule === "power")

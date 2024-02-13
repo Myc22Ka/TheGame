@@ -33,7 +33,8 @@ export const usePiece = (piece: PieceType) => {
 
   const handleDragEnd = useCallback(
     (event: PieceEventType, takeMoney: boolean) => {
-      if ((score.gameStats.power || 0) + (piece.activators.power || 0) < 0) {
+      const piecePower = (piece.activators.power || [])[piece.level - 1];
+      if (score.gameStats.power + piecePower < 0) {
         setTile((prev) => ({
           ...prev,
           animate: "return",
@@ -50,7 +51,7 @@ export const usePiece = (piece: PieceType) => {
         }));
         return;
       }
-      if (takeMoney) removeSomeGold(piece.buy);
+      if (takeMoney) removeSomeGold(piece.upgradeCost[piece.level - 1]);
       setTile((prev) => ({
         ...prev,
         animate: "drag",
@@ -81,7 +82,7 @@ export const usePiece = (piece: PieceType) => {
 
     setTimeout(() => {
       addPieceToCell(tile.nearestCell, piece);
-      updateActivators(piece.activators);
+      updateActivators(piece);
       changePieceAnimation("exit");
     }, addToGridDelay);
   }, [tile, currentGameSpeed]);

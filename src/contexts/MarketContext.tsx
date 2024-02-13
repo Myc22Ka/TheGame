@@ -46,9 +46,11 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
     (score: ScoreType) => {
       setMarketContent((prev) => ({
         ...prev,
-        pieces: prev.pieces.map((e) => ({
-          ...e,
-          buy: Math.round(e.buy * (1 - (score.gameStats?.discount || 0))),
+        pieces: prev.pieces.map((piece) => ({
+          ...piece,
+          upgradeCost: piece.upgradeCost.map((cost) =>
+            Math.round(cost * (1 - score.gameStats.discount))
+          ),
         })),
       }));
     },

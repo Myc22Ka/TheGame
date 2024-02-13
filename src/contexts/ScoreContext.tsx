@@ -7,6 +7,7 @@ import React, {
   useEffect,
 } from "react";
 import options from "src/config.json";
+import { PieceType } from "src/modules/Piece/types";
 import {
   ActivatorsType,
   GameStatsType,
@@ -55,14 +56,15 @@ const useScoreContext = (defaultScore: ScoreType) => {
   );
 
   const updateActivators = useCallback(
-    (activators: ActivatorsType) => {
+    (piece: PieceType) => {
       setScore((prev) => {
         setPrevScore(prev);
-        const result: ActivatorsType = {};
+        const result = {} as GameStatsType;
 
-        Object.entries(activators).map(([key, value]) => {
-          result[key as keyof ActivatorsType] =
-            value + prev.gameStats[key as keyof GameStatsType];
+        Object.entries(piece.activators).map(([key, value]) => {
+          result[key as keyof GameStatsType] =
+            value[piece.level - 1] + prev.gameStats[key as keyof GameStatsType];
+          return [key, value];
         });
 
         return { ...prev, gameStats: { ...prev.gameStats, ...result } };

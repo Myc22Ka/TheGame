@@ -32,7 +32,10 @@ const Activators: React.FC<ActivatorsPropsType> = ({ piece }) => {
                 {changeCammelCaseToSpace(activator)}
               </div>
             </Stack>
-            <VisualizeValue activator={activator as GameStats} value={value} />
+            <VisualizeValue
+              activator={activator as GameStats}
+              value={value[piece.level - 1]}
+            />
           </Stack>
         );
       })}

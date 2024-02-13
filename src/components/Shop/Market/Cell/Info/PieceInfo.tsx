@@ -18,7 +18,8 @@ const PieceInfo: React.FC<PieceInfoPropsType> = ({ piece }) => {
         {options.pieces.types.find((e) => e.rule === piece.rule)!.uses}
       </div>
       <div className="h6 m-0 price py-1 px-3">
-        {piece.buy} <FontAwesomeIcon icon={faCoins} size="sm" />
+        {piece.upgradeCost[piece.level - 1]}{" "}
+        <FontAwesomeIcon icon={faCoins} size="sm" />
       </div>
     </React.Fragment>
   );

@@ -27,14 +27,17 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
         <Button
           disabled={
             !cell.isDestroyed ||
-            score.gameStats.power + (cell.insideCell.activators.power || 0) < 0
+            (cell.insideCell.activators.power &&
+              score.gameStats.power +
+                cell.insideCell.activators.power[cell.insideCell.level - 1] <
+                0)
           }
           variant="primary"
           onClick={() => {
             if (score.gameStats.power === 0) return;
             if (cell.isDestroyed) {
               repairPiece(cell);
-              updateActivators(cell.insideCell.activators);
+              updateActivators(cell.insideCell);
             }
             handleClose();
           }}

@@ -4,15 +4,13 @@ import options from "src/config.json";
 const emptyPiece: PieceType = {
   description: "",
   name: "",
-  buy: 0,
+  upgradeCost: [],
+  destroyChance: [],
   rule: "default",
   level: 0,
   uses: 0,
   id: 0,
-  activators: {
-    multiplier: 0,
-    flatIncome: 0,
-  },
+  activators: {},
 };
 
 const emptyCell: GridEntry = {

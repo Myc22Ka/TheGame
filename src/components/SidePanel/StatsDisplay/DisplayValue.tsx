@@ -1,15 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { statsIcons } from "src/modules/Piece/utils";
 import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import styles from "src/styles/style.module.scss";
-import {
-  animate,
-  cubicBezier,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
+import { animate, useMotionValue, useTransform } from "framer-motion";
 import { useScore } from "src/contexts/ScoreContext";
 import { GameStats } from "src/modules/Game/types";
 import { motion } from "framer-motion";
@@ -21,25 +16,22 @@ type DisplayValuePropsType = {
 };
 
 const DisplayValue: React.FC<DisplayValuePropsType> = ({ value, gameStat }) => {
-  const { prevScore, score } = useScore();
+  const { score, prevScore } = useScore();
   const transformer = (value: number) => {
     if (["speed", "discount", "resistance"].includes(gameStat)) {
       return Math.round(value * 100) + "%";
     }
     return value.toFixed(1);
   };
-
-  const count = useMotionValue(
-    Number(prevScore.gameStats[gameStat as keyof GameStatsType])
+  const defaultValue = Number(
+    prevScore.gameStats[gameStat as keyof GameStatsType]
   );
+
+  const count = useMotionValue(defaultValue);
   const rounded = useTransform(count, transformer);
   const roundedColor = useTransform(
     count,
-    [
-      Number(prevScore.gameStats[gameStat as keyof GameStatsType]),
-      (49 * value) / 50,
-      value,
-    ],
+    [defaultValue, (49 * value) / 50, value],
     [
       styles[gameStat] || styles.main,
       styles[gameStat] || styles.main,

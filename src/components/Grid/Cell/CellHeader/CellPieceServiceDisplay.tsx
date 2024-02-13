@@ -31,34 +31,37 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
     });
   };
 
-  const transformedValues = Object.entries(cell.insideCell.activators).reduce(
-    (acc: ActivatorsType, [key, value]) => {
-      acc[key as GameStats] = value * -1; // Transform the value here as needed
-      return acc;
-    },
-    {}
-  );
+  const transformValues = () => {
+    const keys = Object.keys(cell.insideCell.activators) as GameStats[];
+    const result: ActivatorsType = {};
+
+    keys.forEach((key) => {
+      result[key] = cell.insideCell.activators[key]?.map((value) => value * -1);
+    });
+
+    return result;
+  };
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    const piece = options.pieces.types.find(
-      (piece) => piece.rule === cell.insideCell.rule
-    );
-    if (!piece) return;
+    if (cell.isEmpty) return;
 
     if (cell.isDestroyed) {
       startAnimation();
       return;
     }
 
+    const pieceDestoryChance =
+      cell.insideCell.destroyChance[cell.insideCell.level - 1];
+
     interval = setInterval(
       () => {
         const resistance = Math.random() + score.gameStats.resistance;
-        if (resistance > piece.destroyChance) return;
+        if (resistance > pieceDestoryChance) return;
         destroyPiece(cell);
         clearInterval(interval);
-        updateActivators(transformedValues);
+        updateActivators({ ...cell.insideCell, activators: transformValues() });
       },
       currentGameSpeed({ devider: 0.5 })
     );

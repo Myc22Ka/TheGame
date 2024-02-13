@@ -22,7 +22,8 @@ type Cords = {
 type PieceType = {
   description: string;
   name: string;
-  buy: number;
+  upgradeCost: number[];
+  destroyChance: number[];
   rule: GameStats;
   level: number;
   uses: number;
