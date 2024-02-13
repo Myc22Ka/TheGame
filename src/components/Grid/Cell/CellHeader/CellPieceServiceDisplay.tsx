@@ -36,7 +36,13 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
     const result: ActivatorsType = {};
 
     keys.forEach((key) => {
-      result[key] = cell.insideCell.activators[key]?.map((value) => value * -1);
+      let resultArr: number[] = [];
+      let sum = 0;
+      cell.insideCell.activators[key]?.forEach((value) => {
+        sum -= value;
+        resultArr.push(sum);
+      });
+      result[key] = resultArr;
     });
 
     return result;

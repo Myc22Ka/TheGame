@@ -40,7 +40,7 @@
         "activators": {
           "multiplier": [0.5, 1, 2],
           "power": [-1, -2, -4],
-          "flatIncome": [3, 6, 9]
+          "flatIncome": [1, 6, 9]
         }
       },
       {

@@ -16,7 +16,7 @@ const Levels: React.FC<LevelsPropsType> = ({ cell }) => {
               className="level"
               key={e}
               style={{
-                opacity: e / 5,
+                opacity: e / cell.insideCell.upgradeCost.length,
                 backgroundColor: styles[cell.insideCell.rule],
               }}
             ></div>

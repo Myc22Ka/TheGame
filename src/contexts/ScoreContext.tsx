@@ -61,10 +61,9 @@ const useScoreContext = (defaultScore: ScoreType) => {
         setPrevScore(prev);
         const result = {} as GameStatsType;
 
-        Object.entries(piece.activators).map(([key, value]) => {
+        Object.entries(piece.activators).forEach(([key, value]) => {
           result[key as keyof GameStatsType] =
             value[piece.level - 1] + prev.gameStats[key as keyof GameStatsType];
-          return [key, value];
         });
 
         return { ...prev, gameStats: { ...prev.gameStats, ...result } };

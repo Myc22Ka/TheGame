@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useScore } from "src/contexts/ScoreContext";
 import { Container, Stack } from "react-bootstrap";
 import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,11 @@ import DisplayValue from "./DisplayValue";
 import { GameStats } from "src/modules/Game/types";
 
 const StatsDisplay: React.FC = () => {
-  const { score } = useScore();
+  const { score, prevScore } = useScore();
+
+  // useEffect(() => {
+  //   console.log(score.gameStats, prevScore.gameStats);
+  // }, [score]);
 
   return (
     <Stack
