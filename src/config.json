@@ -4,7 +4,7 @@
     "gameStats": {
       "multiplier": 1,
       "flatIncome": 1,
-      "power": 1,
+      "power": 5,
       "luck": 0,
       "speed": 1,
       "discount": 0,
@@ -30,7 +30,6 @@
     "cycleTime": 4,
     "types": [
       {
-        "id": 1,
         "description": "This block enhances the money multiplier, acting as an economic catalyst to boost in-game income and accelerate financial progress.",
         "name": "Cash Flow Catalyst",
         "buy": 20,
@@ -42,116 +41,6 @@
           "multiplier": 0.5,
           "power": -1,
           "flatIncome": 3
-        }
-      },
-      {
-        "id": 2,
-        "description": "This block provides a steady and consistent stream of money.",
-        "name": "Income Flow Forge",
-        "buy": 40,
-        "rule": "flatIncome",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.2,
-        "activators": {
-          "flatIncome": 1,
-          "power": -1
-        }
-      },
-      {
-        "id": 3,
-        "description": "This block supplies electrical power, acting as a source of energy.",
-        "name": "Volt Vortex Box",
-        "buy": 120,
-        "rule": "power",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0,
-        "activators": {
-          "power": 5
-        }
-      },
-      {
-        "id": 4,
-        "description": "This block bestows a touch of luck upon the player.",
-        "name": "Fortune Flick Box",
-        "buy": 100,
-        "rule": "luck",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.2,
-        "activators": {
-          "luck": 0.1,
-          "power": -1
-        }
-      },
-      {
-        "id": 5,
-        "description": "Some text",
-        "name": "Velocity Vault Box",
-        "buy": 60,
-        "rule": "speed",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.2,
-        "activators": {
-          "speed": 6,
-          "power": -1
-        }
-      },
-      {
-        "id": 6,
-        "description": "Some text",
-        "name": "Bargain Boost Box",
-        "buy": 100,
-        "rule": "discount",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.2,
-        "activators": {
-          "discount": 0.25,
-          "power": -1
-        }
-      },
-      {
-        "id": 7,
-        "description": "Some text",
-        "name": "Guardian Guard Box",
-        "buy": 120,
-        "rule": "resistance",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.1,
-        "activators": {
-          "resistance": 0.05,
-          "power": -1
-        }
-      },
-      {
-        "id": 8,
-        "description": "Some text",
-        "name": "Star Energy Amplifier",
-        "buy": 10000,
-        "rule": "booster",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.2,
-        "activators": {
-          "power": -1
-        }
-      },
-      {
-        "id": 9,
-        "description": "Some text",
-        "name": "No CATS Box",
-        "buy": 9999,
-        "rule": "ads_remover",
-        "level": 1,
-        "uses": 3,
-        "destroyChance": 0.2,
-        "activators": {
-          "luck": 0.1,
-          "power": -1
         }
       }
     ]

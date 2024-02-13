@@ -160,7 +160,7 @@ const calcCenterPoint = (ref: HTMLDivElement): Cords => {
 function generateRandomPiece(): PieceType {
   return options.pieces.types[
     Math.floor(Math.random() * options.pieces.types.length)
-  ] as PieceType;
+  ] as unknown as PieceType;
 }
 
 /**

@@ -13,7 +13,7 @@ import { ScoreType } from "src/modules/Score/types";
 import { useScore } from "./ScoreContext";
 
 export const initMarketState: MarketContentType = {
-  pieces: options.pieces.types as PieceType[],
+  pieces: options.pieces.types as unknown as PieceType[],
   activeState: "Market",
 };
 
