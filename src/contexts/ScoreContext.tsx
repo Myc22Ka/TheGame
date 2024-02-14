@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from "react";
 import options from "src/config.json";
-import { PieceType } from "src/modules/Piece/types";
+import { GameStats, PieceType } from "src/modules/Piece/types";
 import {
   ActivatorsType,
   GameStatsType,
@@ -56,14 +56,24 @@ const useScoreContext = (defaultScore: ScoreType) => {
   );
 
   const updateActivators = useCallback(
-    (piece: PieceType) => {
+    (piece: PieceType, operator: "+" | "-" = "+") => {
       setScore((prev) => {
         setPrevScore(prev);
         const result = {} as GameStatsType;
+        const gameStats = Object.keys(piece.activators) as Exclude<
+          GameStats,
+          "" | "default"
+        >[];
+        const currLevel = piece.level - 1;
 
-        Object.entries(piece.activators).forEach(([key, value]) => {
-          result[key as keyof GameStatsType] =
-            value[piece.level - 1] + prev.gameStats[key as keyof GameStatsType];
+        gameStats.forEach((key) => {
+          const stat = piece.activators[key];
+
+          if (operator === "-")
+            result[key] = prev.gameStats[key] - (stat || [])[currLevel];
+
+          if (operator === "+")
+            result[key] = prev.gameStats[key] + (stat || [])[currLevel];
         });
 
         return { ...prev, gameStats: { ...prev.gameStats, ...result } };

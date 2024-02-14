@@ -16,7 +16,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
   cell,
 }) => {
   const { repairPiece, levelUp } = useGame();
-  const { updateActivators, score, removeSomeGold } = useScore();
+  const { score, removeSomeGold, updateActivators } = useScore();
 
   const handleRepair = () => {
     handleClose();
@@ -41,6 +41,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({
     if (upgradeCost[level] + score.gold <= 0) return;
 
     removeSomeGold(upgradeCost[level]);
+    updateActivators(cell.insideCell, "-");
     levelUp(cell);
     updateActivators({ ...cell.insideCell, level: level + 1 });
   };

@@ -101,7 +101,6 @@ const useGameContext = (defaultGame: GameType) => {
           }
           return gridCell;
         });
-
         return { ...prev, grid: updatedGrid };
       });
     },

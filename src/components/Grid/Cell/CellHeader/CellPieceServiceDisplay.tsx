@@ -31,23 +31,6 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
     });
   };
 
-  const transformValues = () => {
-    const keys = Object.keys(cell.insideCell.activators) as GameStats[];
-    const result: ActivatorsType = {};
-
-    keys.forEach((key) => {
-      let resultArr: number[] = [];
-      let sum = 0;
-      cell.insideCell.activators[key]?.forEach((value) => {
-        sum -= value;
-        resultArr.push(sum);
-      });
-      result[key] = resultArr;
-    });
-
-    return result;
-  };
-
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -67,7 +50,7 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
         if (resistance > pieceDestoryChance) return;
         destroyPiece(cell);
         clearInterval(interval);
-        updateActivators({ ...cell.insideCell, activators: transformValues() });
+        updateActivators(cell.insideCell, "-");
       },
       currentGameSpeed({ devider: 0.5 })
     );
