@@ -3,6 +3,7 @@ import React from "react";
 import { Modal, Stack } from "react-bootstrap";
 import { GridEntry } from "src/modules/Piece/types";
 import { piecesIcons } from "src/modules/Piece/utils";
+import Levels from "../Levels";
 
 type PieceModalTitlePropsType = {
   cell: GridEntry;
@@ -16,6 +17,7 @@ const PieceModalTitle: React.FC<PieceModalTitlePropsType> = ({ cell }) => {
         <div className={`piece ${cell.insideCell.rule} info-piece my-1`}>
           <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon} size="3x" />
         </div>
+        <Levels cell={cell} />
       </Stack>
     </Modal.Header>
   );

@@ -10,6 +10,7 @@ import { piecesIcons } from "src/modules/Piece/utils";
 import PieceConfig from "./CellPieceModal/PieceConfig";
 import CellHeader from "./CellHeader/CellHeader";
 import options from "src/config.json";
+import Levels from "./Levels";
 
 type CellProps = {
   cell: GridEntry;
@@ -45,6 +46,20 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
         {cell.insideCell.rule !== "default" && (
           <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon} size="3x" />
         )}
+      </motion.div>
+      <motion.div
+        initial="inactive"
+        variants={gridVariants}
+        transition={{
+          duration: currentGameSpeed({
+            defaultTimeTick: options.time.defaultPieceTransition,
+            devider: 1000,
+          }),
+          ease: "anticipate",
+        }}
+        animate={cell.animate}
+      >
+        <Levels cell={cell} />
       </motion.div>
       <PieceConfig show={show} handleClose={handleClose} cell={cell} />
     </Stack>

@@ -1,5 +1,7 @@
 @import "./constants.scss";
 
+$p: 1rem;
+
 .grid-container {
   .grid-elements {
     $size: clamp(350px, 80vw, 800px);
@@ -8,7 +10,6 @@
     display: grid;
     gap: 3px;
     .cell {
-      $p: 1rem;
       box-sizing: border-box;
       border: 3px solid transparent;
       border-radius: $border-radius;
@@ -16,32 +17,34 @@
       box-shadow: $shadow;
       padding: $p;
       position: relative;
-      .levels {
-        position: absolute;
-        top: $p;
-        left: $p;
-        width: calc(100% - 2 * $p);
-        .level {
-          width: 10px;
-          height: 20px;
-          border-radius: 2px;
-        }
-        .piece-state {
-          $size: 20px;
-          background: $success;
-          transition: background-color 4s ease-out;
-          width: $size;
-          height: $size;
-          border-radius: 3px;
-          &.destroyed {
-            background: $error;
-          }
-        }
-      }
       .piece {
         align-self: center;
         justify-self: center;
       }
+    }
+  }
+}
+
+.level {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+}
+
+.cell-header {
+  position: absolute;
+  top: $p;
+  left: $p;
+  width: calc(100% - 2 * $p);
+  .piece-state {
+    $size: 20px;
+    background: $success;
+    transition: background-color 4s ease-out;
+    width: $size;
+    height: $size;
+    border-radius: 3px;
+    &.destroyed {
+      background: $error;
     }
   }
 }

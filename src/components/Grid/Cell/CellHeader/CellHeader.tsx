@@ -3,7 +3,6 @@ import { GridEntry } from "src/modules/Grid/types";
 import { motion } from "framer-motion";
 import { gridVariants } from "src/modules/Grid/utils";
 import { useScore } from "src/contexts/ScoreContext";
-import Levels from "./Levels";
 import { Stack } from "react-bootstrap";
 import CellPieceServiceDisplay from "./CellPieceServiceDisplay";
 import options from "src/config.json";
@@ -19,7 +18,7 @@ const CellHeader: React.FC<CellHeaderPropsType> = ({ cell }) => {
     <motion.div
       initial="inactive"
       variants={gridVariants}
-      className="levels"
+      className="cell-header"
       transition={{
         duration: currentGameSpeed({
           defaultTimeTick: options.time.defaultPieceTransition,
@@ -29,8 +28,7 @@ const CellHeader: React.FC<CellHeaderPropsType> = ({ cell }) => {
       }}
       animate={cell.animate}
     >
-      <Stack gap={2} className="justify-content-between" direction="horizontal">
-        <Levels cell={cell} />
+      <Stack gap={2} className="justify-content-end" direction="horizontal">
         <CellPieceServiceDisplay cell={cell} />
       </Stack>
     </motion.div>
