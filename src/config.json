@@ -35,6 +35,7 @@
         "rule": "multiplier",
         "level": 1,
         "uses": 5,
+        "range": [0.5, 1, 2, 4, 6],
         "upgradeCost": [20, 40, 100],
         "destroyChance": [0.5, 0.4, 0.3],
         "activators": {
@@ -49,6 +50,7 @@
         "rule": "flatIncome",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [40, 160, 250],
         "destroyChance": [0.2, 0.1, 0.05],
         "activators": {
@@ -62,6 +64,7 @@
         "rule": "power",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [80, 640, 1000],
         "destroyChance": [0, 0, 0],
         "activators": {
@@ -74,6 +77,7 @@
         "rule": "luck",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [120, 240, 500],
         "destroyChance": [0.2, 0.1, 0.05],
         "activators": {
@@ -87,6 +91,7 @@
         "rule": "speed",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [60, 360, 720],
         "destroyChance": [0.2, 0.1, 0.02],
         "activators": {
@@ -100,6 +105,7 @@
         "rule": "discount",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [100, 200, 400],
         "destroyChance": [0.2, 0.1, 0.07],
         "activators": {
@@ -113,6 +119,7 @@
         "rule": "resistance",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [100, 200, 400],
         "destroyChance": [0.1, 0.08, 0.05],
         "activators": {
@@ -126,6 +133,7 @@
         "rule": "booster",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [10000, 20000, 40000],
         "destroyChance": [0.2, 0.3, 0.4],
         "activators": {
@@ -138,6 +146,7 @@
         "rule": "ads_remover",
         "level": 1,
         "uses": 3,
+        "range": [1, 2, 3, 4, 5],
         "upgradeCost": [99, 999, 9999],
         "destroyChance": [0.2, 0.2, 0.3],
         "activators": {

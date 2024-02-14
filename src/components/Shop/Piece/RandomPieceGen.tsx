@@ -42,19 +42,15 @@ const RandomPieceGen: React.FC = () => {
         min="0"
         className="piece-metter m-0"
         style={{
-          background: `linear-gradient(to top, ${styles.main} 0%, ${
-            styles.main
-          } ${(100 * cycle.time) / defaultCycle.time}%, transparent ${
+          background: `linear-gradient(to top, ${styles.main} 0%, ${styles.main} ${
             (100 * cycle.time) / defaultCycle.time
-          }%, transparent 100%)`,
+          }%, transparent ${(100 * cycle.time) / defaultCycle.time}%, transparent 100%)`,
         }}
         readOnly
         value={cycle.time}
         max={defaultCycle.time}
       />
-      <div className="piece-spawn">
-        {cycle.show && <Piece piece={cycle.piece} animate={cycle.animate} />}
-      </div>
+      <div className="piece-spawn">{cycle.show && <Piece piece={cycle.piece} animate={cycle.animate} />}</div>
       <Switch />
     </Stack>
   );

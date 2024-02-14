@@ -1,8 +1,4 @@
-import {
-  IconDefinition,
-  faBagShopping,
-  faCircleUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition, faBagShopping, faCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
 import { Stack } from "react-bootstrap";
@@ -22,8 +18,7 @@ const Switch: React.FC = () => {
   const isActive = useCallback(
     (i: number) => {
       return (
-        (marketContent.activeState === "Market" && i === 0) ||
-        (marketContent.activeState === "Upgrades" && i === 1)
+        (marketContent.activeState === "Market" && i === 0) || (marketContent.activeState === "Upgrades" && i === 1)
       );
     },
     [marketContent.activeState]

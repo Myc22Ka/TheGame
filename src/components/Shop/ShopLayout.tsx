@@ -10,10 +10,7 @@ import { MarketProvider, initMarketState } from "src/contexts/MarketContext";
 const ShopLayout: React.FC = () => {
   return (
     <Stack direction="vertical" className="shop justify-content-between h-100">
-      <Stack
-        className="devider justify-content-center align-items-center"
-        style={{ flex: 0, position: "relative" }}
-      >
+      <Stack className="devider justify-content-center align-items-center" style={{ flex: 0, position: "relative" }}>
         <div className="generator">
           <FontAwesomeIcon icon={faCarBattery} size="2x" color="white" />
         </div>

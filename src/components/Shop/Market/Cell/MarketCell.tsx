@@ -17,15 +17,8 @@ type MarketCellProps = {
 const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
   const { score, currentGameSpeed } = useScore();
   const { changeMarketState } = useMarket();
-  const {
-    pieceRef,
-    tile,
-    handleDragStart,
-    handleDragEnd,
-    addToGrid,
-    setDefaultValues,
-    changePieceAnimation,
-  } = usePiece(piece);
+  const { pieceRef, tile, handleDragStart, handleDragEnd, addToGrid, setDefaultValues, changePieceAnimation } =
+    usePiece(piece);
 
   /**
    * Function descrese uses property of current piece from marketContent.
@@ -53,9 +46,7 @@ const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
     <Stack
       direction="horizontal"
       className={`justify-content-center align-items-center cell${
-        ((score.gold < piece.upgradeCost[piece.level - 1] ||
-          piece.uses === 0) &&
-          tile.animate !== "drag") ||
+        ((score.gold < piece.upgradeCost[piece.level - 1] || piece.uses === 0) && tile.animate !== "drag") ||
         (score.gameStats.power === 0 && piece.rule !== "power")
           ? " locked"
           : ""

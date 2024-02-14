@@ -23,20 +23,14 @@ const DisplayValue: React.FC<DisplayValuePropsType> = ({ value, gameStat }) => {
     }
     return value.toFixed(1);
   };
-  const defaultValue = Number(
-    prevScore.gameStats[gameStat as keyof GameStatsType]
-  );
+  const defaultValue = Number(prevScore.gameStats[gameStat as keyof GameStatsType]);
 
   const count = useMotionValue(defaultValue);
   const rounded = useTransform(count, transformer);
   const roundedColor = useTransform(
     count,
     [defaultValue, (49 * value) / 50, value],
-    [
-      styles[gameStat] || styles.main,
-      styles[gameStat] || styles.main,
-      "#ffffff",
-    ]
+    [styles[gameStat] || styles.main, styles[gameStat] || styles.main, "#ffffff"]
   );
 
   useEffect(() => {
@@ -48,16 +42,10 @@ const DisplayValue: React.FC<DisplayValuePropsType> = ({ value, gameStat }) => {
   return (
     <Row>
       <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
-        <FontAwesomeIcon
-          icon={statsIcons.find((e) => e.rule === gameStat)!.icon}
-          size="lg"
-          color={styles.main}
-        />
+        <FontAwesomeIcon icon={statsIcons.find((e) => e.rule === gameStat)!.icon} size="lg" color={styles.main} />
       </Col>
       <Col style={{ flex: 1 }}>
-        <div style={{ fontSize: "small" }}>
-          {changeCammelCaseToSpace(gameStat)}
-        </div>
+        <div style={{ fontSize: "small" }}>{changeCammelCaseToSpace(gameStat)}</div>
       </Col>
       <Col style={{ flex: 0 }}>
         <motion.div style={{ color: roundedColor }}>{rounded}</motion.div>

@@ -11,9 +11,7 @@ type CellPieceServiceDisplayPropsType = {
   cell: GridEntry;
 };
 
-const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
-  cell,
-}) => {
+const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({ cell }) => {
   const { destroyPiece } = useGame();
   const { score, currentGameSpeed, updateActivators } = useScore();
   const controls = useAnimation();
@@ -41,8 +39,7 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({
       return;
     }
 
-    const pieceDestoryChance =
-      cell.insideCell.destroyChance[cell.insideCell.level - 1];
+    const pieceDestoryChance = cell.insideCell.destroyChance[cell.insideCell.level - 1];
 
     interval = setInterval(
       () => {

@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  createContext,
-  ReactElement,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import { PieceType } from "src/modules/Piece/types";
 import options from "src/config.json";
 import { ActiveStateType, MarketContentType } from "src/modules/Market/types";
@@ -24,9 +17,7 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
     (newPieceState: PieceType) => {
       setMarketContent((prev) => {
         const updatedMarket = [...prev.pieces];
-        const index = updatedMarket.findIndex(
-          (piece) => piece.id === newPieceState.id
-        );
+        const index = updatedMarket.findIndex((piece) => piece.id === newPieceState.id);
 
         if (index !== -1) updatedMarket[index] = newPieceState;
 
@@ -37,8 +28,7 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
   );
 
   const changeActiveState = useCallback(
-    (newActivetate: ActiveStateType) =>
-      setMarketContent((prev) => ({ ...prev, activeState: newActivetate })),
+    (newActivetate: ActiveStateType) => setMarketContent((prev) => ({ ...prev, activeState: newActivetate })),
     [setMarketContent]
   );
 
@@ -48,9 +38,7 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
         ...prev,
         pieces: prev.pieces.map((piece) => ({
           ...piece,
-          upgradeCost: piece.upgradeCost.map((cost) =>
-            Math.round(cost * (1 - score.gameStats.discount))
-          ),
+          upgradeCost: piece.upgradeCost.map((cost) => Math.round(cost * (1 - score.gameStats.discount))),
         })),
       }));
     },
@@ -73,10 +61,7 @@ type ChildrenType = {
   children?: ReactElement | null;
 };
 
-export const MarketProvider = ({
-  children,
-  ...initState
-}: ChildrenType & MarketContentType) => {
+export const MarketProvider = ({ children, ...initState }: ChildrenType & MarketContentType) => {
   const { score } = useScore();
   const { changePrices, ...contextValue } = useMarketContext(initState);
 
@@ -84,16 +69,11 @@ export const MarketProvider = ({
     changePrices(score);
   }, [score.gameStats.discount]);
 
-  return (
-    <MarketContext.Provider value={{ ...contextValue, changePrices }}>
-      {children}
-    </MarketContext.Provider>
-  );
+  return <MarketContext.Provider value={{ ...contextValue, changePrices }}>{children}</MarketContext.Provider>;
 };
 
 export const useMarket = () => {
-  const { changeActiveState, changeMarketState, marketContent, changePrices } =
-    useContext(MarketContext);
+  const { changeActiveState, changeMarketState, marketContent, changePrices } = useContext(MarketContext);
 
   return {
     changeActiveState,

@@ -14,14 +14,7 @@ interface PieceProps {
 
 const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
   const { currentGameSpeed } = useScore();
-  const {
-    pieceRef,
-    tile,
-    handleDragStart,
-    handleDragEnd,
-    addToGrid,
-    changePieceAnimation,
-  } = usePiece(piece);
+  const { pieceRef, tile, handleDragStart, handleDragEnd, addToGrid, changePieceAnimation } = usePiece(piece);
 
   const animationCompleteHandle = () => {
     if (animate === "exit") changePieceAnimation("exit");
@@ -63,10 +56,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
       onAnimationComplete={animationCompleteHandle}
       ref={pieceRef}
     >
-      <FontAwesomeIcon
-        icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon}
-        size="3x"
-      />
+      <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon} size="3x" />
     </motion.div>
   );
 };

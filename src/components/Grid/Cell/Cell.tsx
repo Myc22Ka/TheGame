@@ -43,12 +43,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
         onClick={handleShow}
       >
         {cell.insideCell.rule !== "default" && (
-          <FontAwesomeIcon
-            icon={
-              piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon
-            }
-            size="3x"
-          />
+          <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon} size="3x" />
         )}
       </motion.div>
       <PieceConfig show={show} handleClose={handleClose} cell={cell} />

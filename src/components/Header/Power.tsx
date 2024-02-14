@@ -8,11 +8,7 @@ import styles from "src/styles/style.module.scss";
 const Power = () => {
   const { score } = useScore();
   return (
-    <Stack
-      className="justify-content-center align-items-center"
-      direction="horizontal"
-      gap={2}
-    >
+    <Stack className="justify-content-center align-items-center" direction="horizontal" gap={2}>
       <div
         className="h2 m-0"
         style={{
@@ -23,11 +19,7 @@ const Power = () => {
       >
         {score.gameStats.power}
       </div>
-      <FontAwesomeIcon
-        icon={statsIcons.find((e) => e.rule === "power")!.icon}
-        size="xl"
-        color={styles.main}
-      />
+      <FontAwesomeIcon icon={statsIcons.find((e) => e.rule === "power")!.icon} size="xl" color={styles.main} />
     </Stack>
   );
 };

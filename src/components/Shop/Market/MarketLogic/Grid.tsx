@@ -12,12 +12,8 @@ const Grid: React.FC = () => {
     <div
       className="market"
       style={{
-        gridTemplateColumns: `repeat(${Math.floor(
-          Math.sqrt(options.pieces.types.length)
-        )}, 1fr)`,
-        gridTemplateRows: `repeat(${Math.floor(
-          Math.sqrt(options.pieces.types.length)
-        )}, 1fr)`,
+        gridTemplateColumns: `repeat(${Math.floor(Math.sqrt(options.pieces.types.length))}, 1fr)`,
+        gridTemplateRows: `repeat(${Math.floor(Math.sqrt(options.pieces.types.length))}, 1fr)`,
       }}
     >
       {marketContent.pieces.map((piece, i) => {

@@ -24,8 +24,7 @@ const ResizeGridButton: React.FC = () => {
    * @returns {void}
    */
   const resizeGridHandler = (): void => {
-    if (Math.sqrt(game.grid.length) === defaultSize + gridUpgrades.length)
-      return;
+    if (Math.sqrt(game.grid.length) === defaultSize + gridUpgrades.length) return;
 
     const upgradeCost = gridUpgrades[Math.sqrt(game.grid.length) - defaultSize];
 
@@ -36,17 +35,14 @@ const ResizeGridButton: React.FC = () => {
     }
   };
 
-  const isMaxed =
-    Math.sqrt(game.grid.length) === defaultSize + gridUpgrades.length;
+  const isMaxed = Math.sqrt(game.grid.length) === defaultSize + gridUpgrades.length;
 
   return (
     <Stack direction="horizontal" gap={2}>
       <Button variant="main" onClick={resizeGridHandler} disabled={isMaxed}>
         <Stack gap={3} direction="horizontal">
           <FontAwesomeIcon icon={faPlus} />
-          <span className="text text-uppercase fw-bold">
-            {isMaxed ? "Max Cells" : "Add Cells"}
-          </span>
+          <span className="text text-uppercase fw-bold">{isMaxed ? "Max Cells" : "Add Cells"}</span>
         </Stack>
       </Button>
     </Stack>

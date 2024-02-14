@@ -11,24 +11,14 @@ type InfoMenuPropsType = {
   handleClose: () => void;
 };
 
-const InfoMenu: React.FC<InfoMenuPropsType> = ({
-  show,
-  piece,
-  handleClose,
-}) => {
+const InfoMenu: React.FC<InfoMenuPropsType> = ({ show, piece, handleClose }) => {
   return (
     <Offcanvas show={show} onHide={handleClose}>
       <Offcanvas.Header className="justify-content-center align-items-center">
-        <Stack
-          direction="vertical"
-          className="justify-content-center align-items-center"
-        >
+        <Stack direction="vertical" className="justify-content-center align-items-center">
           <Offcanvas.Title className="my-2">{piece.name}</Offcanvas.Title>
           <div className={`piece ${piece.rule} info-piece my-1`}>
-            <FontAwesomeIcon
-              icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon}
-              size="3x"
-            />
+            <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon} size="3x" />
           </div>
         </Stack>
       </Offcanvas.Header>
@@ -36,7 +26,7 @@ const InfoMenu: React.FC<InfoMenuPropsType> = ({
       <Offcanvas.Body>
         <Stack>
           <div className="piece-description">{piece.description}</div>
-          <Activators piece={piece} />
+          <Activators activators={piece.activators} level={piece.level} />
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>

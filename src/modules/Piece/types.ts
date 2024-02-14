@@ -6,13 +6,7 @@ type ExtraRules = "booster" | "ads_remover";
 
 type PieceRules = GameStats | ExtraRules;
 
-type AnimationsType =
-  | "active"
-  | "drag"
-  | "return"
-  | "exit"
-  | "reset"
-  | "inactive";
+type AnimationsType = "active" | "drag" | "return" | "exit" | "reset" | "inactive";
 
 type Cords = {
   x: number;

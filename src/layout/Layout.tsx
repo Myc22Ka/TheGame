@@ -13,11 +13,7 @@ const Layout = () => {
   return (
     <React.Fragment>
       <Stack direction="horizontal" className="h-100">
-        <Stack
-          style={{ flex: 1000 }}
-          direction="vertical"
-          className="justify-content-between"
-        >
+        <Stack style={{ flex: 1000 }} direction="vertical" className="justify-content-between">
           <Header />
           <Stack direction="horizontal">
             <SidePanel />

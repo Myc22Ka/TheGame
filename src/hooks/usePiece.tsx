@@ -1,16 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useGame } from "src/contexts/GameContext";
-import {
-  defaultTile,
-  findNearestCell,
-  calcCenterPoint,
-  defaultCords,
-} from "src/modules/Piece/utils";
-import {
-  AnimationsType,
-  PieceEventType,
-  PieceType,
-} from "src/modules/Piece/types";
+import { defaultTile, findNearestCell, calcCenterPoint, defaultCords } from "src/modules/Piece/utils";
+import { AnimationsType, PieceEventType, PieceType } from "src/modules/Piece/types";
 import { useScore } from "src/contexts/ScoreContext";
 import options from "src/config.json";
 
@@ -18,15 +9,12 @@ export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold, updateActivators, currentGameSpeed, score } =
-    useScore();
+  const { removeSomeGold, updateActivators, currentGameSpeed, score } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
       ...prev,
-      startingPosition: pieceRef.current
-        ? calcCenterPoint(pieceRef.current)
-        : defaultCords,
+      startingPosition: pieceRef.current ? calcCenterPoint(pieceRef.current) : defaultCords,
       animate: "active",
     }));
   }, []);
@@ -63,10 +51,7 @@ export const usePiece = (piece: PieceType) => {
   );
 
   const setDefaultValues = useCallback(() => {
-    setTimeout(
-      () => setTile({ ...defaultTile, animate: "reset" }),
-      currentGameSpeed({ devider: 1 })
-    );
+    setTimeout(() => setTile({ ...defaultTile, animate: "reset" }), currentGameSpeed({ devider: 1 }));
   }, [tile]);
 
   const addToGrid = useCallback(() => {

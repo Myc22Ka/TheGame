@@ -29,12 +29,10 @@ const icons = [
   faLightbulb,
 ];
 
-const statsIcons: { rule: GameStats; icon: IconDefinition }[] = icons.map(
-  (icon, index) => ({
-    rule: rules[index] as GameStats,
-    icon: icon,
-  })
-);
+const statsIcons: { rule: GameStats; icon: IconDefinition }[] = icons.map((icon, index) => ({
+  rule: rules[index] as Exclude<GameStats, "default">,
+  icon: icon,
+}));
 
 const piecesIcons: { rule: PieceRules; icon: IconDefinition }[] = [
   ...statsIcons.slice(0, -1),
@@ -42,21 +40,12 @@ const piecesIcons: { rule: PieceRules; icon: IconDefinition }[] = [
   { icon: faBan, rule: "ads_remover" },
 ];
 
-const range: number[][] = [
-  [0.2, 0.4, 0.6, 0.8, 1],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-];
+const range = options.pieces.types.map((piece) => piece.range);
 
-const piecesRangeValues: { rule: PieceRules; range: number[] }[] = rules.map(
-  (rule, index) => ({ rule: rule, range: range[index] })
-);
+const piecesRangeValues: { rule: PieceRules; range: number[] }[] = rules.map((rule, index) => ({
+  rule: rule,
+  range: range[index],
+}));
 
 const defaultCords: Cords = { x: 0, y: 0 };
 
@@ -104,25 +93,17 @@ const pieceVariants: Variants = {
  * @param {TileType} tile - The tile to find the nearest cell for.
  * @returns {NearestCellType} An object containing the nearest empty cell, its distance, and vector.
  */
-const findNearestCell = (
-  game: GameType,
-  event: PieceEventType,
-  tile: TileType
-): NearestCellType => {
+const findNearestCell = (game: GameType, event: PieceEventType, tile: TileType): NearestCellType => {
   return game.grid
     .filter((cell) => cell.isEmpty)
     .map((cell) => {
-      if (!cell.ref || event instanceof TouchEvent)
-        return { cell: emptyCell, distance: 0, vector: defaultCords };
+      if (!cell.ref || event instanceof TouchEvent) return { cell: emptyCell, distance: 0, vector: defaultCords };
 
       const centerPoint = calcCenterPoint(cell.ref);
 
       return {
         cell: cell,
-        distance: Math.sqrt(
-          Math.pow(centerPoint.x - event.x, 2) +
-            Math.pow(centerPoint.y - event.y, 2)
-        ),
+        distance: Math.sqrt(Math.pow(centerPoint.x - event.x, 2) + Math.pow(centerPoint.y - event.y, 2)),
         vector: {
           x: centerPoint.x - tile.startingPosition.x,
           y: centerPoint.y - tile.startingPosition.y,
@@ -158,9 +139,7 @@ const calcCenterPoint = (ref: HTMLDivElement): Cords => {
  * @returns {PieceType} Random Piece object.
  */
 function generateRandomPiece(): PieceType {
-  return options.pieces.types[
-    Math.floor(Math.random() * options.pieces.types.length)
-  ] as unknown as PieceType;
+  return options.pieces.types[Math.floor(Math.random() * options.pieces.types.length)] as unknown as PieceType;
 }
 
 /**
@@ -174,8 +153,7 @@ const setCycleSteps = (currentIndex: number): DefaultCycleType[] => {
     time: i + 1,
   })).reverse();
 
-  if (currentIndex === restArray.length + 1)
-    defaultCycle.piece = generateRandomPiece();
+  if (currentIndex === restArray.length + 1) defaultCycle.piece = generateRandomPiece();
 
   return [
     defaultCycle,

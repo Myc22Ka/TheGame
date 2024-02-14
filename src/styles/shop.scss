@@ -157,8 +157,13 @@
   color: lighten($background, 30);
 }
 
-.activator,
-.activator-value {
+.activator {
   font-family: $font;
   font-weight: bold;
+}
+.activator-value {
+  $size: 20px;
+  width: $size;
+  height: $size;
+  border-radius: 3px;
 }

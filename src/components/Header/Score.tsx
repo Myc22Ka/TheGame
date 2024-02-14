@@ -12,18 +12,13 @@ const Score: React.FC = () => {
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (!game.gameOver)
-      interval = setInterval(() => addGold(), currentGameSpeed());
+    if (!game.gameOver) interval = setInterval(() => addGold(), currentGameSpeed());
 
     return () => clearInterval(interval);
   });
 
   return (
-    <Stack
-      className="justify-content-center align-items-center"
-      direction="horizontal"
-      gap={2}
-    >
+    <Stack className="justify-content-center align-items-center" direction="horizontal" gap={2}>
       <div
         className="h2 m-0"
         style={{

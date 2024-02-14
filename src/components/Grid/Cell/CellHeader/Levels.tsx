@@ -9,20 +9,18 @@ type LevelsPropsType = {
 const Levels: React.FC<LevelsPropsType> = ({ cell }) => {
   return (
     <Stack gap={2} direction="horizontal">
-      {Array.from({ length: cell.insideCell.level }, (_, i) => i + 1).map(
-        (e) => {
-          return (
-            <div
-              className="level"
-              key={e}
-              style={{
-                opacity: e / cell.insideCell.upgradeCost.length,
-                backgroundColor: styles[cell.insideCell.rule],
-              }}
-            ></div>
-          );
-        }
-      )}
+      {Array.from({ length: cell.insideCell.level }, (_, i) => i + 1).map((e) => {
+        return (
+          <div
+            className="level"
+            key={e}
+            style={{
+              opacity: e / cell.insideCell.upgradeCost.length,
+              backgroundColor: styles[cell.insideCell.rule],
+            }}
+          ></div>
+        );
+      })}
     </Stack>
   );
 };

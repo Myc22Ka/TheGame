@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  createContext,
-  ReactElement,
-  useCallback,
-} from "react";
+import React, { useState, useContext, createContext, ReactElement, useCallback } from "react";
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameType } from "src/modules/Game/types";
@@ -29,9 +23,7 @@ const useGameContext = (defaultGame: GameType) => {
   const addPieceToCell = useCallback(
     (cell: GridEntry, piece: PieceType) => {
       setGame((prev) => {
-        const foundIndex = prev.grid.findIndex(
-          (entry) => entry.ref === cell.ref
-        );
+        const foundIndex = prev.grid.findIndex((entry) => entry.ref === cell.ref);
         const newGrid = [...prev.grid];
         newGrid[foundIndex] = {
           ...newGrid[foundIndex],
@@ -174,28 +166,13 @@ type ChildrenType = {
   children?: ReactElement | null;
 };
 
-export const GameProvider = ({
-  children,
-  ...initState
-}: ChildrenType & GameType) => {
-  return (
-    <GameContext.Provider value={useGameContext(initState)}>
-      {children}
-    </GameContext.Provider>
-  );
+export const GameProvider = ({ children, ...initState }: ChildrenType & GameType) => {
+  return <GameContext.Provider value={useGameContext(initState)}>{children}</GameContext.Provider>;
 };
 
 export const useGame = () => {
-  const {
-    game,
-    gameLoseEvent,
-    resizeGrid,
-    defineRefForCells,
-    addPieceToCell,
-    levelUp,
-    destroyPiece,
-    repairPiece,
-  } = useContext(GameContext);
+  const { game, gameLoseEvent, resizeGrid, defineRefForCells, addPieceToCell, levelUp, destroyPiece, repairPiece } =
+    useContext(GameContext);
 
   return {
     game,

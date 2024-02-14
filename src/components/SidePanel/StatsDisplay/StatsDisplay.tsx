@@ -14,26 +14,15 @@ const StatsDisplay: React.FC = () => {
   // }, [score]);
 
   return (
-    <Stack
-      direction="vertical"
-      gap={1}
-      className="stats-display p-2"
-      style={{ flex: 0 }}
-    >
-      <Stack
-        className="stats-btn justify-content-start p-1"
-        gap={2}
-        direction="horizontal"
-      >
+    <Stack direction="vertical" gap={1} className="stats-display p-2" style={{ flex: 0 }}>
+      <Stack className="stats-btn justify-content-start p-1" gap={2} direction="horizontal">
         <FontAwesomeIcon icon={faSquarePollVertical} />
         <div>Stats Display</div>
       </Stack>
       <Container>
         {Object.entries(score.gameStats).map(([key, value]) => {
           if (key === "power") return;
-          return (
-            <DisplayValue key={key} value={value} gameStat={key as GameStats} />
-          );
+          return <DisplayValue key={key} value={value} gameStat={key as GameStats} />;
         })}
       </Container>
     </Stack>

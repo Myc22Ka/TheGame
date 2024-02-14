@@ -1,8 +1,12 @@
-import React from "react";
-import { Button, Modal } from "react-bootstrap";
-import { useGame } from "src/contexts/GameContext";
-import { useScore } from "src/contexts/ScoreContext";
+import React, { useEffect } from "react";
+import { Modal, Stack } from "react-bootstrap";
 import { GridEntry } from "src/modules/Grid/types";
+import LevelUpButton from "./Buttons/LevelUpButton";
+import RepairButton from "./Buttons/RepairButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { piecesIcons } from "src/modules/Piece/utils";
+import Activators from "src/components/Shop/Market/Cell/Info/Activators";
+import PieceModalTitle from "./PieceModalTitle";
 
 type PieceConfigPropsType = {
   show: boolean;
@@ -10,52 +14,24 @@ type PieceConfigPropsType = {
   cell: GridEntry;
 };
 
-const PieceConfig: React.FC<PieceConfigPropsType> = ({
-  handleClose,
-  show,
-  cell,
-}) => {
-  const { repairPiece, levelUp } = useGame();
-  const { score, removeSomeGold, updateActivators } = useScore();
-
-  const handleRepair = () => {
-    handleClose();
-
-    if (score.gameStats.power <= 0) return;
-    if (cell.isDestroyed) {
-      repairPiece(cell);
-      updateActivators(cell.insideCell);
-    }
-  };
-
-  const handleLevelUp = () => {
-    const { upgradeCost, level, activators } = cell.insideCell;
-
-    handleClose();
-    if (!upgradeCost[level]) return;
-    if (
-      activators.power &&
-      activators.power[level] + score.gameStats.power <= 0
-    )
-      return;
-    if (upgradeCost[level] + score.gold <= 0) return;
-
-    removeSomeGold(upgradeCost[level]);
-    updateActivators(cell.insideCell, "-");
-    levelUp(cell);
-    updateActivators({ ...cell.insideCell, level: level + 1 });
-  };
-
+const PieceConfig: React.FC<PieceConfigPropsType> = ({ handleClose, show, cell }) => {
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
-      </Modal.Header>
+      <PieceModalTitle cell={cell} />
+      <hr className="hr" />
       <Modal.Body>
-        <Button variant="primary" onClick={handleRepair}>
-          Repair
-        </Button>
-        <Button onClick={handleLevelUp}>Level Up</Button>
+        <div className="piece-description">{cell.insideCell.description}</div>
+        <Activators
+          activators={cell.insideCell.activators}
+          level={Math.min(cell.insideCell.level + 1, cell.insideCell.upgradeCost.length)}
+        />
+      </Modal.Body>
+      <hr className="hr" />
+      <Modal.Body style={{ paddingTop: 0 }}>
+        <Stack className="justify-content-between" direction="horizontal">
+          <RepairButton handleClose={handleClose} cell={cell} />
+          <LevelUpButton handleClose={handleClose} cell={cell} />
+        </Stack>
       </Modal.Body>
     </Modal>
   );
