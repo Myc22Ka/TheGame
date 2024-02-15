@@ -11,9 +11,10 @@ import { ActivatorsType } from "src/modules/Score/types";
 type ActivatorsPropsType = {
   activators: ActivatorsType;
   level: number;
+  show: boolean;
 };
 
-const Activators: React.FC<ActivatorsPropsType> = ({ activators, level }) => {
+const Activators: React.FC<ActivatorsPropsType> = ({ activators, level, show }) => {
   return (
     <Stack>
       {Object.entries(activators).map(([activator, value]) => {
@@ -27,7 +28,7 @@ const Activators: React.FC<ActivatorsPropsType> = ({ activators, level }) => {
               />
               <div className="activator">{changeCammelCaseToSpace(activator)}</div>
             </Stack>
-            <VisualizeValue activator={activator as GameStats} value={value[level - 1]} />
+            <VisualizeValue activator={activator as GameStats} value={value[level - 1]} show={show} />
           </Stack>
         );
       })}

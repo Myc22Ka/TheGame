@@ -1,38 +1,73 @@
-import React from "react";
+import React, { useRef } from "react";
 import { GameStats } from "src/modules/Piece/types";
-import { piecesRangeValues } from "src/modules/Piece/utils";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
-import { calcLength } from "framer-motion";
+import { motion } from "framer-motion";
+import { useScore } from "src/contexts/ScoreContext";
+import options from "src/config.json";
 
 type VisualizeValuePropsType = {
   activator: GameStats;
   value: number;
+  show: boolean;
 };
 
-const VisualizeValue: React.FC<VisualizeValuePropsType> = ({ activator, value }) => {
-  const calcLength = () => {
-    const foundRange = piecesRangeValues.find((element) => element.rule === activator);
-    const closest = foundRange
-      ? foundRange.range.reduce((prev, curr) =>
-          Math.abs(curr - Math.abs(value)) < Math.abs(prev - Math.abs(value)) ? curr : prev
-        )
-      : undefined;
+const calcLength = (activator: GameStats, value: number, delay: React.MutableRefObject<number>) => {
+  const foundPiece = options.pieces.types.find((e) => e.rule === activator);
+  const closest = foundPiece
+    ? foundPiece.range.reduce((prev, curr) =>
+        Math.abs(curr - Math.abs(value)) < Math.abs(prev - Math.abs(value)) ? curr : prev
+      )
+    : undefined;
+  const result = foundPiece ? foundPiece.range.findIndex((e) => e === closest) + 1 : 0;
+  delay.current = result;
 
-    return foundRange ? foundRange.range.findIndex((e) => e === closest) + 1 : 0;
-  };
+  return result;
+};
+
+const variants = {
+  active: {
+    scale: 1,
+    x: 0,
+  },
+  inactive: {
+    scale: 0,
+    x: -50,
+  },
+};
+
+const VisualizeValue: React.FC<VisualizeValuePropsType> = ({ activator, value, show }) => {
+  const { currentGameSpeed } = useScore();
+  const delay = useRef(-1);
 
   return (
     <Stack direction="horizontal" gap={1}>
-      {[...Array(calcLength())].map((_, i) => (
-        <div
-          className="activator-value"
-          style={{
-            backgroundColor: value < 0 ? styles.disabled : styles[activator],
-          }}
-          key={i}
-        />
-      ))}
+      {Array.from(Array(calcLength(activator, value, delay)).keys()).map((_, i) => {
+        return (
+          <motion.div
+            transition={{
+              duration: currentGameSpeed({
+                defaultTimeTick: options.time.defaultPieceTransition,
+                devider: 1000,
+              }),
+              ease: "anticipate",
+              delay:
+                currentGameSpeed({
+                  defaultTimeTick: options.time.defaultPieceTransition,
+                  devider: 1000 * delay.current,
+                }) * i,
+            }}
+            initial="inactive"
+            animate={show ? "active" : "inactive"}
+            variants={variants}
+            className="activator-value"
+            style={{
+              backgroundColor: value < 0 ? styles.disabled : styles[activator],
+            }}
+            key={i}
+          ></motion.div>
+        );
+      })}
     </Stack>
   );
 };

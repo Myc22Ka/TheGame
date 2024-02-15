@@ -23,6 +23,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({ handleClose, show, cell }
         <Activators
           activators={cell.insideCell.activators}
           level={Math.min(cell.insideCell.level + 1, cell.insideCell.upgradeCost.length)}
+          show={show}
         />
       </Modal.Body>
       <hr className="hr" />
