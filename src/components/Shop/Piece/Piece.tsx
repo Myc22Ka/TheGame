@@ -1,11 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import usePiece from "src/hooks/usePiece";
-import { pieceVariants, piecesIcons } from "src/modules/Piece/utils";
+import { pieceVariants } from "src/modules/Piece/utils";
 import { PieceType } from "src/modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useScore } from "src/contexts/ScoreContext";
 import options from "src/config.json";
+import { piecesIcons } from "src/modules/Piece/statsIcons";
 
 interface PieceProps {
   piece: PieceType;
@@ -56,7 +57,7 @@ const Piece: React.FC<PieceProps> = ({ piece, animate }) => {
       onAnimationComplete={animationCompleteHandle}
       ref={pieceRef}
     >
-      <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon} size="3x" />
+      <FontAwesomeIcon icon={piecesIcons[piece.rule]} size="3x" />
     </motion.div>
   );
 };

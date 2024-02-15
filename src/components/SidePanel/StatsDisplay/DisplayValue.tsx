@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import { statsIcons } from "src/modules/Piece/utils";
 import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import styles from "src/styles/style.module.scss";
 import { animate, useMotionValue, useTransform } from "framer-motion";
@@ -9,6 +8,7 @@ import { useScore } from "src/contexts/ScoreContext";
 import { GameStats } from "src/modules/Game/types";
 import { motion } from "framer-motion";
 import { GameStatsType } from "src/modules/Score/types";
+import { statsIcons } from "src/modules/Piece/statsIcons";
 
 type DisplayValuePropsType = {
   value: number;
@@ -42,7 +42,7 @@ const DisplayValue: React.FC<DisplayValuePropsType> = ({ value, gameStat }) => {
   return (
     <Row>
       <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
-        <FontAwesomeIcon icon={statsIcons.find((e) => e.rule === gameStat)!.icon} size="lg" color={styles.main} />
+        <FontAwesomeIcon icon={statsIcons[gameStat]} size="lg" color={styles.main} />
       </Col>
       <Col style={{ flex: 1 }}>
         <div style={{ fontSize: "small" }}>{changeCammelCaseToSpace(gameStat)}</div>

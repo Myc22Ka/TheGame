@@ -1,44 +1,9 @@
-import { PieceEventType, PieceType, PieceRules, GameStats } from "./types";
+import { PieceEventType, PieceType, PieceRules } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
 import { GameType } from "../Game/types";
-import {
-  IconDefinition,
-  faArrowsDownToLine,
-  faBan,
-  faBolt,
-  faClover,
-  faForwardFast,
-  faGaugeHigh,
-  faLightbulb,
-  faMoneyBillTrendUp,
-  faShieldCat,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
 import { emptyCell, rules } from "../Game/utils";
 import { Variants } from "framer-motion";
-
-const icons = [
-  faGaugeHigh,
-  faMoneyBillTrendUp,
-  faBolt,
-  faClover,
-  faForwardFast,
-  faArrowsDownToLine,
-  faShieldCat,
-  faLightbulb,
-];
-
-const statsIcons: { rule: GameStats; icon: IconDefinition }[] = icons.map((icon, index) => ({
-  rule: rules[index] as Exclude<GameStats, "default">,
-  icon: icon,
-}));
-
-const piecesIcons: { rule: PieceRules; icon: IconDefinition }[] = [
-  ...statsIcons.slice(0, -1),
-  { icon: faStar, rule: "booster" },
-  { icon: faBan, rule: "ads_remover" },
-];
 
 const range = options.pieces.types.map((piece) => piece.range);
 
@@ -172,7 +137,5 @@ export {
   pieceVariants,
   defaultCycle,
   setCycleSteps,
-  statsIcons,
-  piecesIcons,
   piecesRangeValues,
 };

@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Stack } from "react-bootstrap";
 import { useScore } from "src/contexts/ScoreContext";
-import { statsIcons } from "src/modules/Piece/utils";
 import styles from "src/styles/style.module.scss";
+import { statsIcons } from "src/modules/Piece/statsIcons";
 
-const Power = () => {
+const Power: React.FC = () => {
   const { score } = useScore();
   return (
     <Stack className="justify-content-center align-items-center" direction="horizontal" gap={2}>
@@ -19,7 +19,7 @@ const Power = () => {
       >
         {score.gameStats.power}
       </div>
-      <FontAwesomeIcon icon={statsIcons.find((e) => e.rule === "power")!.icon} size="xl" color={styles.main} />
+      <FontAwesomeIcon icon={statsIcons.power} size="xl" color={styles.main} />
     </Stack>
   );
 };

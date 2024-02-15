@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { GridEntry } from "src/modules/Grid/types";
 import { gridVariants } from "src/modules/Grid/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { piecesIcons } from "src/modules/Piece/utils";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
+import { piecesIcons } from "src/modules/Piece/statsIcons";
 
 type PiecePropsType = {
   cell: GridEntry;
@@ -30,9 +30,7 @@ const Piece: React.FC<PiecePropsType> = ({ cell, handleShow }) => {
       animate={cell.animate}
       onClick={handleShow}
     >
-      {cell.insideCell.rule !== "default" && (
-        <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === cell.insideCell.rule)!.icon} size="3x" />
-      )}
+      {cell.insideCell.rule !== "default" && <FontAwesomeIcon icon={piecesIcons[cell.insideCell.rule]} size="3x" />}
     </motion.div>
   );
 };

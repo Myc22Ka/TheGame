@@ -20,7 +20,7 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose, cell }) =>
     handleClose();
     if (!upgradeCost[level]) return;
     if (activators.power && activators.power[level] + score.gameStats.power <= 0) return;
-    if (upgradeCost[level] + score.gold <= 0) return;
+    if (score.gold <= upgradeCost[level]) return;
 
     removeSomeGold(upgradeCost[level]);
     updateActivators(cell.insideCell, "-");

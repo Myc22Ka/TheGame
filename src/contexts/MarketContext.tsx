@@ -17,7 +17,7 @@ const useMarketContext = (defaultMarketState: MarketContentType) => {
     (newPieceState: PieceType) => {
       setMarketContent((prev) => {
         const updatedMarket = [...prev.pieces];
-        const index = updatedMarket.findIndex((piece) => piece.id === newPieceState.id);
+        const index = updatedMarket.findIndex((piece) => piece.rule === newPieceState.rule);
 
         if (index !== -1) updatedMarket[index] = newPieceState;
 

@@ -3,7 +3,7 @@ import options from "src/config.json";
 import MarketCell from "../Cell/MarketCell";
 import { useMarket } from "src/contexts/MarketContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { piecesIcons } from "src/modules/Piece/utils";
+import { piecesIcons } from "src/modules/Piece/statsIcons";
 
 const Grid: React.FC = () => {
   const { marketContent } = useMarket();
@@ -16,10 +16,10 @@ const Grid: React.FC = () => {
         gridTemplateRows: `repeat(${Math.floor(Math.sqrt(options.pieces.types.length))}, 1fr)`,
       }}
     >
-      {marketContent.pieces.map((piece, i) => {
+      {marketContent.pieces.map((piece) => {
         return (
-          <MarketCell piece={piece} key={i}>
-            <FontAwesomeIcon icon={piecesIcons[i].icon} size="3x" />
+          <MarketCell piece={piece} key={piece.rule}>
+            <FontAwesomeIcon icon={piecesIcons[piece.rule]} size="3x" />
           </MarketCell>
         );
       })}

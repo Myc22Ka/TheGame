@@ -3,7 +3,7 @@ import { Modal, Stack } from "react-bootstrap";
 import { GridEntry } from "src/modules/Grid/types";
 import LevelUpButton from "./Buttons/LevelUpButton";
 import RepairButton from "./Buttons/RepairButton";
-import Activators from "src/components/Shop/Market/Cell/Info/Activators";
+import Activators from "src/components/Activators/Activators";
 import PieceModalTitle from "./PieceModalTitle";
 import PieceStatus from "../PieceStatus";
 

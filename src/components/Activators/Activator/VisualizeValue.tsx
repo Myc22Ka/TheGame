@@ -65,7 +65,7 @@ const VisualizeValue: React.FC<VisualizeValuePropsType> = ({ activator, value, s
               backgroundColor: value < 0 ? styles.disabled : styles[activator],
             }}
             key={i}
-          ></motion.div>
+          />
         );
       })}
     </Stack>

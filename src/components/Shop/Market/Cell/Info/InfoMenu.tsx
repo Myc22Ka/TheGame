@@ -2,8 +2,8 @@ import React from "react";
 import { Offcanvas, Stack } from "react-bootstrap";
 import { PieceType } from "src/modules/Piece/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { piecesIcons } from "src/modules/Piece/utils";
-import Activators from "./Activators";
+import Activators from "../../../../Activators/Activators";
+import { piecesIcons } from "src/modules/Piece/statsIcons";
 
 type InfoMenuPropsType = {
   show: boolean;
@@ -18,7 +18,7 @@ const InfoMenu: React.FC<InfoMenuPropsType> = ({ show, piece, handleClose }) => 
         <Stack direction="vertical" className="justify-content-center align-items-center">
           <Offcanvas.Title className="my-2">{piece.name}</Offcanvas.Title>
           <div className={`piece ${piece.rule} info-piece my-1`}>
-            <FontAwesomeIcon icon={piecesIcons.find((e) => e.rule === piece.rule)!.icon} size="3x" />
+            <FontAwesomeIcon icon={piecesIcons[piece.rule]} size="3x" />
           </div>
         </Stack>
       </Offcanvas.Header>
