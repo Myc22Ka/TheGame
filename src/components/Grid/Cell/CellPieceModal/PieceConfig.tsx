@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Modal, Stack } from "react-bootstrap";
 import { GridEntry } from "src/modules/Grid/types";
 import LevelUpButton from "./Buttons/LevelUpButton";
 import RepairButton from "./Buttons/RepairButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { piecesIcons } from "src/modules/Piece/utils";
 import Activators from "src/components/Shop/Market/Cell/Info/Activators";
 import PieceModalTitle from "./PieceModalTitle";
+import PieceStatus from "../PieceStatus";
 
 type PieceConfigPropsType = {
   show: boolean;
@@ -33,6 +32,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({ handleClose, show, cell }
           <LevelUpButton handleClose={handleClose} cell={cell} />
         </Stack>
       </Modal.Body>
+      <PieceStatus cell={cell} />
     </Modal>
   );
 };

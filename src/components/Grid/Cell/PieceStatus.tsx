@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { GridEntry } from "src/modules/Grid/types";
-import { Variants, motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useGame } from "src/contexts/GameContext";
-import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
-import { GameStats } from "src/modules/Game/types";
-import { ActivatorsType } from "src/modules/Score/types";
+import { gridVariants } from "src/modules/Grid/utils";
+import options from "src/config.json";
 
-type CellPieceServiceDisplayPropsType = {
+type PieceStatusPropsType = {
   cell: GridEntry;
 };
 
-const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({ cell }) => {
+const PieceStatus: React.FC<PieceStatusPropsType> = ({ cell }) => {
   const { destroyPiece } = useGame();
   const { score, currentGameSpeed, updateActivators } = useScore();
   const controls = useAnimation();
@@ -59,11 +58,25 @@ const CellPieceServiceDisplay: React.FC<CellPieceServiceDisplayPropsType> = ({ c
 
   return (
     <motion.div
-      key={+cell.isDestroyed}
-      className={`piece-state${cell.isDestroyed ? " destroyed" : ""}`}
-      animate={controls}
-    />
+      initial="inactive"
+      variants={gridVariants}
+      transition={{
+        duration: currentGameSpeed({
+          defaultTimeTick: options.time.defaultPieceTransition,
+          devider: 1000,
+        }),
+        ease: "anticipate",
+      }}
+      animate={cell.animate}
+      className="piece-status"
+    >
+      <motion.div
+        className={`piece-state${cell.isDestroyed ? " destroyed" : ""}`}
+        key={+cell.isDestroyed}
+        animate={controls}
+      ></motion.div>
+    </motion.div>
   );
 };
 
-export default CellPieceServiceDisplay;
+export default PieceStatus;
