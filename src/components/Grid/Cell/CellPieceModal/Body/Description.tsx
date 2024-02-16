@@ -1,14 +1,14 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import Activators from "src/components/Activators/Activators";
-import { useCell } from "src/contexts/CellContext";
+import { GridEntry } from "src/modules/Grid/types";
 
 type DescriptionPropsType = {
   show: boolean;
+  cell: GridEntry;
 };
 
-const Description: React.FC<DescriptionPropsType> = ({ show }) => {
-  const { cell } = useCell();
+const Description: React.FC<DescriptionPropsType> = ({ show, cell }) => {
   return (
     <Modal.Body>
       <div className="piece-description">{cell.insideCell.description}</div>

@@ -1,15 +1,17 @@
 import React from "react";
+import { GridEntry } from "src/modules/Grid/types";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
 import { motion } from "framer-motion";
 import { gridVariants } from "src/modules/Grid/utils";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
-import { useCell } from "src/contexts/CellContext";
 
-const Levels: React.FC = () => {
+type LevelsPropsType = {
+  cell: GridEntry;
+};
+const Levels: React.FC<LevelsPropsType> = ({ cell }) => {
   const { currentGameSpeed } = useScore();
-  const { cell } = useCell();
 
   return (
     <motion.div

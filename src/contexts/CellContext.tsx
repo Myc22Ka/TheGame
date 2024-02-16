@@ -1,18 +1,42 @@
-import React, { useState, useContext, createContext, ReactElement } from "react";
+import React, { useContext, createContext, ReactElement, useCallback, useRef } from "react";
 import { GridEntry } from "src/modules/Piece/types";
 import { emptyCell } from "src/modules/Game/utils";
+import { useGame } from "./GameContext";
 
-export const CellContext = createContext<GridEntry>(emptyCell);
+export const initCellState = emptyCell;
+
+const useCellContext = (defaultCell: GridEntry) => {
+  const cell = useRef(defaultCell);
+  const { addPieceToCell } = useGame();
+
+  const updateCell = useCallback(
+    (newCell: GridEntry) => {
+      console.log(newCell);
+      //   setCell(newCell);
+    },
+    [cell, addPieceToCell]
+  );
+
+  return { cell, updateCell };
+};
+
+const initContextState: ReturnType<typeof useCellContext> = {
+  cell: { current: initCellState },
+  updateCell: () => {},
+};
+
+export const CellContext = createContext(initContextState);
 
 type ChildrenType = {
   children?: ReactElement | null;
 };
 
-export const CellProvider = ({ children, ...cell }: ChildrenType & GridEntry) => {
-  return <CellContext.Provider value={cell}>{children}</CellContext.Provider>;
+export const CellProvider = ({ children, ...initState }: ChildrenType & GridEntry) => {
+  return <CellContext.Provider value={useCellContext(initState)}>{children}</CellContext.Provider>;
 };
 
 export const useCell = () => {
-  const cell = useContext(CellContext);
-  return { cell };
+  const { cell, updateCell } = useContext(CellContext);
+
+  return { cell, updateCell };
 };

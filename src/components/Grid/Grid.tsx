@@ -25,7 +25,7 @@ const Grid: React.FC = () => {
         {game.grid.map((cell, key) => {
           return (
             <CellProvider key={key} {...cell}>
-              <Cell />
+              <Cell key={key} cell={cell} />
             </CellProvider>
           );
         })}

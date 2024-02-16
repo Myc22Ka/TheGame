@@ -2,12 +2,15 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Stack } from "react-bootstrap";
-import { useCell } from "src/contexts/CellContext";
 import { useScore } from "src/contexts/ScoreContext";
+import { GridEntry } from "src/modules/Grid/types";
 import styles from "src/styles/style.module.scss";
 
-const PieceCost: React.FC = () => {
-  const { cell } = useCell();
+type PieceCostPropsType = {
+  cell: GridEntry;
+};
+
+const PieceCost: React.FC<PieceCostPropsType> = ({ cell }) => {
   const { score } = useScore();
 
   return (

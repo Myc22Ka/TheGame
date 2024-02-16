@@ -6,15 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
 import { piecesIcons } from "src/modules/Piece/statsIcons";
-import { useCell } from "src/contexts/CellContext";
 
 type PiecePropsType = {
+  cell: GridEntry;
   handleShow: () => void;
 };
 
-const Piece: React.FC<PiecePropsType> = ({ handleShow }) => {
+const Piece: React.FC<PiecePropsType> = ({ cell, handleShow }) => {
   const { currentGameSpeed } = useScore();
-  const { cell } = useCell();
 
   return (
     <motion.div

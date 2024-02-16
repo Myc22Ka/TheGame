@@ -2,18 +2,18 @@ import { faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button, Stack } from "react-bootstrap";
-import { useCell } from "src/contexts/CellContext";
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
+import { GridEntry } from "src/modules/Grid/types";
 
 type RepairButtonPropsType = {
   handleClose: () => void;
+  cell: GridEntry;
 };
 
-const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
+const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose, cell }) => {
   const { repairPiece } = useGame();
   const { score, updateActivators } = useScore();
-  const { cell } = useCell();
 
   const handleRepair = () => {
     handleClose();

@@ -101,7 +101,6 @@ const useGameContext = (defaultGame: GameType) => {
 
   const destroyPiece = useCallback(
     (cell: GridEntry) => {
-      console.log(cell);
       setGame((prev) => {
         const updatedGrid = prev.grid.map((gridCell) => {
           if (gridCell.ref === cell.ref) {

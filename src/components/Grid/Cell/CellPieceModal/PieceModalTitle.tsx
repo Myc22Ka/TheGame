@@ -1,13 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Modal, Stack } from "react-bootstrap";
+import { GridEntry } from "src/modules/Piece/types";
 import Levels from "../Levels";
 import { piecesIcons } from "src/modules/Piece/statsIcons";
-import { useCell } from "src/contexts/CellContext";
 
-const PieceModalTitle: React.FC = () => {
-  const { cell } = useCell();
+type PieceModalTitlePropsType = {
+  cell: GridEntry;
+};
 
+const PieceModalTitle: React.FC<PieceModalTitlePropsType> = ({ cell }) => {
   return (
     <>
       <Modal.Header className="justify-content-center align-items-center" style={{ borderBottom: "none" }}>
@@ -16,7 +18,7 @@ const PieceModalTitle: React.FC = () => {
           <div className={`piece ${cell.insideCell.rule} info-piece my-1`}>
             <FontAwesomeIcon icon={piecesIcons[cell.insideCell.rule]} size="3x" />
           </div>
-          <Levels />
+          <Levels cell={cell} />
         </Stack>
       </Modal.Header>
       <hr className="hr" />

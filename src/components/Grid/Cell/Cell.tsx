@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { GridEntry } from "src/modules/Piece/types";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
 import PieceConfig from "./CellPieceModal/PieceConfig";
@@ -7,23 +8,30 @@ import Piece from "./Piece";
 import PieceStatus from "./PieceStatus";
 import { useCell } from "src/contexts/CellContext";
 
-const Cell: React.FC = () => {
-  const { cell } = useCell();
+type CellProps = {
+  cell: GridEntry;
+};
 
+const Cell: React.FC<CellProps> = ({ cell }) => {
   const [show, setShow] = useState(false);
+  const { updateCell } = useCell();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    updateCell(cell);
+  }, [cell.isEmpty, cell.isDestroyed]);
 
   return (
     <Stack
       className="cell justify-content-center align-items-center"
       style={{ borderColor: styles[cell.insideCell.rule] }}
     >
-      <PieceStatus />
-      <Piece handleShow={handleShow} />
-      <Levels />
-      <PieceConfig show={show} handleClose={handleClose} />
+      <PieceStatus cell={cell} />
+      <Piece handleShow={handleShow} cell={cell} />
+      <Levels cell={cell} />
+      <PieceConfig show={show} handleClose={handleClose} cell={cell} />
     </Stack>
   );
 };
