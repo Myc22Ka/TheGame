@@ -1,4 +1,4 @@
-import React, { useContext, createContext, ReactElement, useCallback, useRef } from "react";
+import React, { useContext, createContext, ReactElement, useCallback, useRef, useState } from "react";
 import { GridEntry } from "src/modules/Piece/types";
 import { emptyCell } from "src/modules/Game/utils";
 import { useGame } from "./GameContext";
@@ -6,13 +6,12 @@ import { useGame } from "./GameContext";
 export const initCellState = emptyCell;
 
 const useCellContext = (defaultCell: GridEntry) => {
-  const cell = useRef(defaultCell);
+  const [cell, setCell] = useState(defaultCell);
   const { addPieceToCell } = useGame();
 
   const updateCell = useCallback(
     (newCell: GridEntry) => {
-      console.log(newCell);
-      //   setCell(newCell);
+      setCell(newCell);
     },
     [cell, addPieceToCell]
   );
@@ -21,7 +20,7 @@ const useCellContext = (defaultCell: GridEntry) => {
 };
 
 const initContextState: ReturnType<typeof useCellContext> = {
-  cell: { current: initCellState },
+  cell: initCellState,
   updateCell: () => {},
 };
 

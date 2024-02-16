@@ -20,18 +20,19 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
+    if (!cell.ref || cell.isEmpty) return;
     updateCell(cell);
-  }, [cell.isEmpty, cell.isDestroyed]);
+  }, [cell]);
 
   return (
     <Stack
       className="cell justify-content-center align-items-center"
       style={{ borderColor: styles[cell.insideCell.rule] }}
     >
-      <PieceStatus cell={cell} />
-      <Piece handleShow={handleShow} cell={cell} />
-      <Levels cell={cell} />
-      <PieceConfig show={show} handleClose={handleClose} cell={cell} />
+      <PieceStatus />
+      <Piece handleShow={handleShow} />
+      <Levels />
+      <PieceConfig show={show} handleClose={handleClose} />
     </Stack>
   );
 };

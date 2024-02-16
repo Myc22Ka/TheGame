@@ -32,6 +32,8 @@ const ActivatorsScales: React.FC<ActivatorsScalesPropsType> = ({ activators, sho
       {Object.entries(activators).map(([activator, value]) => {
         const length = calcLength(activator as GameStats, value[level], delay);
 
+        if (activator === "power") return;
+
         return (
           <Stack
             key={`${activator}-${level}`}

@@ -9,16 +9,15 @@ import Buttons from "./Buttons/Buttons";
 type PieceConfigPropsType = {
   show: boolean;
   handleClose: () => void;
-  cell: GridEntry;
 };
 
-const PieceConfig: React.FC<PieceConfigPropsType> = ({ handleClose, show, cell }) => {
+const PieceConfig: React.FC<PieceConfigPropsType> = ({ handleClose, show }) => {
   return (
     <Modal show={show} onHide={handleClose}>
-      <PieceModalTitle cell={cell} />
-      <Description show={show} cell={cell} />
-      <Buttons handleClose={handleClose} cell={cell} />
-      <PieceStatus cell={cell} />
+      <PieceModalTitle />
+      <Description show={show} />
+      <Buttons handleClose={handleClose} />
+      <PieceStatus />
     </Modal>
   );
 };

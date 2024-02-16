@@ -4,18 +4,18 @@ import React from "react";
 import { Button, Stack } from "react-bootstrap";
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
-import { GridEntry } from "src/modules/Grid/types";
-import PieceCost from "./PieceCost";
+import PieceCostMoney from "./PieceCostMoney";
 import styles from "src/styles/style.module.scss";
+import { useCell } from "src/contexts/CellContext";
 
 type LevelButtonPropsType = {
   handleClose: () => void;
-  cell: GridEntry;
 };
 
-const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose, cell }) => {
+const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
   const { score, removeSomeGold, updateActivators } = useScore();
   const { levelUp } = useGame();
+  const { cell } = useCell();
   const { upgradeCost, level, activators } = cell.insideCell;
 
   const handleLevelUp = () => {
@@ -32,7 +32,11 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose, cell }) =>
 
   return (
     <Stack direction="horizontal" style={{ backgroundColor: styles.toExpensive, borderRadius: "0.375rem" }}>
-      {level !== upgradeCost.length && <PieceCost cell={cell} />}
+      {level !== upgradeCost.length && (
+        <PieceCostMoney
+          disabled={level === upgradeCost.length || upgradeCost[level - 1] > score.gold || cell.isDestroyed}
+        />
+      )}
       <Button
         variant="main"
         onClick={handleLevelUp}

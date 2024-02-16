@@ -5,13 +5,11 @@ import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
 import { gridVariants } from "src/modules/Grid/utils";
 import options from "src/config.json";
+import { useCell } from "src/contexts/CellContext";
 
-type PieceStatusPropsType = {
-  cell: GridEntry;
-};
-
-const PieceStatus: React.FC<PieceStatusPropsType> = ({ cell }) => {
+const PieceStatus: React.FC = () => {
   const { destroyPiece } = useGame();
+  const { cell } = useCell();
   const { score, currentGameSpeed, updateActivators } = useScore();
   const controls = useAnimation();
 

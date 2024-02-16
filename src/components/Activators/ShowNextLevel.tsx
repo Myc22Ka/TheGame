@@ -6,6 +6,7 @@ import { ActivatorsType } from "src/modules/Score/types";
 import { motion } from "framer-motion";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
+import { useCell } from "src/contexts/CellContext";
 
 const variants = {
   active: {
@@ -26,7 +27,9 @@ type ShowNextLevelPropsType = {
 
 const ShowNextLevel: React.FC<ShowNextLevelPropsType> = ({ activators, show, level }) => {
   const { currentGameSpeed } = useScore();
+  const { cell } = useCell();
 
+  if (cell.insideCell.level === cell.insideCell.upgradeCost.length) return;
   return (
     <React.Fragment>
       <motion.div

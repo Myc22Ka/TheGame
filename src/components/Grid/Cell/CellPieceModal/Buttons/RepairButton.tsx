@@ -2,18 +2,20 @@ import { faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button, Stack } from "react-bootstrap";
+import { useCell } from "src/contexts/CellContext";
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
-import { GridEntry } from "src/modules/Grid/types";
+import styles from "src/styles/style.module.scss";
+import PieceCostPower from "./PieceCostPower";
 
 type RepairButtonPropsType = {
   handleClose: () => void;
-  cell: GridEntry;
 };
 
-const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose, cell }) => {
+const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
   const { repairPiece } = useGame();
   const { score, updateActivators } = useScore();
+  const { cell } = useCell();
 
   const handleRepair = () => {
     handleClose();
@@ -25,12 +27,15 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose, cell }) =>
   };
 
   return (
-    <Button variant="main" onClick={handleRepair} disabled={!cell.isDestroyed}>
-      <Stack gap={3} direction="horizontal">
-        <FontAwesomeIcon icon={faWrench} />
-        <span>Repair</span>
-      </Stack>
-    </Button>
+    <Stack direction="horizontal" style={{ backgroundColor: styles.toExpensive, borderRadius: "0.375rem" }}>
+      <Button variant="main" onClick={handleRepair} disabled={!cell.isDestroyed || score.gameStats.power <= 0}>
+        <Stack gap={3} direction="horizontal">
+          <FontAwesomeIcon icon={faWrench} />
+          <span>Repair</span>
+        </Stack>
+      </Button>
+      <PieceCostPower disabled={!cell.isDestroyed || score.gameStats.power <= 0} />
+    </Stack>
   );
 };
 

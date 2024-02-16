@@ -11,6 +11,7 @@ type ActivatorNamePropsType = {
 };
 
 const ActivatorName: React.FC<ActivatorNamePropsType> = ({ activator }) => {
+  if (activator === "power") return;
   return (
     <Stack direction="horizontal" gap={1}>
       <FontAwesomeIcon icon={statsIcons[activator]} size="lg" color={styles.main} width={20} />
