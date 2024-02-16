@@ -8,6 +8,7 @@ $secondary: darken($main, 20);
 $background: #323641;
 $disabled: lighten($background, 15);
 $third: #222222;
+$toExpensive: darken($third, 2);
 $error: #ff3333;
 $success: #63ff33;
 
@@ -29,7 +30,7 @@ $pieces: (
   "ads_remover": adjust-hue($pieceCol, 100),
   "discount": adjust-hue($pieceCol, 120),
   "resistance": adjust-hue($pieceCol, 140),
-  "default": white,
+  "default": white
 );
 
 // misc:

@@ -11,15 +11,18 @@ type PieceModalTitlePropsType = {
 
 const PieceModalTitle: React.FC<PieceModalTitlePropsType> = ({ cell }) => {
   return (
-    <Modal.Header className="justify-content-center align-items-center" style={{ borderBottom: "none" }}>
-      <Stack direction="vertical" className="justify-content-center align-items-center">
-        <Modal.Title className="my-2">{cell.insideCell.name}</Modal.Title>
-        <div className={`piece ${cell.insideCell.rule} info-piece my-1`}>
-          <FontAwesomeIcon icon={piecesIcons[cell.insideCell.rule]} size="3x" />
-        </div>
-        <Levels cell={cell} />
-      </Stack>
-    </Modal.Header>
+    <>
+      <Modal.Header className="justify-content-center align-items-center" style={{ borderBottom: "none" }}>
+        <Stack direction="vertical" className="justify-content-center align-items-center">
+          <Modal.Title className="my-2">{cell.insideCell.name}</Modal.Title>
+          <div className={`piece ${cell.insideCell.rule} info-piece my-1`}>
+            <FontAwesomeIcon icon={piecesIcons[cell.insideCell.rule]} size="3x" />
+          </div>
+          <Levels cell={cell} />
+        </Stack>
+      </Modal.Header>
+      <hr className="hr" />
+    </>
   );
 };
 

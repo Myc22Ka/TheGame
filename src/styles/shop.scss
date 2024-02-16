@@ -84,7 +84,7 @@
       .piece,
       .uses,
       .price {
-        background-color: darken($third, 2);
+        background-color: $toExpensive;
       }
       .price,
       .uses {

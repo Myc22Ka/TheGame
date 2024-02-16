@@ -7,7 +7,9 @@
   error: $error;
   font: $font;
   background: $background;
+  third: $third;
   disabled: $disabled;
+  toExpensive: $toExpensive;
 
   @each $name, $color in $pieces {
     #{$name}: $color;

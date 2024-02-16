@@ -10,7 +10,7 @@ type ActivatorNamesPropsType = {
 
 const ActivatorNames: React.FC<ActivatorNamesPropsType> = ({ activators }) => {
   return (
-    <Stack direction="vertical" style={{ flex: 1 }}>
+    <Stack direction="vertical">
       {Object.keys(activators).map((activator) => (
         <ActivatorName key={activator} activator={activator as GameStats} />
       ))}
