@@ -9,9 +9,10 @@ type ActivatorsPropsType = {
   activators: ActivatorsType;
   level: number;
   show: boolean;
+  showNextLevel?: boolean;
 };
 
-const Activators: React.FC<ActivatorsPropsType> = ({ activators, level, show }) => {
+const Activators: React.FC<ActivatorsPropsType> = ({ activators, level, show, showNextLevel = false }) => {
   return (
     <Stack>
       {Object.entries(activators).map(([activator, value]) => {
@@ -19,6 +20,9 @@ const Activators: React.FC<ActivatorsPropsType> = ({ activators, level, show }) 
           <Stack key={activator} direction="horizontal" gap={2} className="justify-content-between">
             <ActivatorName activator={activator as GameStats} />
             <VisualizeValue activator={activator as GameStats} value={value[level - 1]} show={show} />
+            {showNextLevel && (
+              <VisualizeValue activator={activator as GameStats} value={value[level - 2]} show={show} />
+            )}
           </Stack>
         );
       })}

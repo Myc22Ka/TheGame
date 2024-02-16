@@ -22,7 +22,7 @@ const calcLength = (activator: GameStats, value: number, delay: React.MutableRef
   const result = foundPiece ? foundPiece.range.findIndex((e) => e === closest) + 1 : 0;
   delay.current = result;
 
-  return result;
+  return { index: result, range: foundPiece?.range.length || 0 };
 };
 
 const variants = {
@@ -39,10 +39,21 @@ const variants = {
 const VisualizeValue: React.FC<VisualizeValuePropsType> = ({ activator, value, show }) => {
   const { currentGameSpeed } = useScore();
   const delay = useRef(-1);
+  const foundPiece = useRef(calcLength(activator, value, delay));
 
   return (
     <Stack direction="horizontal" gap={1}>
-      {Array.from(Array(calcLength(activator, value, delay)).keys()).map((_, i) => {
+      {Array.from(Array(foundPiece.current.range).keys()).map((_, i) => {
+        if (foundPiece.current.range - foundPiece.current.index > i)
+          return (
+            <div
+              className="activator-value"
+              key={i}
+              style={{
+                backgroundColor: "transparent",
+              }}
+            ></div>
+          );
         return (
           <motion.div
             transition={{
@@ -54,7 +65,7 @@ const VisualizeValue: React.FC<VisualizeValuePropsType> = ({ activator, value, s
               delay:
                 currentGameSpeed({
                   defaultTimeTick: options.time.defaultPieceTransition,
-                  devider: 1000 * delay.current,
+                  devider: 10000 * delay.current,
                 }) * i,
             }}
             initial="inactive"
@@ -65,7 +76,7 @@ const VisualizeValue: React.FC<VisualizeValuePropsType> = ({ activator, value, s
               backgroundColor: value < 0 ? styles.disabled : styles[activator],
             }}
             key={i}
-          />
+          ></motion.div>
         );
       })}
     </Stack>

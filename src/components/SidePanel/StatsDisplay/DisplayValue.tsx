@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Stack } from "react-bootstrap";
 import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import styles from "src/styles/style.module.scss";
 import { animate, useMotionValue, useTransform } from "framer-motion";
@@ -41,11 +41,13 @@ const DisplayValue: React.FC<DisplayValuePropsType> = ({ value, gameStat }) => {
 
   return (
     <Row>
-      <Col style={{ flex: 0, padding: 0, paddingLeft: "1rem" }}>
-        <FontAwesomeIcon icon={statsIcons[gameStat]} size="lg" color={styles.main} />
+      <Col style={{ flex: 0 }}>
+        <FontAwesomeIcon icon={statsIcons[gameStat]} size="lg" color={styles.main} width={20} />
       </Col>
-      <Col style={{ flex: 1 }}>
-        <div style={{ fontSize: "small" }}>{changeCammelCaseToSpace(gameStat)}</div>
+      <Col style={{ flex: 1, padding: 0, fontSize: "small" }}>
+        <Stack direction="horizontal" className="justify-content-start align-items-center">
+          {changeCammelCaseToSpace(gameStat)}
+        </Stack>
       </Col>
       <Col style={{ flex: 0 }}>
         <motion.div style={{ color: roundedColor }}>{rounded}</motion.div>
