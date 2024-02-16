@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "src/styles/grid.scss";
 import Cell from "./Cell/Cell";
 import { useGame } from "src/contexts/GameContext";
+import { CellProvider } from "src/contexts/CellContext";
 
 const Grid: React.FC = () => {
   const { game, defineRefForCells } = useGame();
@@ -22,7 +23,11 @@ const Grid: React.FC = () => {
         }}
       >
         {game.grid.map((cell, key) => {
-          return <Cell key={key} cell={cell} />;
+          return (
+            <CellProvider key={key} {...cell}>
+              <Cell />
+            </CellProvider>
+          );
         })}
       </div>
     </div>
