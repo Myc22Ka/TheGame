@@ -1,9 +1,9 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-import { GameStats } from "src/modules/Piece/types";
-import VisualizeValue from "./Activator/VisualizeValue";
+import ActivatorsScales from "./ActivatorsScales/ActivatorsScales";
 import { ActivatorsType } from "src/modules/Score/types";
-import ActivatorName from "./Activator/ActivatorName";
+import ActivatorNames from "./ActivatorsNames/ActivatorNames";
+import ShowNextLevel from "./ShowNextLevel";
 
 type ActivatorsPropsType = {
   activators: ActivatorsType;
@@ -14,18 +14,10 @@ type ActivatorsPropsType = {
 
 const Activators: React.FC<ActivatorsPropsType> = ({ activators, level, show, showNextLevel = false }) => {
   return (
-    <Stack>
-      {Object.entries(activators).map(([activator, value]) => {
-        return (
-          <Stack key={activator} direction="horizontal" gap={2} className="justify-content-between">
-            <ActivatorName activator={activator as GameStats} />
-            <VisualizeValue activator={activator as GameStats} value={value[level - 1]} show={show} />
-            {showNextLevel && (
-              <VisualizeValue activator={activator as GameStats} value={value[level - 2]} show={show} />
-            )}
-          </Stack>
-        );
-      })}
+    <Stack direction="horizontal" gap={1}>
+      <ActivatorNames activators={activators} />
+      <ActivatorsScales activators={activators} show={show} level={level - 1} />
+      {showNextLevel && <ShowNextLevel activators={activators} show={show} level={level - 2} />}
     </Stack>
   );
 };
