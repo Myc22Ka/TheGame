@@ -18,9 +18,9 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
   const { cell } = useCell();
 
   const handleRepair = () => {
-    handleClose();
-
     if (score.gameStats.power <= 0 || !cell.isDestroyed) return;
+
+    handleClose();
 
     repairPiece(cell);
     updateActivators(cell.insideCell);
@@ -28,7 +28,7 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
 
   return (
     <Stack direction="horizontal" style={{ backgroundColor: styles.toExpensive, borderRadius: "0.375rem" }}>
-      <Button variant="main" onClick={handleRepair} disabled={!cell.isDestroyed || score.gameStats.power <= 0}>
+      <Button variant="main" onClick={handleRepair}>
         <Stack gap={3} direction="horizontal">
           <FontAwesomeIcon icon={faWrench} />
           <span>Repair</span>
