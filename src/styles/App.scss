@@ -31,7 +31,23 @@ body {
 }
 
 .btn-main {
-  background: $secondary !important;
+  background-color: $secondary !important;
   color: white !important;
   border: none !important;
+}
+
+.btn-main-active {
+  animation: pulse 1s ease-in-out infinite alternate both;
+  color: white !important;
+  border: none !important;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    background-color: darken($success, 35);
+  }
+  50% {
+    background-color: darken($success, 30);
+  }
 }
