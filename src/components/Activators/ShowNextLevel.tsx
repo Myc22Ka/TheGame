@@ -23,9 +23,10 @@ type ShowNextLevelPropsType = {
   activators: ActivatorsType;
   level: number;
   show: boolean;
+  destroyChance: number[];
 };
 
-const ShowNextLevel: React.FC<ShowNextLevelPropsType> = ({ activators, show, level }) => {
+const ShowNextLevel: React.FC<ShowNextLevelPropsType> = ({ destroyChance, activators, show, level }) => {
   const { currentGameSpeed } = useScore();
   const { cell } = useCell();
 
@@ -48,7 +49,7 @@ const ShowNextLevel: React.FC<ShowNextLevelPropsType> = ({ activators, show, lev
       >
         <FontAwesomeIcon icon={faArrowLeftLong} />
       </motion.div>
-      <ActivatorsScales activators={activators} show={show} level={level} />
+      <ActivatorsScales activators={activators} show={show} level={level} destroyChance={destroyChance} />
     </React.Fragment>
   );
 };

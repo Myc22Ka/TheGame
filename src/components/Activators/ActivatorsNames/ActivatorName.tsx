@@ -7,7 +7,7 @@ import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import styles from "src/styles/style.module.scss";
 
 type ActivatorNamePropsType = {
-  activator: GameStats;
+  activator: GameStats | "destroyChance";
 };
 
 const ActivatorName: React.FC<ActivatorNamePropsType> = ({ activator }) => {

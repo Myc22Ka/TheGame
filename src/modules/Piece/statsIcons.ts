@@ -4,6 +4,7 @@ import {
   faBan,
   faBolt,
   faClover,
+  faExclamationTriangle,
   faForwardFast,
   faGaugeHigh,
   faLightbulb,
@@ -26,7 +27,7 @@ const icons = [
 ];
 
 type StatsIconType = {
-  [key in GameStats]: IconDefinition;
+  [key in GameStats | "destroyChance"]: IconDefinition;
 };
 
 const statsIcons: StatsIconType = {} as StatsIconType;
@@ -34,6 +35,8 @@ const statsIcons: StatsIconType = {} as StatsIconType;
 rules.forEach((rule, index) => {
   statsIcons[rule as GameStats] = icons[index];
 });
+
+statsIcons["destroyChance"] = faExclamationTriangle;
 
 type PieceIconType = {
   [key in PieceRules]: IconDefinition;

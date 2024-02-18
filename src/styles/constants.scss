@@ -31,6 +31,7 @@ $pieces: (
   "discount": adjust-hue($pieceCol, 120),
   "resistance": adjust-hue($pieceCol, 140),
   "default": white,
+  "destroyChance": adjust-hue($pieceCol, 160),
 );
 
 // misc:

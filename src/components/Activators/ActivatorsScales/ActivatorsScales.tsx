@@ -7,13 +7,27 @@ import Box from "./Box";
 
 type ActivatorsScalesPropsType = {
   activators: ActivatorsType;
+  destroyChance: number[];
   show: boolean;
   level: number;
 };
 
-const calcLength = (activator: GameStats, value: number, delay: React.MutableRefObject<number>) => {
+const calcLength = (activator: GameStats | "destroyChance", value: number, delay: React.MutableRefObject<number>) => {
+  let closest: number | undefined;
+
+  if (activator === "destroyChance") {
+    closest = options.score.destroyRange.reduce((prev, curr) =>
+      Math.abs(curr - Math.abs(value)) < Math.abs(prev - Math.abs(value)) ? curr : prev
+    );
+
+    const result = options.score.destroyRange.findIndex((e) => e === closest) + 1;
+    delay.current = result;
+    return result;
+  }
+
   const foundPiece = options.pieces.types.find((e) => e.rule === activator);
-  const closest = foundPiece
+
+  closest = foundPiece
     ? foundPiece.range.reduce((prev, curr) =>
         Math.abs(curr - Math.abs(value)) < Math.abs(prev - Math.abs(value)) ? curr : prev
       )
@@ -24,12 +38,12 @@ const calcLength = (activator: GameStats, value: number, delay: React.MutableRef
   return result;
 };
 
-const ActivatorsScales: React.FC<ActivatorsScalesPropsType> = ({ activators, show, level }) => {
+const ActivatorsScales: React.FC<ActivatorsScalesPropsType> = ({ destroyChance, activators, show, level }) => {
   const delay = useRef(-1);
 
   return (
     <Stack direction="vertical" style={{ padding: 3, gap: "3px", flex: 0 }}>
-      {Object.entries(activators).map(([activator, value]) => {
+      {Object.entries({ ...activators, destroyChance }).map(([activator, value]) => {
         const length = calcLength(activator as GameStats, value[level], delay);
 
         if (activator === "power") return;

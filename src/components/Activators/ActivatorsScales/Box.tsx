@@ -35,11 +35,11 @@ const Box: React.FC<BoxPropsType> = ({ delay, show, value, activator, i }) => {
           devider: 1000,
         }),
         ease: "anticipate",
-        delay:
-          currentGameSpeed({
-            defaultTimeTick: options.time.defaultPieceTransition,
-            devider: 10000 * delay.current,
-          }) * i,
+        // delay:
+        //   currentGameSpeed({
+        //     defaultTimeTick: options.time.defaultPieceTransition,
+        //     devider: 10000 * delay.current,
+        //   }) * i,
       }}
       initial="inactive"
       animate={show ? "active" : "inactive"}

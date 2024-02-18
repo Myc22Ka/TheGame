@@ -15,6 +15,7 @@ const Description: React.FC<DescriptionPropsType> = ({ show }) => {
       <Activators
         activators={cell.insideCell.activators}
         level={Math.min(cell.insideCell.level + 1, cell.insideCell.upgradeCost.length)}
+        destroyChance={cell.insideCell.destroyChance}
         show={show}
         showNextLevel={true}
       />

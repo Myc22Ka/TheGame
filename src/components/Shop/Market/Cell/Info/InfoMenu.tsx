@@ -26,7 +26,12 @@ const InfoMenu: React.FC<InfoMenuPropsType> = ({ show, piece, handleClose }) => 
       <Offcanvas.Body>
         <Stack>
           <div className="piece-description">{piece.description}</div>
-          <Activators activators={piece.activators} level={piece.level} show={show} />
+          <Activators
+            activators={piece.activators}
+            level={piece.level}
+            show={show}
+            destroyChance={piece.destroyChance}
+          />
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
