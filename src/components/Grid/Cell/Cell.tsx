@@ -30,7 +30,9 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
       style={{ borderColor: styles[cell.insideCell.rule] }}
     >
       <PieceStatus />
-      <Piece handleShow={handleShow} />
+      <div onClick={handleShow}>
+        <Piece />
+      </div>
       <Levels />
       <PieceConfig show={show} handleClose={handleClose} />
     </Stack>

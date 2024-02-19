@@ -8,11 +8,7 @@ import { useScore } from "src/contexts/ScoreContext";
 import styles from "src/styles/style.module.scss";
 import PieceCostPower from "./PieceCostPower";
 import { motion } from "framer-motion";
-
-const buttonVariants = {
-  reject: { scale: 1, x: [0, -2.5, 2.5, -1.25, 1.25, 0], rotate: [0, -2.5, 2.5, -1.25, 1.25, 0] },
-  success: { scale: [1, 1.1, 1], x: [0, 0] },
-};
+import { buttonVariants, variants } from "./Buttons";
 
 type RepairButtonPropsType = {
   handleClose: () => void;
@@ -28,20 +24,26 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
 
     handleClose();
 
-    repairPiece(cell);
     updateActivators(cell.insideCell);
+    setTimeout(() => {
+      repairPiece(cell);
+    }, 200);
   };
 
   return (
     <Stack direction="horizontal" style={{ backgroundColor: styles.toExpensive, borderRadius: "0.375rem" }}>
       <motion.div
+        style={{ borderRadius: "0.4rem" }}
         whileTap={!cell.isDestroyed ? buttonVariants.reject : buttonVariants.success}
         transition={{
           duration: currentGameSpeed({ devider: 6000 }),
           ease: "easeInOut",
         }}
+        animate={cell.isDestroyed ? "active" : "inactive"}
+        variants={variants}
+        initial={cell.isDestroyed ? "active" : "inactive"}
       >
-        <Button variant={`main${cell.isDestroyed ? "-active" : ""}`} onClick={handleRepair}>
+        <Button variant="transparent" onClick={handleRepair}>
           <Stack gap={3} direction="horizontal">
             <FontAwesomeIcon icon={faWrench} shake={cell.isDestroyed} />
             <span>Repair</span>

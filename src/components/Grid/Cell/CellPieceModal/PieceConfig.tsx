@@ -1,10 +1,9 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { GridEntry } from "src/modules/Grid/types";
-import PieceModalTitle from "./PieceModalTitle";
+import PieceModalTitle from "./Header/PieceModalTitle";
 import PieceStatus from "../PieceStatus";
-import Description from "./Body/Description";
 import Buttons from "./Buttons/Buttons";
+import Body from "./Body/Body";
 
 type PieceConfigPropsType = {
   show: boolean;
@@ -15,7 +14,7 @@ const PieceConfig: React.FC<PieceConfigPropsType> = ({ handleClose, show }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <PieceModalTitle />
-      <Description show={show} />
+      <Body show={show} />
       <Buttons handleClose={handleClose} />
       <PieceStatus />
     </Modal>

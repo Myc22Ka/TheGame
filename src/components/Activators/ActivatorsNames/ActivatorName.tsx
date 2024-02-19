@@ -13,7 +13,7 @@ type ActivatorNamePropsType = {
 const ActivatorName: React.FC<ActivatorNamePropsType> = ({ activator }) => {
   if (activator === "power") return;
   return (
-    <Stack direction="horizontal" gap={1}>
+    <Stack direction="horizontal" gap={2}>
       <FontAwesomeIcon icon={statsIcons[activator]} size="lg" color={styles.main} width={20} />
       <div className="activator">{changeCammelCaseToSpace(activator)}</div>
     </Stack>

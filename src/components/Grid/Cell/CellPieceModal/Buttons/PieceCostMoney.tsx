@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Stack } from "react-bootstrap";
 import { useCell } from "src/contexts/CellContext";
-import { useScore } from "src/contexts/ScoreContext";
 import styles from "src/styles/style.module.scss";
 
 type PieceCostMoneyProps = {
@@ -11,7 +10,6 @@ type PieceCostMoneyProps = {
 };
 
 const PieceCostMoney: React.FC<PieceCostMoneyProps> = ({ disabled }) => {
-  const { score } = useScore();
   const { cell } = useCell();
   const { upgradeCost, level } = cell.insideCell;
 

@@ -36,10 +36,15 @@ body {
   border: none !important;
 }
 
-.btn-main-active {
+.btn-transparent {
+  &:focus,
+  &:active {
+    border-color: transparent !important;
+  }
+}
+
+.btn-active {
   animation: pulse 1s ease-in-out infinite alternate both;
-  color: white !important;
-  border: none !important;
 }
 
 @keyframes pulse {
