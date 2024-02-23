@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { GridEntry } from "src/modules/Grid/types";
 import { motion, useAnimation } from "framer-motion";
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";

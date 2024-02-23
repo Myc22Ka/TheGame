@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "src/styles/grid.scss";
-import Cell from "./Cell/Cell";
+import Cell from "./Cell/InsideCell/Cell";
 import { useGame } from "src/contexts/GameContext";
 import { CellProvider } from "src/contexts/CellContext";
 

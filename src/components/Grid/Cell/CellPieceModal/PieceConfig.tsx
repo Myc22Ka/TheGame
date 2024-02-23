@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import PieceModalTitle from "./Header/PieceModalTitle";
-import PieceStatus from "../PieceStatus";
+import PieceStatus from "../InsideCell/PieceStatus";
 import Buttons from "./Buttons/Buttons";
 import Body from "./Body/Body";
 

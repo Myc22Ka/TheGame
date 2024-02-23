@@ -15,12 +15,12 @@ const Score: React.FC = () => {
     if (!game.gameOver) interval = setInterval(() => addGold(), currentGameSpeed());
 
     return () => clearInterval(interval);
-  });
+  }, []);
 
   return (
     <Stack className="justify-content-center align-items-center" direction="horizontal" gap={2}>
       <div
-        className="h2 m-0"
+        className="h3 m-0"
         style={{
           color: "white",
           fontWeight: "bold",

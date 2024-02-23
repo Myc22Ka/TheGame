@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal, Stack } from "react-bootstrap";
-import Levels from "../../Levels";
-import Title from "../../../../Animations/Text/Title";
-import Piece from "../../Piece";
+import Levels from "../../InsideCell/Levels/Levels";
+import Title from "src/components/Animations/Text/Title";
+import Piece from "src/components/Piece/Piece";
 import { useCell } from "src/contexts/CellContext";
 
 const PieceModalTitle: React.FC = () => {

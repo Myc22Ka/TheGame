@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { GridEntry } from "src/modules/Piece/types";
 import { Stack } from "react-bootstrap";
 import styles from "src/styles/style.module.scss";
-import PieceConfig from "./CellPieceModal/PieceConfig";
-import Levels from "./Levels";
-import Piece from "./Piece";
+import PieceConfig from "../CellPieceModal/PieceConfig";
+import Levels from "./Levels/Levels";
+import Piece from "src/components/Piece/Piece";
 import PieceStatus from "./PieceStatus";
 import { useCell } from "src/contexts/CellContext";
 
