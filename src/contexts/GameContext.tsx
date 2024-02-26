@@ -1,8 +1,31 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback } from "react";
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
-import { GameType } from "src/modules/Game/types";
+import { GameStats, GameType } from "src/modules/Game/types";
 import { emptyCell } from "src/modules/Game/utils";
+import { transformArrayInto2DArray } from "src/utils/transformInto2DArray";
+import { findShapeIn2DArray } from "src/utils/findShapeIn2DArray";
+
+const checkCombos = (grid: GridEntry[], rule: GameStats) => {
+  const foundPiece = options.pieces.types.find((piece) => piece.rule === rule);
+  if (!foundPiece) return;
+  const filteredGrid = grid.filter((entry) => entry.insideCell.rule === rule);
+
+  const shapes = foundPiece.shapes
+    .map((element) => {
+      const shapeLength = element.shape.flat(1).reduce((acc, curr) => acc + curr, 0);
+      if (shapeLength > filteredGrid.length) return [];
+      return element.shape;
+    })
+    .filter((element) => element.flat(1).length !== 0);
+
+  if (!shapes.length) return;
+
+  const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length));
+  const binaryGrid2D = grid2D.map((row) => row.map((col) => Number(col.insideCell.rule === rule)));
+  const found = shapes.map((shape) => findShapeIn2DArray(binaryGrid2D, shape));
+  console.log(found);
+};
 
 export const initGameState: GameType = {
   gameOver: false,
@@ -31,6 +54,8 @@ const useGameContext = (defaultGame: GameType) => {
           isEmpty: false,
           animate: "active",
         };
+
+        checkCombos(newGrid, piece.rule);
 
         return {
           ...prev,
