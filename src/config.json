@@ -1,6 +1,6 @@
 {
   "score": {
-    "gold": 2000,
+    "gold": 200,
     "destroyRange": [0.2, 0.4, 0.5, 0.6, 0.8],
     "gameStats": {
       "multiplier": 1,

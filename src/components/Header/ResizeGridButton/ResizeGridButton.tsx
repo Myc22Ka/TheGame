@@ -12,7 +12,7 @@ import { buttonVariants } from "src/components/Grid/Cell/CellPieceModal/Buttons/
 
 const ResizeGridButton: React.FC = () => {
   const { game, resizeGrid } = useGame();
-  const { score, removeSomeGold } = useScore();
+  const { score, removeSomeGold, currentGameSpeed } = useScore();
   const { defaultSize, gridUpgrades } = options.grid;
 
   /**
@@ -32,15 +32,22 @@ const ResizeGridButton: React.FC = () => {
   };
 
   const isMaxed = Math.sqrt(game.grid.length) === defaultSize + gridUpgrades.length;
+  const cost = gridUpgrades[Math.sqrt(game.grid.length) - defaultSize].cost;
 
   return (
     <Stack
       direction="horizontal"
       style={{ backgroundColor: styles.toExpensive, borderRadius: "0.375rem", maxHeight: "46px" }}
     >
-      {!isMaxed && <ResizePrice price={gridUpgrades[Math.sqrt(game.grid.length) - defaultSize].cost} />}
-      <motion.div whileTap={buttonVariants.success}>
-        <Button variant="main" onClick={resizeGridHandler} disabled={isMaxed} className="py+1">
+      {!isMaxed && <ResizePrice price={cost} />}
+      <motion.div
+        whileTap={cost > score.gold ? buttonVariants.reject : buttonVariants.success}
+        transition={{
+          duration: currentGameSpeed({ devider: 6000 }),
+          ease: "easeInOut",
+        }}
+      >
+        <Button variant="main" onClick={resizeGridHandler} disabled={isMaxed}>
           <Stack gap={3} direction="horizontal">
             <FontAwesomeIcon icon={faCirclePlus} />
             <b className="text text-uppercase">{isMaxed ? "Max Cells" : "Add Cells"}</b>

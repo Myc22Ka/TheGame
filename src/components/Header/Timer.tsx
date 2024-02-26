@@ -27,7 +27,7 @@ const Timer: React.FC = () => {
 
   return (
     <Stack
-      className="justify-content-center align-items-center p-2"
+      className="justify-content-center align-items-center p-1"
       direction="horizontal"
       style={{ width: "200px" }}
       gap={2}
