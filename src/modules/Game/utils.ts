@@ -9,7 +9,7 @@ const emptyPiece: PieceType = {
   rule: "default",
   level: 0,
   uses: 0,
-  id: 0,
+  id: -1,
   activators: {},
 };
 

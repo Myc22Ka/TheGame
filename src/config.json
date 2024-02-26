@@ -47,6 +47,36 @@
         "shapes": [
           {
             "activators": {
+              "multiplier": 10,
+              "flatIncome": 20
+            },
+            "shape": [
+              [1, 1, 1],
+              [1, 1, 0]
+            ]
+          },
+          {
+            "activators": {
+              "multiplier": 10,
+              "flatIncome": 20
+            },
+            "shape": [
+              [0, 1],
+              [1, 1]
+            ]
+          },
+          {
+            "activators": {
+              "multiplier": 10,
+              "flatIncome": 20
+            },
+            "shape": [
+              [0, 0],
+              [1, 1]
+            ]
+          },
+          {
+            "activators": {
               "multiplier": 1,
               "flatIncome": 2
             },
@@ -61,8 +91,8 @@
               "flatIncome": 20
             },
             "shape": [
-              [1, 0],
-              [1, 1]
+              [1, 0, 0],
+              [1, 1, 1]
             ]
           }
         ]

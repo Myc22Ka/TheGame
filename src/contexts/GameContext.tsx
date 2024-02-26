@@ -17,14 +17,23 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
       if (shapeLength > filteredGrid.length) return [];
       return element.shape;
     })
-    .filter((element) => element.flat(1).length !== 0);
+    .filter((element) => element.flat(1).length !== 0 && element[0].length <= Math.sqrt(grid.length));
+
+  shapes.sort((a, b) => {
+    const lengthA = a.flat(1).reduce((acc, curr) => acc + curr, 0);
+    const lengthB = b.flat(1).reduce((acc, curr) => acc + curr, 0);
+    return lengthB - lengthA;
+  });
 
   if (!shapes.length) return;
 
-  const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length));
-  const binaryGrid2D = grid2D.map((row) => row.map((col) => Number(col.insideCell.rule === rule)));
-  const found = shapes.map((shape) => findShapeIn2DArray(binaryGrid2D, shape));
-  console.log(found);
+  const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length)).map((row) =>
+    row.map((col) =>
+      col.insideCell.id !== -1 ? { value: Number(col.insideCell.rule === rule), id: col.insideCell.id } : {}
+    )
+  );
+
+  const found = shapes.map((shape) => findShapeIn2DArray(grid2D, shape));
 };
 
 export const initGameState: GameType = {
