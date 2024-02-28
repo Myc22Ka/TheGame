@@ -6,6 +6,7 @@ type GridEntry = {
   isEmpty: boolean;
   animate: "inactive" | "active";
   isDestroyed: boolean;
+  comboShape: number[][];
 };
 
 export type { GridEntry };

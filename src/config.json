@@ -1,6 +1,6 @@
 {
   "score": {
-    "gold": 300,
+    "gold": 3000,
     "destroyRange": [0.2, 0.4, 0.5, 0.6, 0.8],
     "gameStats": {
       "multiplier": 1,
@@ -45,47 +45,6 @@
           "flatIncome": [1, 6, 9]
         },
         "shapes": [
-          {
-            "activators": {
-              "multiplier": 10,
-              "flatIncome": 20
-            },
-            "shape": [
-              [1, 1, 1],
-              [1, 1, 0]
-            ]
-          },
-          {
-            "activators": {
-              "multiplier": 10,
-              "flatIncome": 20
-            },
-            "shape": [
-              [0, 1],
-              [1, 1]
-            ]
-          },
-          {
-            "activators": {
-              "multiplier": 10,
-              "flatIncome": 20
-            },
-            "shape": [
-              [0, 1, 0],
-              [1, 1, 0],
-              [1, 0, 0]
-            ]
-          },
-          {
-            "activators": {
-              "multiplier": 10,
-              "flatIncome": 20
-            },
-            "shape": [
-              [0, 1, 1],
-              [1, 1, 0]
-            ]
-          },
           {
             "activators": {
               "multiplier": 10,

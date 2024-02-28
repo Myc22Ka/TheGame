@@ -2,9 +2,17 @@ import React, { useState, useContext, createContext, ReactElement, useCallback }
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStats, GameType } from "src/modules/Game/types";
-import { emptyCell } from "src/modules/Game/utils";
+import { emptyCell, emptyPiece } from "src/modules/Game/utils";
 import { transformArrayInto2DArray } from "src/utils/transformInto2DArray";
 import { findShapeIn2DArray } from "src/utils/findShapeIn2DArray";
+
+export const initGameState: GameType = {
+  gameOver: false,
+  grid: Array(Math.pow(options.grid.defaultSize, 2))
+    .fill(emptyCell)
+    .map((emptyCell, id) => ({ ...emptyCell, insideCell: { ...emptyCell.insideCell, id: id } })),
+  size: options.grid.defaultSize,
+};
 
 const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   const foundPiece = options.pieces.types.find((piece) => piece.rule === rule);
@@ -27,26 +35,22 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
 
   if (!shapes.length) return;
 
-  const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length)).map((row) =>
-    row.map((col) =>
-      col.insideCell.id !== -1
-        ? { value: Number(col.insideCell.rule === rule), id: col.insideCell.id }
-        : { value: 0, id: col.insideCell.id }
-    )
-  );
+  for (let i = 0; i < 5; i++) {
+    const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length)).map((row) =>
+      row.map((col) => ({ value: Number(col.insideCell.rule === rule), id: col.insideCell.id }))
+    );
 
-  const matchingShapes = findShapeIn2DArray(grid2D, shapes);
-  // matchingShapes.sort((a, b) => b[0].exact - a[0].exact);
+    const foundShape = findShapeIn2DArray(grid2D, shapes);
 
-  console.log(matchingShapes);
-};
+    const filteredIds = foundShape.ids.filter((id) => !grid[id].isEmpty);
 
-export const initGameState: GameType = {
-  gameOver: false,
-  grid: Array(Math.pow(options.grid.defaultSize, 2))
-    .fill(emptyCell)
-    .map((emptyCell, id) => ({ ...emptyCell, insideCell: { ...emptyCell.insideCell, id: id } })),
-  size: options.grid.defaultSize,
+    grid = grid.map((entry, i) =>
+      filteredIds.includes(entry.insideCell.id)
+        ? { ...entry, insideCell: { ...emptyPiece, id: i }, comboShape: foundShape.shape }
+        : entry
+    );
+    // console.log(foundShape);
+  }
 };
 
 const useGameContext = (defaultGame: GameType) => {

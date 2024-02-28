@@ -4,7 +4,7 @@ type grid2DType = {
 };
 
 type MatchingShape = {
-  indexes: number[];
+  ids: number[];
   matching: boolean;
   exact: number;
   shape: number[][];
@@ -13,19 +13,19 @@ type MatchingShape = {
 export const findShapeIn2DArray = (array: grid2DType[][], shapes: number[][][]) => {
   const numRows = array.length;
   const numCols = array[0].length;
-  const result: MatchingShape[] = [];
+  let result: MatchingShape[] = [];
   let maxShapeLength = 0;
 
-  shapes.forEach((shape) => {
+  for (const shape of shapes) {
     const shapeRows = shape.length;
     const shapeCols = shape[0].length;
     const currShapeLength = shape.flat(1).reduce((acc, curr) => acc + curr, 0);
-    if (maxShapeLength > currShapeLength) return;
+    // if (maxShapeLength > currShapeLength) break;
 
     for (let i = 0; i <= numRows - shapeRows; i++) {
       for (let j = 0; j <= numCols - shapeCols; j++) {
         const matchingShape: MatchingShape = {
-          indexes: [],
+          ids: [],
           matching: true,
           exact: 0,
           shape: shape,
@@ -35,10 +35,10 @@ export const findShapeIn2DArray = (array: grid2DType[][], shapes: number[][][]) 
             if (!matchingShape.matching) break;
 
             if (array[i + si][j + sj].value === shape[si][sj]) {
-              matchingShape.indexes.push(array[i + si][j + sj].id);
+              matchingShape.ids.push(array[i + si][j + sj].id);
               matchingShape.exact++;
             } else if (array[i + si][j + sj].value > shape[si][sj]) {
-              matchingShape.indexes.push(array[i + si][j + sj].id);
+              matchingShape.ids.push(array[i + si][j + sj].id);
             } else {
               matchingShape.matching = false;
               break;
@@ -48,12 +48,12 @@ export const findShapeIn2DArray = (array: grid2DType[][], shapes: number[][][]) 
         if (matchingShape.matching) {
           result.push(matchingShape);
           maxShapeLength = matchingShape.shape.flat(1).reduce((acc, curr) => acc + curr, 0);
-          break;
         }
       }
     }
     result.sort((a, b) => b.exact - a.exact);
-  });
+  }
+  console.log(result);
 
-  return result;
+  return { ids: result[0]?.ids || [], shape: result[0]?.shape || [] };
 };
