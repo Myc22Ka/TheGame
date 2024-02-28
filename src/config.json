@@ -1,6 +1,6 @@
 {
   "score": {
-    "gold": 200,
+    "gold": 300,
     "destroyRange": [0.2, 0.4, 0.5, 0.6, 0.8],
     "gameStats": {
       "multiplier": 1,
@@ -35,7 +35,7 @@
         "name": "Cash Flow Catalyst",
         "rule": "multiplier",
         "level": 1,
-        "uses": 5,
+        "uses": 10,
         "range": [0.5, 1, 2, 4, 6],
         "upgradeCost": [20, 40, 100],
         "destroyChance": [0.5, 0.4, 0.3],
@@ -63,6 +63,27 @@
             "shape": [
               [0, 1],
               [1, 1]
+            ]
+          },
+          {
+            "activators": {
+              "multiplier": 10,
+              "flatIncome": 20
+            },
+            "shape": [
+              [0, 1, 0],
+              [1, 1, 0],
+              [1, 0, 0]
+            ]
+          },
+          {
+            "activators": {
+              "multiplier": 10,
+              "flatIncome": 20
+            },
+            "shape": [
+              [0, 1, 1],
+              [1, 1, 0]
             ]
           },
           {

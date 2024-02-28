@@ -29,16 +29,23 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
 
   const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length)).map((row) =>
     row.map((col) =>
-      col.insideCell.id !== -1 ? { value: Number(col.insideCell.rule === rule), id: col.insideCell.id } : {}
+      col.insideCell.id !== -1
+        ? { value: Number(col.insideCell.rule === rule), id: col.insideCell.id }
+        : { value: 0, id: col.insideCell.id }
     )
   );
 
-  const found = shapes.map((shape) => findShapeIn2DArray(grid2D, shape));
+  const matchingShapes = findShapeIn2DArray(grid2D, shapes);
+  // matchingShapes.sort((a, b) => b[0].exact - a[0].exact);
+
+  console.log(matchingShapes);
 };
 
 export const initGameState: GameType = {
   gameOver: false,
-  grid: Array(Math.pow(options.grid.defaultSize, 2)).fill(emptyCell),
+  grid: Array(Math.pow(options.grid.defaultSize, 2))
+    .fill(emptyCell)
+    .map((emptyCell, id) => ({ ...emptyCell, insideCell: { ...emptyCell.insideCell, id: id } })),
   size: options.grid.defaultSize,
 };
 
@@ -98,7 +105,9 @@ const useGameContext = (defaultGame: GameType) => {
     if (game.size === defaultSize + gridUpgrades.length) return;
 
     setGame((prev) => {
-      const newTable = new Array(Math.pow(prev.size + 1, 2)).fill(emptyCell);
+      const newTable = new Array(Math.pow(prev.size + 1, 2))
+        .fill(emptyCell)
+        .map((emptyCell, id) => ({ ...emptyCell, insideCell: { ...emptyCell.insideCell, id: id } }));
 
       for (let i = 0; i < prev.grid.length; i++) {
         newTable[i] = prev.grid[i];
