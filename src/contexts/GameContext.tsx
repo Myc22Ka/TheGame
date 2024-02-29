@@ -34,9 +34,9 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
 
   if (!shapes.length) return grid;
 
-  let tempGrid = grid.map((entry) => entry.insideCell);
+  const gridCells = grid.map((entry) => entry.insideCell);
 
-  const foundShapes = findBiggestShapesInGrid(tempGrid, shapes, rule);
+  const foundShapes = findBiggestShapesInGrid(gridCells, shapes, rule);
   const results: MatchingShape[][] = [];
   foundShapes.forEach((shape) => {
     const result = [shape];
@@ -46,11 +46,20 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
     const isNewResult = results.every(
       (existingResult) => !existingResult.some((existingShape) => result.includes(existingShape))
     );
-    if (isNewResult) {
-      results.push(result);
-    }
+    if (isNewResult) results.push(result);
   });
-  console.log(results);
+  results.sort((a, b) => b.length - a.length);
+  if (!results.length) return grid;
+
+  grid.map((entry) => {
+    entry.comboShape = [];
+  });
+
+  results[0].forEach((foundShape) => {
+    foundShape.ids.forEach((id) => {
+      grid[id] = { ...grid[id], comboShape: foundShape.shape };
+    });
+  });
 
   return grid;
 };
