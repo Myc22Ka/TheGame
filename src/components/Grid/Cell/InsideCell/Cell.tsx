@@ -33,6 +33,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
       <div onClick={handleShow}>
         <Piece />
       </div>
+      <div>{cell.comboShape.flat(1).reduce((acc, curr) => acc + curr, 0)}</div>
       <Levels />
       <PieceConfig show={show} handleClose={handleClose} />
     </Stack>

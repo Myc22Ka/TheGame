@@ -2,9 +2,8 @@ import React, { useState, useContext, createContext, ReactElement, useCallback }
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStats, GameType } from "src/modules/Game/types";
-import { emptyCell, emptyPiece } from "src/modules/Game/utils";
-import { transformArrayInto2DArray } from "src/utils/transformInto2DArray";
-import { findShapeIn2DArray } from "src/utils/findShapeIn2DArray";
+import { emptyCell } from "src/modules/Game/utils";
+import { MatchingShape, findBiggestShapesInGrid } from "src/utils/findShapeIn2DArray";
 
 export const initGameState: GameType = {
   gameOver: false,
@@ -16,7 +15,7 @@ export const initGameState: GameType = {
 
 const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   const foundPiece = options.pieces.types.find((piece) => piece.rule === rule);
-  if (!foundPiece) return;
+  if (!foundPiece) return grid;
   const filteredGrid = grid.filter((entry) => entry.insideCell.rule === rule);
 
   const shapes = foundPiece.shapes
@@ -33,24 +32,27 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
     return lengthB - lengthA;
   });
 
-  if (!shapes.length) return;
+  if (!shapes.length) return grid;
 
-  for (let i = 0; i < 5; i++) {
-    const grid2D = transformArrayInto2DArray(grid, Math.sqrt(grid.length), Math.sqrt(grid.length)).map((row) =>
-      row.map((col) => ({ value: Number(col.insideCell.rule === rule), id: col.insideCell.id }))
+  let tempGrid = grid.map((entry) => entry.insideCell);
+
+  const foundShapes = findBiggestShapesInGrid(tempGrid, shapes, rule);
+  const results: MatchingShape[][] = [];
+  foundShapes.forEach((shape) => {
+    const result = [shape];
+    foundShapes.forEach((element) => {
+      if (new Set([...shape.ids, ...element.ids]).size === shape.ids.length + element.ids.length) result.push(element);
+    });
+    const isNewResult = results.every(
+      (existingResult) => !existingResult.some((existingShape) => result.includes(existingShape))
     );
+    if (isNewResult) {
+      results.push(result);
+    }
+  });
+  console.log(results);
 
-    const foundShape = findShapeIn2DArray(grid2D, shapes);
-
-    const filteredIds = foundShape.ids.filter((id) => !grid[id].isEmpty);
-
-    grid = grid.map((entry, i) =>
-      filteredIds.includes(entry.insideCell.id)
-        ? { ...entry, insideCell: { ...emptyPiece, id: i }, comboShape: foundShape.shape }
-        : entry
-    );
-    // console.log(foundShape);
-  }
+  return grid;
 };
 
 const useGameContext = (defaultGame: GameType) => {
@@ -75,11 +77,11 @@ const useGameContext = (defaultGame: GameType) => {
           animate: "active",
         };
 
-        checkCombos(newGrid, piece.rule);
+        const updatedGrid = checkCombos(newGrid, piece.rule);
 
         return {
           ...prev,
-          grid: newGrid,
+          grid: updatedGrid,
         };
       });
     },
