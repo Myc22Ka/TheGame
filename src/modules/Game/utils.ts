@@ -19,7 +19,10 @@ const emptyCell: GridEntry = {
   ref: null,
   isEmpty: true,
   animate: "inactive",
-  comboShape: [],
+  comboShape: {
+    shape: [],
+    ids: [],
+  },
 };
 
 const rules: GameStats[] = Object.keys(options.score.gameStats) as GameStats[];

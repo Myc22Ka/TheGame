@@ -7,6 +7,7 @@ import Levels from "./Levels/Levels";
 import Piece from "src/components/Piece/Piece";
 import PieceStatus from "./PieceStatus";
 import { useCell } from "src/contexts/CellContext";
+import CombosDisplay from "./CombosDisplay";
 
 type CellProps = {
   cell: GridEntry;
@@ -33,7 +34,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
       <div onClick={handleShow}>
         <Piece />
       </div>
-      <div>{cell.comboShape.flat(1).reduce((acc, curr) => acc + curr, 0)}</div>
+      <CombosDisplay />
       <Levels />
       <PieceConfig show={show} handleClose={handleClose} />
     </Stack>

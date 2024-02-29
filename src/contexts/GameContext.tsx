@@ -52,12 +52,18 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   if (!results.length) return grid;
 
   grid.map((entry) => {
-    entry.comboShape = [];
+    entry.comboShape.shape = [];
   });
 
   results[0].forEach((foundShape) => {
     foundShape.ids.forEach((id) => {
-      grid[id] = { ...grid[id], comboShape: foundShape.shape };
+      grid[id] = {
+        ...grid[id],
+        comboShape: {
+          shape: foundShape.shape,
+          ids: foundShape.ids,
+        },
+      };
     });
   });
 

@@ -47,3 +47,13 @@ $p: 1rem;
     background-color: $error;
   }
 }
+.combos-display {
+  position: absolute;
+  top: $p;
+  left: $p;
+  .combos-cell {
+    width: 9px;
+    height: 9px;
+    border-radius: 1px;
+  }
+}
