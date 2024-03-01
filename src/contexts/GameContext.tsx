@@ -48,7 +48,7 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
     );
     if (isNewResult) results.push(result);
   });
-  results.sort((a, b) => b.length - a.length);
+  results.sort((a, b) => b.reduce((acc, curr) => acc + curr.exact, 0) - a.reduce((acc, curr) => acc + curr.exact, 0));
   if (!results.length) return grid;
 
   grid.map((entry) => {
@@ -56,12 +56,18 @@ const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   });
 
   results[0].forEach((foundShape) => {
+    let counter = 0;
+    const shape = foundShape.shape.map((row) => {
+      return row.map((col) => {
+        return { value: col, id: col === 1 ? foundShape.ids[counter++] : -1 };
+      });
+    });
+
     foundShape.ids.forEach((id) => {
       grid[id] = {
         ...grid[id],
         comboShape: {
-          shape: foundShape.shape,
-          ids: foundShape.ids,
+          shape: shape,
         },
       };
     });

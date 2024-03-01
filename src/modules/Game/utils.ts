@@ -21,7 +21,6 @@ const emptyCell: GridEntry = {
   animate: "inactive",
   comboShape: {
     shape: [],
-    ids: [],
   },
 };
 

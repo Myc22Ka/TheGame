@@ -7,8 +7,7 @@ type GridEntry = {
   animate: "inactive" | "active";
   isDestroyed: boolean;
   comboShape: {
-    shape: number[][];
-    ids: number[];
+    shape: { value: number; id: number }[][];
   };
 };
 
