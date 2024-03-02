@@ -1,5 +1,7 @@
+import { ShapeType } from "src/modules/Game/checkCombos";
 import { transformArrayInto2DArray } from "./transformInto2DArray";
 import { GameStats, PieceType } from "src/modules/Piece/types";
+import { GameStatsType } from "src/modules/Score/types";
 
 type grid2DType = {
   value: number;
@@ -11,9 +13,10 @@ export type MatchingShape = {
   matching: boolean;
   exact: number;
   shape: number[][];
+  activators: GameStatsType;
 };
 
-export const findBiggestShapesInGrid = (tempGrid: PieceType[], shapes: number[][][], rule: GameStats) => {
+export const findBiggestShapesInGrid = (tempGrid: PieceType[], shapes: ShapeType[], rule: GameStats) => {
   const array: grid2DType[][] = transformArrayInto2DArray(
     tempGrid,
     Math.sqrt(tempGrid.length),
@@ -24,9 +27,9 @@ export const findBiggestShapesInGrid = (tempGrid: PieceType[], shapes: number[][
   const numCols = array[0].length;
   let result: MatchingShape[] = [];
 
-  for (const shape of shapes) {
-    const shapeRows = shape.length;
-    const shapeCols = shape[0].length;
+  for (const element of shapes) {
+    const shapeRows = element.shape.length;
+    const shapeCols = element.shape[0].length;
 
     for (let i = 0; i <= numRows - shapeRows; i++) {
       for (let j = 0; j <= numCols - shapeCols; j++) {
@@ -34,16 +37,17 @@ export const findBiggestShapesInGrid = (tempGrid: PieceType[], shapes: number[][
           ids: [],
           matching: true,
           exact: 0,
-          shape: shape,
+          shape: element.shape,
+          activators: element.activators,
         };
         for (let si = 0; si < shapeRows; si++) {
           for (let sj = 0; sj < shapeCols; sj++) {
             if (!matchingShape.matching) break;
 
-            if (array[i + si][j + sj].value === shape[si][sj]) {
-              if (shape[si][sj]) matchingShape.ids.push(array[i + si][j + sj].id);
+            if (array[i + si][j + sj].value === element.shape[si][sj]) {
+              if (element.shape[si][sj]) matchingShape.ids.push(array[i + si][j + sj].id);
               matchingShape.exact++;
-            } else if (array[i + si][j + sj].value > shape[si][sj]) {
+            } else if (array[i + si][j + sj].value > element.shape[si][sj]) {
               continue;
             } else {
               matchingShape.matching = false;

@@ -4,6 +4,7 @@ import { defaultTile, findNearestCell, calcCenterPoint, defaultCords } from "src
 import { AnimationsType, PieceEventType, PieceType } from "src/modules/Piece/types";
 import { useScore } from "src/contexts/ScoreContext";
 import options from "src/config.json";
+import { checkCombos } from "src/modules/Game/checkCombos";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);

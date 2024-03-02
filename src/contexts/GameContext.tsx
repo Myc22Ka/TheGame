@@ -1,9 +1,9 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback } from "react";
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
-import { GameStats, GameType } from "src/modules/Game/types";
+import { GameType } from "src/modules/Game/types";
 import { emptyCell } from "src/modules/Game/utils";
-import { MatchingShape, findBiggestShapesInGrid } from "src/utils/findShapeIn2DArray";
+import { checkCombos } from "src/modules/Game/checkCombos";
 
 export const initGameState: GameType = {
   gameOver: false,
@@ -11,69 +11,6 @@ export const initGameState: GameType = {
     .fill(emptyCell)
     .map((emptyCell, id) => ({ ...emptyCell, insideCell: { ...emptyCell.insideCell, id: id } })),
   size: options.grid.defaultSize,
-};
-
-const checkCombos = (grid: GridEntry[], rule: GameStats) => {
-  const foundPiece = options.pieces.types.find((piece) => piece.rule === rule);
-  if (!foundPiece) return grid;
-  const filteredGrid = grid.filter((entry) => entry.insideCell.rule === rule);
-
-  const shapes = foundPiece.shapes
-    .map((element) => {
-      const shapeLength = element.shape.flat(1).reduce((acc, curr) => acc + curr, 0);
-      if (shapeLength > filteredGrid.length) return [];
-      return element.shape;
-    })
-    .filter((element) => element.flat(1).length !== 0 && element[0].length <= Math.sqrt(grid.length));
-
-  shapes.sort((a, b) => {
-    const lengthA = a.flat(1).reduce((acc, curr) => acc + curr, 0);
-    const lengthB = b.flat(1).reduce((acc, curr) => acc + curr, 0);
-    return lengthB - lengthA;
-  });
-
-  if (!shapes.length) return grid;
-
-  const gridCells = grid.map((entry) => entry.insideCell);
-
-  const foundShapes = findBiggestShapesInGrid(gridCells, shapes, rule);
-  const results: MatchingShape[][] = [];
-  foundShapes.forEach((shape) => {
-    const result = [shape];
-    foundShapes.forEach((element) => {
-      if (new Set([...shape.ids, ...element.ids]).size === shape.ids.length + element.ids.length) result.push(element);
-    });
-    const isNewResult = results.every(
-      (existingResult) => !existingResult.some((existingShape) => result.includes(existingShape))
-    );
-    if (isNewResult) results.push(result);
-  });
-  results.sort((a, b) => b.reduce((acc, curr) => acc + curr.exact, 0) - a.reduce((acc, curr) => acc + curr.exact, 0));
-  if (!results.length) return grid;
-
-  grid.map((entry) => {
-    entry.comboShape.shape = [];
-  });
-
-  results[0].forEach((foundShape) => {
-    let counter = 0;
-    const shape = foundShape.shape.map((row) => {
-      return row.map((col) => {
-        return { value: col, id: col === 1 ? foundShape.ids[counter++] : -1 };
-      });
-    });
-
-    foundShape.ids.forEach((id) => {
-      grid[id] = {
-        ...grid[id],
-        comboShape: {
-          shape: shape,
-        },
-      };
-    });
-  });
-
-  return grid;
 };
 
 const useGameContext = (defaultGame: GameType) => {
@@ -102,7 +39,7 @@ const useGameContext = (defaultGame: GameType) => {
 
         return {
           ...prev,
-          grid: updatedGrid,
+          grid: updatedGrid.grid,
         };
       });
     },

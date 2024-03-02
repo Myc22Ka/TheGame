@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import options from "src/config.json";
 import { GameStats, PieceType } from "src/modules/Piece/types";
-import { ActivatorsType, GameStatsType, ScoreType } from "src/modules/Score/types";
+import { GameStatsType, ScoreType } from "src/modules/Score/types";
 
 export const initState: ScoreType = options.score;
 

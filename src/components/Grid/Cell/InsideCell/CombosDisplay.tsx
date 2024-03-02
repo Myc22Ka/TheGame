@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Stack } from "react-bootstrap";
 import { useCell } from "src/contexts/CellContext";
 import styles from "src/styles/style.module.scss";
@@ -8,7 +8,7 @@ const CombosDisplay: React.FC = () => {
 
   return (
     <Stack className="combos-display" direction="vertical" style={{ gap: "2px" }}>
-      {cell.comboShape.shape.map((row, rowIndex) => {
+      {cell.comboShape.map((row, rowIndex) => {
         return (
           <Stack key={rowIndex} className="m-0" direction="horizontal" style={{ gap: "2px" }}>
             {row.map((col, colIndex) => {
