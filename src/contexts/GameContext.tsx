@@ -3,7 +3,6 @@ import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameType } from "src/modules/Game/types";
 import { emptyCell } from "src/modules/Game/utils";
-import { checkCombos } from "src/modules/Game/checkCombos";
 
 export const initGameState: GameType = {
   gameOver: false,
@@ -35,11 +34,9 @@ const useGameContext = (defaultGame: GameType) => {
           animate: "active",
         };
 
-        const updatedGrid = checkCombos(newGrid, piece.rule);
-
         return {
           ...prev,
-          grid: updatedGrid.grid,
+          grid: newGrid,
         };
       });
     },

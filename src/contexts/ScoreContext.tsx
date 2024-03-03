@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import options from "src/config.json";
-import { GameStats, PieceType } from "src/modules/Piece/types";
+import { checkCombos } from "src/modules/Game/checkCombos";
+import { GameStats, GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStatsType, ScoreType } from "src/modules/Score/types";
 
 export const initState: ScoreType = options.score;
@@ -40,6 +41,19 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [score]
   );
 
+  const combosHandler = useCallback((game: GridEntry[], nearestCell: GridEntry, piece: PieceType) => {
+    const grid: GridEntry[] = [];
+    game.forEach((entry) => {
+      if (entry.insideCell.id === nearestCell.insideCell.id)
+        grid.push({ ...entry, insideCell: { ...piece, id: nearestCell.insideCell.id } });
+      else grid.push(entry);
+    });
+
+    const updatedGrid = checkCombos(grid, piece.rule);
+
+    console.log(updatedGrid);
+  }, []);
+
   const updateActivators = useCallback(
     (piece: PieceType, operator: "+" | "-" = "+") => {
       setScore((prev) => {
@@ -70,6 +84,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
     removeSomeGold,
     addSomeGold,
     currentGameSpeed,
+    combosHandler,
   };
 };
 
@@ -80,9 +95,8 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   updateActivators: () => {},
   removeSomeGold: () => {},
   addSomeGold: () => {},
-  currentGameSpeed: () => {
-    return 0;
-  },
+  currentGameSpeed: () => 0,
+  combosHandler: () => {},
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -102,7 +116,7 @@ export const ScoreProvider = ({ children, ...initState }: ChildrenType & ScoreTy
 };
 
 export const useScore = () => {
-  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, currentGameSpeed } =
+  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, currentGameSpeed, combosHandler } =
     useContext(ScoreContext);
 
   return {
@@ -113,5 +127,6 @@ export const useScore = () => {
     removeSomeGold,
     addSomeGold,
     currentGameSpeed,
+    combosHandler,
   };
 };

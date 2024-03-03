@@ -49,7 +49,9 @@ export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   results.sort((a, b) => b.reduce((acc, curr) => acc + curr.exact, 0) - a.reduce((acc, curr) => acc + curr.exact, 0));
   if (!results.length) return { grid: grid, activators: {} as GameStatsType };
 
-  grid.map((entry) => {
+  const updatedGrid = [...grid];
+
+  updatedGrid.map((entry) => {
     entry.comboShape = [];
   });
 
@@ -69,8 +71,8 @@ export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
     });
 
     foundShape.ids.forEach((id) => {
-      grid[id] = {
-        ...grid[id],
+      updatedGrid[id] = {
+        ...updatedGrid[id],
         comboShape: shape,
       };
     });

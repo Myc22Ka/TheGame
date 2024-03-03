@@ -1,16 +1,15 @@
 import { useState, useRef, useCallback } from "react";
 import { useGame } from "src/contexts/GameContext";
 import { defaultTile, findNearestCell, calcCenterPoint, defaultCords } from "src/modules/Piece/utils";
-import { AnimationsType, PieceEventType, PieceType } from "src/modules/Piece/types";
+import { AnimationsType, GridEntry, PieceEventType, PieceType } from "src/modules/Piece/types";
 import { useScore } from "src/contexts/ScoreContext";
 import options from "src/config.json";
-import { checkCombos } from "src/modules/Game/checkCombos";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell } = useGame();
-  const { removeSomeGold, updateActivators, currentGameSpeed, score } = useScore();
+  const { removeSomeGold, updateActivators, currentGameSpeed, score, combosHandler } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -68,6 +67,7 @@ export const usePiece = (piece: PieceType) => {
 
     setTimeout(() => {
       addPieceToCell(tile.nearestCell, piece);
+      combosHandler(game.grid, tile.nearestCell, piece);
       updateActivators(piece);
       changePieceAnimation("exit");
     }, addToGridDelay);
