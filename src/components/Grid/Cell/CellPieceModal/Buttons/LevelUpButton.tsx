@@ -2,13 +2,14 @@ import { faCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
 import { Button, Stack } from "react-bootstrap";
-import { useGame } from "src/contexts/GameContext";
+import { initGameState, useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
 import PieceCostMoney from "./PieceCostMoney";
 import styles from "src/styles/style.module.scss";
 import { useCell } from "src/contexts/CellContext";
 import { motion } from "framer-motion";
 import { buttonVariants, variants } from "./Buttons";
+import { emptyCell } from "src/modules/Game/utils";
 
 type LevelButtonPropsType = {
   handleClose: () => void;
@@ -34,7 +35,7 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
     handleClose();
 
     removeSomeGold(upgradeCost[level]);
-    updateActivators(cell.insideCell, "-");
+    updateActivators(cell.insideCell, initGameState.grid, emptyCell, "-");
     setTimeout(() => {
       levelUp(cell);
       updateActivators({ ...cell.insideCell, level: level + 1 });

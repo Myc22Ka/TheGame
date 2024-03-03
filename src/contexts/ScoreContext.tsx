@@ -1,8 +1,10 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import options from "src/config.json";
 import { checkCombos } from "src/modules/Game/checkCombos";
+import { emptyCell } from "src/modules/Game/utils";
 import { GameStats, GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStatsType, ScoreType } from "src/modules/Score/types";
+import { initGameState } from "./GameContext";
 
 export const initState: ScoreType = options.score;
 
@@ -41,23 +43,23 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [score]
   );
 
-  const combosHandler = useCallback((game: GridEntry[], nearestCell: GridEntry, piece: PieceType) => {
-    const grid: GridEntry[] = [];
-    game.forEach((entry) => {
-      if (entry.insideCell.id === nearestCell.insideCell.id)
-        grid.push({ ...entry, insideCell: { ...piece, id: nearestCell.insideCell.id } });
-      else grid.push(entry);
-    });
-
-    const updatedGrid = checkCombos(grid, piece.rule);
-
-    console.log(updatedGrid);
-  }, []);
-
   const updateActivators = useCallback(
-    (piece: PieceType, operator: "+" | "-" = "+") => {
+    (
+      piece: PieceType,
+      game: GridEntry[] = initGameState.grid,
+      nearestCell: GridEntry = emptyCell,
+      operator: "+" | "-" = "+"
+    ) => {
       setScore((prev) => {
         setPrevScore(prev);
+
+        const grid: GridEntry[] = [];
+        game.forEach((entry) => {
+          if (entry.insideCell.id === nearestCell.insideCell.id)
+            grid.push({ ...entry, insideCell: { ...piece, id: nearestCell.insideCell.id } });
+          else grid.push(entry);
+        });
+
         const result = {} as GameStatsType;
         const gameStats = Object.keys(piece.activators) as Exclude<GameStats, "" | "default">[];
         const currLevel = piece.level - 1;
@@ -70,7 +72,26 @@ const useScoreContext = (defaultScore: ScoreType) => {
           if (operator === "+") result[key] = prev.gameStats[key] + (stat || [])[currLevel];
         });
 
-        return { ...prev, gameStats: { ...prev.gameStats, ...result } };
+        const updatedGrid = checkCombos(grid, piece.rule);
+
+        if (!Object.keys(updatedGrid.activators).length)
+          return { ...prev, gameStats: { ...prev.gameStats, ...result } };
+
+        const combosStats = {} as GameStatsType;
+
+        Object.entries(updatedGrid.activators).forEach(([key, value]) => {
+          const activator = key as Exclude<GameStats, "" | "default">;
+          combosStats[activator] = 0;
+          combosStats[activator] += value;
+        });
+
+        const final = {} as GameStatsType;
+        Object.entries(result).forEach(([key, value]) => {
+          const activator = key as Exclude<GameStats, "" | "default">;
+          final[activator] = (combosStats[activator] || 0) + result[activator];
+        }); // fix do it once
+
+        return { ...prev, gameStats: { ...prev.gameStats, ...final } };
       });
     },
     [setScore]
@@ -84,7 +105,6 @@ const useScoreContext = (defaultScore: ScoreType) => {
     removeSomeGold,
     addSomeGold,
     currentGameSpeed,
-    combosHandler,
   };
 };
 
@@ -96,7 +116,6 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   removeSomeGold: () => {},
   addSomeGold: () => {},
   currentGameSpeed: () => 0,
-  combosHandler: () => {},
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -116,7 +135,7 @@ export const ScoreProvider = ({ children, ...initState }: ChildrenType & ScoreTy
 };
 
 export const useScore = () => {
-  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, currentGameSpeed, combosHandler } =
+  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, currentGameSpeed } =
     useContext(ScoreContext);
 
   return {
@@ -127,6 +146,5 @@ export const useScore = () => {
     removeSomeGold,
     addSomeGold,
     currentGameSpeed,
-    combosHandler,
   };
 };

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { useGame } from "src/contexts/GameContext";
+import { initGameState, useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
 import { gridVariants } from "src/modules/Grid/utils";
 import options from "src/config.json";
 import { useCell } from "src/contexts/CellContext";
+import { emptyCell } from "src/modules/Game/utils";
 
 const PieceStatus: React.FC = () => {
   const { destroyPiece } = useGame();
@@ -43,7 +44,7 @@ const PieceStatus: React.FC = () => {
         if (resistance > pieceDestoryChance) return;
         destroyPiece(cell);
         clearInterval(interval);
-        updateActivators(cell.insideCell, "-");
+        updateActivators(cell.insideCell, initGameState.grid, emptyCell, "-");
       },
       currentGameSpeed({ devider: 0.5 })
     );
