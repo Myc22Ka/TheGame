@@ -35,10 +35,9 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
     handleClose();
 
     removeSomeGold(upgradeCost[level]);
-    updateActivators(cell.insideCell, initGameState.grid, emptyCell, "-");
     setTimeout(() => {
-      levelUp(cell);
-      updateActivators({ ...cell.insideCell, level: level + 1 });
+      const updatedGrid = levelUp(cell);
+      updateActivators({ ...cell.insideCell, level: level + 1 }, updatedGrid);
     }, 200);
   }, [score.gold, cell.isDestroyed, activators.power, score.gameStats.power]);
 

@@ -11,7 +11,7 @@ export type ShapeType = {
 
 export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   const foundPiece = options.pieces.types.find((piece) => piece.rule === rule);
-  if (!foundPiece) return { grid: grid, activators: {} as GameStatsType };
+  if (!foundPiece) return { activators: {} as GameStatsType, results: [] as MatchingShape[] };
   const filteredGrid = grid.filter((entry) => entry.insideCell.rule === rule);
 
   const shapes = foundPiece.shapes
@@ -28,7 +28,7 @@ export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
     return lengthB - lengthA;
   });
 
-  if (!shapes.length) return { grid: grid, activators: {} as GameStatsType };
+  if (!shapes.length) return { activators: {} as GameStatsType, results: [] as MatchingShape[] };
 
   const gridCells = grid.map((entry) => entry.insideCell);
 
@@ -47,36 +47,17 @@ export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
   });
 
   results.sort((a, b) => b.reduce((acc, curr) => acc + curr.exact, 0) - a.reduce((acc, curr) => acc + curr.exact, 0));
-  if (!results.length) return { grid: grid, activators: {} as GameStatsType };
-
-  const updatedGrid = [...grid];
-
-  updatedGrid.map((entry) => {
-    entry.comboShape = [];
-  });
+  if (!results.length) return { activators: {} as GameStatsType, results: [] as MatchingShape[] };
 
   const activators = {} as GameStatsType;
   results[0].forEach((foundShape) => {
-    let counter = 0;
-    const shape = foundShape.shape.map((row) => {
-      return row.map((col) => {
-        return { value: col, id: col === 1 ? foundShape.ids[counter++] : -1 };
-      });
-    });
     const entries = Object.entries(foundShape.activators) as [Exclude<GameStats, "" | "default">, number][];
 
     entries.forEach(([key, value]) => {
       if (!activators[key]) activators[key] = 0;
       activators[key] += value;
     });
-
-    foundShape.ids.forEach((id) => {
-      updatedGrid[id] = {
-        ...updatedGrid[id],
-        comboShape: shape,
-      };
-    });
   });
 
-  return { grid: grid, activators: activators };
+  return { activators: activators, results: results[0] };
 };

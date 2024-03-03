@@ -38,7 +38,7 @@
         "uses": 10,
         "range": [0.5, 1, 2, 4, 6],
         "upgradeCost": [20, 40, 100],
-        "destroyChance": [0.5, 0.4, 0.3],
+        "destroyChance": [0.1, 0.4, 0.3],
         "activators": {
           "multiplier": [0.5, 1, 2],
           "power": [-1, -2, -4],

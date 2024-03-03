@@ -1,10 +1,10 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import options from "src/config.json";
 import { checkCombos } from "src/modules/Game/checkCombos";
-import { emptyCell } from "src/modules/Game/utils";
 import { GameStats, GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStatsType, ScoreType } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
+import { deepCopy } from "src/utils/deepCopy";
 
 export const initState: ScoreType = options.score;
 
@@ -44,54 +44,51 @@ const useScoreContext = (defaultScore: ScoreType) => {
   );
 
   const updateActivators = useCallback(
-    (
-      piece: PieceType,
-      game: GridEntry[] = initGameState.grid,
-      nearestCell: GridEntry = emptyCell,
-      operator: "+" | "-" = "+"
-    ) => {
+    (piece: PieceType, grid: GridEntry[] = initGameState.grid) => {
       setScore((prev) => {
         setPrevScore(prev);
 
-        const grid: GridEntry[] = [];
-        game.forEach((entry) => {
-          if (entry.insideCell.id === nearestCell.insideCell.id)
-            grid.push({ ...entry, insideCell: { ...piece, id: nearestCell.insideCell.id } });
-          else grid.push(entry);
+        const activators = grid.map(({ insideCell, isDestroyed }) => {
+          if (isDestroyed) return {} as GameStatsType;
+
+          const activators = insideCell.activators;
+          const result = {} as GameStatsType;
+
+          for (const key in activators) {
+            const activator = key as Exclude<GameStats, "default">;
+            result[activator] = (activators[activator] || [])[insideCell.level - 1];
+          }
+          return result;
         });
 
-        const result = {} as GameStatsType;
-        const gameStats = Object.keys(piece.activators) as Exclude<GameStats, "" | "default">[];
-        const currLevel = piece.level - 1;
+        const combos = checkCombos(grid, piece.rule);
 
-        gameStats.forEach((key) => {
-          const stat = piece.activators[key];
+        // if (combos.results.length) {
+        //   combos.results.forEach((result) => {
+        //     result.ids.forEach((id) => {
+        //       let counter = 0;
+        //       const shape = result.shape.map((row) => {
+        //         return row.map((col) => {
+        //           return { value: col, id: col === 1 ? result.ids[counter++] : -1 };
+        //         });
+        //       });
+        //       updatedGrid[id].comboShape = shape;
+        //     });
+        //   });
+        // }
 
-          if (operator === "-") result[key] = prev.gameStats[key] - (stat || [])[currLevel];
+        const sumsOfActivators: GameStatsType = { ...options.score.gameStats };
+        for (const obj of activators) {
+          for (const key in obj) {
+            const activator = key as Exclude<GameStats, "default">;
+            if (obj.hasOwnProperty(activator)) {
+              sumsOfActivators[activator] =
+                (sumsOfActivators[activator] || 0) + obj[activator] + (combos.activators[activator] || 0);
+            }
+          }
+        }
 
-          if (operator === "+") result[key] = prev.gameStats[key] + (stat || [])[currLevel];
-        });
-
-        const updatedGrid = checkCombos(grid, piece.rule);
-
-        if (!Object.keys(updatedGrid.activators).length)
-          return { ...prev, gameStats: { ...prev.gameStats, ...result } };
-
-        const combosStats = {} as GameStatsType;
-
-        Object.entries(updatedGrid.activators).forEach(([key, value]) => {
-          const activator = key as Exclude<GameStats, "" | "default">;
-          combosStats[activator] = 0;
-          combosStats[activator] += value;
-        });
-
-        const final = {} as GameStatsType;
-        Object.entries(result).forEach(([key, value]) => {
-          const activator = key as Exclude<GameStats, "" | "default">;
-          final[activator] = (combosStats[activator] || 0) + result[activator];
-        }); // fix do it once
-
-        return { ...prev, gameStats: { ...prev.gameStats, ...final } };
+        return { ...prev, gameStats: sumsOfActivators };
       });
     },
     [setScore]

@@ -24,9 +24,9 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
 
     handleClose();
 
-    updateActivators(cell.insideCell);
     setTimeout(() => {
-      repairPiece(cell);
+      const updatedGrid = repairPiece(cell);
+      updateActivators(cell.insideCell, updatedGrid);
     }, 200);
   };
 

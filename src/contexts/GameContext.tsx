@@ -24,6 +24,7 @@ const useGameContext = (defaultGame: GameType) => {
 
   const addPieceToCell = useCallback(
     (cell: GridEntry, piece: PieceType) => {
+      let updatedGame: GridEntry[] = initGameState.grid;
       setGame((prev) => {
         const foundIndex = prev.grid.findIndex((entry) => entry.ref === cell.ref);
         const newGrid = [...prev.grid];
@@ -34,11 +35,14 @@ const useGameContext = (defaultGame: GameType) => {
           animate: "active",
         };
 
+        updatedGame = [...newGrid];
+
         return {
           ...prev,
           grid: newGrid,
         };
       });
+      return updatedGame;
     },
     [setGame]
   );
@@ -82,8 +86,16 @@ const useGameContext = (defaultGame: GameType) => {
     });
   }, [game, setGame]);
 
+  const updateGrid = useCallback(
+    (updatedGame: GridEntry[]) => {
+      setGame((prev) => ({ ...prev, grid: updatedGame }));
+    },
+    [setGame]
+  );
+
   const levelUp = useCallback(
     (cell: GridEntry) => {
+      let updatedGame: GridEntry[] = initGameState.grid;
       setGame((prev) => {
         const updatedGrid = prev.grid.map((gridCell) => {
           if (gridCell.insideCell.id === cell.insideCell.id) {
@@ -97,14 +109,19 @@ const useGameContext = (defaultGame: GameType) => {
           }
           return gridCell;
         });
+
+        updatedGame = [...updatedGrid];
+
         return { ...prev, grid: updatedGrid };
       });
+      return updatedGame;
     },
     [setGame]
   );
 
   const destroyPiece = useCallback(
     (cell: GridEntry) => {
+      let updatedGame: GridEntry[] = initGameState.grid;
       setGame((prev) => {
         const updatedGrid = prev.grid.map((gridCell) => {
           if (gridCell.ref === cell.ref) {
@@ -116,14 +133,18 @@ const useGameContext = (defaultGame: GameType) => {
           return gridCell;
         });
 
+        updatedGame = [...updatedGrid];
+
         return { ...prev, grid: updatedGrid };
       });
+      return updatedGame;
     },
     [setGame]
   );
 
   const repairPiece = useCallback(
     (cell: GridEntry) => {
+      let updatedGame: GridEntry[] = initGameState.grid;
       setGame((prev) => {
         const updatedGrid = prev.grid.map((gridCell) => {
           if (gridCell.insideCell.id === cell.insideCell.id) {
@@ -135,8 +156,11 @@ const useGameContext = (defaultGame: GameType) => {
           return gridCell;
         });
 
+        updatedGame = [...updatedGrid];
+
         return { ...prev, grid: updatedGrid };
       });
+      return updatedGame;
     },
     [setGame]
   );
@@ -150,6 +174,7 @@ const useGameContext = (defaultGame: GameType) => {
     levelUp,
     destroyPiece,
     repairPiece,
+    updateGrid,
   };
 };
 
@@ -158,10 +183,11 @@ const initContextState: ReturnType<typeof useGameContext> = {
   gameLoseEvent: () => {},
   resizeGrid: () => {},
   defineRefForCells: () => {},
-  addPieceToCell: () => {},
-  levelUp: () => {},
-  destroyPiece: () => {},
-  repairPiece: () => {},
+  addPieceToCell: () => initGameState.grid,
+  levelUp: () => initGameState.grid,
+  destroyPiece: () => initGameState.grid,
+  repairPiece: () => initGameState.grid,
+  updateGrid: () => {},
 };
 
 export const GameContext = createContext(initContextState);
@@ -175,8 +201,17 @@ export const GameProvider = ({ children, ...initState }: ChildrenType & GameType
 };
 
 export const useGame = () => {
-  const { game, gameLoseEvent, resizeGrid, defineRefForCells, addPieceToCell, levelUp, destroyPiece, repairPiece } =
-    useContext(GameContext);
+  const {
+    game,
+    gameLoseEvent,
+    resizeGrid,
+    defineRefForCells,
+    addPieceToCell,
+    levelUp,
+    destroyPiece,
+    repairPiece,
+    updateGrid,
+  } = useContext(GameContext);
 
   return {
     game,
@@ -187,5 +222,6 @@ export const useGame = () => {
     levelUp,
     destroyPiece,
     repairPiece,
+    updateGrid,
   };
 };

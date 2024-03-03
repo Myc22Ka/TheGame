@@ -42,9 +42,9 @@ const PieceStatus: React.FC = () => {
       () => {
         const resistance = Math.random() + score.gameStats.resistance;
         if (resistance > pieceDestoryChance) return;
-        destroyPiece(cell);
+        const updatedGrid = destroyPiece(cell);
+        updateActivators(cell.insideCell, updatedGrid);
         clearInterval(interval);
-        updateActivators(cell.insideCell, initGameState.grid, emptyCell, "-");
       },
       currentGameSpeed({ devider: 0.5 })
     );

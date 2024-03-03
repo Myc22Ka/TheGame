@@ -8,7 +8,7 @@ import options from "src/config.json";
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
-  const { game, addPieceToCell } = useGame();
+  const { game, addPieceToCell, updateGrid } = useGame();
   const { removeSomeGold, updateActivators, currentGameSpeed, score } = useScore();
 
   const handleDragStart = useCallback(() => {
@@ -66,11 +66,13 @@ export const usePiece = (piece: PieceType) => {
       1000;
 
     setTimeout(() => {
-      addPieceToCell(tile.nearestCell, piece);
-      updateActivators(piece, game.grid, tile.nearestCell);
+      const updatedGame = addPieceToCell(tile.nearestCell, piece);
+
+      updateActivators(piece, updatedGame);
+
       changePieceAnimation("exit");
     }, addToGridDelay);
-  }, [tile, currentGameSpeed]);
+  }, [tile, currentGameSpeed, game]);
 
   const changePieceAnimation = useCallback(
     (animationName: AnimationsType) => {
