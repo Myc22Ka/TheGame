@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import options from "src/config.json";
-import { checkCombos } from "src/modules/Game/checkCombos";
+import { ShapeType, checkCombos } from "src/modules/Game/checkCombos";
 import { GameStats, GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStatsType, ScoreType } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
@@ -64,7 +64,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
         const combos = checkCombos(grid, piece.rule);
 
         updatedGrid.forEach((entry) => {
-          entry.comboShape = [];
+          entry.insideCell.comboShape = [];
         });
 
         if (combos.results.length) {
@@ -76,7 +76,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
                   return { value: col, id: col === 1 ? result.ids[counter++] : -1 };
                 });
               });
-              updatedGrid[id].comboShape = shape;
+              updatedGrid[id].insideCell.comboShape = shape;
             });
           });
         }

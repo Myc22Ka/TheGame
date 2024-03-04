@@ -2,6 +2,7 @@ import { GameStats, GridEntry, PieceType } from "../Piece/types";
 import options from "src/config.json";
 
 const emptyPiece: PieceType = {
+  comboShape: [],
   description: "",
   name: "",
   upgradeCost: [],
@@ -19,7 +20,6 @@ const emptyCell: GridEntry = {
   ref: null,
   isEmpty: true,
   animate: "inactive",
-  comboShape: [],
 };
 
 const rules: GameStats[] = Object.keys(options.score.gameStats) as GameStats[];

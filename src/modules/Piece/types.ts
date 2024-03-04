@@ -23,6 +23,7 @@ type PieceType = {
   uses: number;
   id: number;
   activators: ActivatorsType;
+  comboShape: { value: number; id: number }[][];
 };
 
 type TileType = {

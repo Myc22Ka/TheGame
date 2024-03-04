@@ -8,7 +8,7 @@ const CombosDisplay: React.FC = () => {
 
   return (
     <Stack className="combos-display" direction="vertical" style={{ gap: "2px" }}>
-      {cell.comboShape.map((row, rowIndex) => {
+      {cell.insideCell.comboShape.map((row, rowIndex) => {
         return (
           <Stack key={rowIndex} className="m-0" direction="horizontal" style={{ gap: "2px" }}>
             {row.map((col, colIndex) => {
