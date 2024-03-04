@@ -4,7 +4,6 @@ import { checkCombos } from "src/modules/Game/checkCombos";
 import { GameStats, GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStatsType, ScoreType } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
-import { deepCopy } from "src/utils/deepCopy";
 
 export const initState: ScoreType = options.score;
 
@@ -45,6 +44,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
 
   const updateActivators = useCallback(
     (piece: PieceType, grid: GridEntry[] = initGameState.grid) => {
+      const updatedGrid = [...grid];
       setScore((prev) => {
         setPrevScore(prev);
 
@@ -63,19 +63,23 @@ const useScoreContext = (defaultScore: ScoreType) => {
 
         const combos = checkCombos(grid, piece.rule);
 
-        // if (combos.results.length) {
-        //   combos.results.forEach((result) => {
-        //     result.ids.forEach((id) => {
-        //       let counter = 0;
-        //       const shape = result.shape.map((row) => {
-        //         return row.map((col) => {
-        //           return { value: col, id: col === 1 ? result.ids[counter++] : -1 };
-        //         });
-        //       });
-        //       updatedGrid[id].comboShape = shape;
-        //     });
-        //   });
-        // }
+        updatedGrid.forEach((entry) => {
+          entry.comboShape = [];
+        });
+
+        if (combos.results.length) {
+          combos.results.forEach((result) => {
+            result.ids.forEach((id) => {
+              let counter = 0;
+              const shape = result.shape.map((row) => {
+                return row.map((col) => {
+                  return { value: col, id: col === 1 ? result.ids[counter++] : -1 };
+                });
+              });
+              updatedGrid[id].comboShape = shape;
+            });
+          });
+        }
 
         const sumsOfActivators: GameStatsType = { ...options.score.gameStats };
         for (const obj of activators) {
@@ -90,6 +94,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
 
         return { ...prev, gameStats: sumsOfActivators };
       });
+      return updatedGrid;
     },
     [setScore]
   );
@@ -109,7 +114,7 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   score: initState,
   prevScore: initState,
   addGold: () => {},
-  updateActivators: () => {},
+  updateActivators: () => initGameState.grid,
   removeSomeGold: () => {},
   addSomeGold: () => {},
   currentGameSpeed: () => 0,

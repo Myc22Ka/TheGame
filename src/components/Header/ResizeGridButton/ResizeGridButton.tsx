@@ -32,7 +32,7 @@ const ResizeGridButton: React.FC = () => {
   };
 
   const isMaxed = Math.sqrt(game.grid.length) === defaultSize + gridUpgrades.length;
-  const cost = gridUpgrades[Math.sqrt(game.grid.length) - defaultSize].cost;
+  const cost = gridUpgrades[Math.sqrt(game.grid.length) - defaultSize]?.cost || 0;
 
   return (
     <Stack
@@ -41,7 +41,7 @@ const ResizeGridButton: React.FC = () => {
     >
       {!isMaxed && <ResizePrice price={cost} />}
       <motion.div
-        whileTap={cost > score.gold ? buttonVariants.reject : buttonVariants.success}
+        whileTap={cost > score.gold || isMaxed ? buttonVariants.reject : buttonVariants.success}
         transition={{
           duration: currentGameSpeed({ devider: 6000 }),
           ease: "easeInOut",
