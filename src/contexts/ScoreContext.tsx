@@ -4,6 +4,7 @@ import { ShapeType, checkCombos } from "src/modules/Game/checkCombos";
 import { GameStats, GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameStatsType, ScoreType } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
+import { calculateActivators } from "src/modules/Score/calculateActivators";
 
 export const initState: ScoreType = options.score;
 
@@ -48,49 +49,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
       setScore((prev) => {
         setPrevScore(prev);
 
-        const activators = grid.map(({ insideCell, isDestroyed }) => {
-          if (isDestroyed) return {} as GameStatsType;
-
-          const activators = insideCell.activators;
-          const result = {} as GameStatsType;
-
-          for (const key in activators) {
-            const activator = key as Exclude<GameStats, "default">;
-            result[activator] = (activators[activator] || [])[insideCell.level - 1];
-          }
-          return result;
-        });
-
-        const combos = checkCombos(grid, piece.rule);
-
-        updatedGrid.forEach((entry) => {
-          entry.insideCell.comboShape = [];
-        });
-
-        if (combos.results.length) {
-          combos.results.forEach((result) => {
-            result.ids.forEach((id) => {
-              let counter = 0;
-              const shape = result.shape.map((row) => {
-                return row.map((col) => {
-                  return { value: col, id: col === 1 ? result.ids[counter++] : -1 };
-                });
-              });
-              updatedGrid[id].insideCell.comboShape = shape;
-            });
-          });
-        }
-
-        const sumsOfActivators: GameStatsType = { ...options.score.gameStats };
-        for (const obj of activators) {
-          for (const key in obj) {
-            const activator = key as Exclude<GameStats, "default">;
-            if (obj.hasOwnProperty(activator)) {
-              sumsOfActivators[activator] =
-                (sumsOfActivators[activator] || 0) + obj[activator] + (combos.activators[activator] || 0);
-            }
-          }
-        }
+        const sumsOfActivators = calculateActivators(updatedGrid);
 
         return { ...prev, gameStats: sumsOfActivators };
       });
