@@ -26,36 +26,34 @@ const calculateActivators = (grid: GridEntry[]) => {
   const uniqueRules = new Set(rules);
 
   const sumsOfActivators: GameStatsType = { ...options.score.gameStats };
+
+  for (const obj of activators) {
+    for (const key in obj) {
+      const activator = key as Exclude<GameStats, "default">;
+      sumsOfActivators[activator] = (sumsOfActivators[activator] || 0) + obj[activator];
+    }
+  }
+
   uniqueRules.forEach((rule) => {
     if (rule === "default") return;
     const combos = checkCombos(grid, rule);
 
-    if (combos.results.length) {
-      combos.results.forEach((result) => {
-        result.ids.forEach((id) => {
-          let counter = 0;
-          const shape = result.shape.map((row) => {
-            return row.map((col) => {
-              return { value: col, id: col === 1 ? result.ids[counter++] : -1 };
-            });
+    combos.results.forEach((result) => {
+      result.ids.forEach((id, index) => {
+        const shape = result.shape.map((row) => {
+          return row.map((col) => {
+            return { value: col, id: col === 1 ? id : -1 };
           });
-          grid[id].insideCell.comboShape = shape;
         });
+        grid[id].insideCell.comboShape = shape;
       });
-    }
-    for (const obj of activators) {
-      for (const key in obj) {
-        const activator = key as Exclude<GameStats, "default">;
-        sumsOfActivators[activator] = (sumsOfActivators[activator] || 0) + obj[activator];
-      }
-    }
+    });
 
-    for (const key in combos.activators) {
-      const activator = key as Exclude<GameStats, "default">;
+    for (const activatorKey of Object.keys(combos.activators).filter((key) => key !== "default")) {
+      const activator = activatorKey as keyof typeof combos.activators;
       sumsOfActivators[activator] += combos.activators[activator];
     }
   });
-
   return sumsOfActivators;
 };
 export { calculateActivators };

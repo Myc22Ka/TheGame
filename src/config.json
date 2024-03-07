@@ -1,6 +1,6 @@
 {
   "score": {
-    "gold": 300,
+    "gold": 3000,
     "destroyRange": [0.2, 0.4, 0.5, 0.6, 0.8],
     "gameStats": {
       "multiplier": 1,
@@ -72,7 +72,7 @@
         "name": "Income Flow Forge",
         "rule": "flatIncome",
         "level": 1,
-        "uses": 3,
+        "uses": 4,
         "range": [1, 2, 3, 4, 5],
         "upgradeCost": [40, 160, 250],
         "destroyChance": [0.2, 0.1, 0.05],
@@ -134,7 +134,7 @@
         "name": "Fortune Flick Box",
         "rule": "luck",
         "level": 1,
-        "uses": 3,
+        "uses": 5,
         "range": [1, 2, 3, 4, 5],
         "upgradeCost": [120, 240, 500],
         "destroyChance": [0.2, 0.1, 0.05],
