@@ -3,7 +3,7 @@ import styles from "src/styles/style.module.scss";
 import { motion } from "framer-motion";
 import { useScore } from "src/contexts/ScoreContext";
 import options from "src/config.json";
-import { GameStats } from "src/modules/Game/types";
+import { GameStats } from "src/modules/Game/rules";
 
 const variants = {
   active: {

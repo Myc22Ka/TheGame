@@ -1,59 +1,45 @@
 import { checkCombos } from "../Game/checkCombos";
-import { GameStats } from "../Game/types";
+import options from "src/config.json";
 import { GridEntry } from "../Grid/types";
 import { GameStatsType } from "./types";
-import options from "src/config.json";
 
 const calculateActivators = (grid: GridEntry[]) => {
-  const activators = grid.map(({ insideCell, isDestroyed }) => {
-    if (isDestroyed) return {} as GameStatsType;
-
-    const activators = insideCell.activators;
-    const result = {} as GameStatsType;
-
-    for (const key in activators) {
-      const activator = key as Exclude<GameStats, "default">;
-      result[activator] = (activators[activator] || [])[insideCell.level - 1];
-    }
-    return result;
-  });
+  const sumsOfActivators: GameStatsType = { ...options.score.gameStats };
 
   grid.forEach((entry) => {
+    if (!entry.isDestroyed) {
+      const insideCell = entry.insideCell;
+      const activators = insideCell.activators;
+      for (const key in activators) {
+        const activator = key as Exclude<keyof GameStatsType, "default">;
+        sumsOfActivators[activator] =
+          (sumsOfActivators[activator] || 0) + (activators[activator] || [])[insideCell.level - 1];
+      }
+    }
     entry.insideCell.comboShape = [];
   });
 
-  const rules = grid.map((entry) => entry.insideCell.rule);
-  const uniqueRules = new Set(rules);
+  const uniqueRules = Array.from(
+    new Set(grid.map((entry) => entry.insideCell.rule).filter((rule) => rule !== "default"))
+  );
 
-  const sumsOfActivators: GameStatsType = { ...options.score.gameStats };
-
-  for (const obj of activators) {
-    for (const key in obj) {
-      const activator = key as Exclude<GameStats, "default">;
-      sumsOfActivators[activator] = (sumsOfActivators[activator] || 0) + obj[activator];
-    }
-  }
-
-  uniqueRules.forEach((rule) => {
-    if (rule === "default") return;
+  for (const rule of uniqueRules) {
     const combos = checkCombos(grid, rule);
 
     combos.results.forEach((result) => {
-      result.ids.forEach((id, index) => {
-        const shape = result.shape.map((row) => {
-          return row.map((col) => {
-            return { value: col, id: col === 1 ? id : -1 };
-          });
-        });
-        grid[id].insideCell.comboShape = shape;
+      result.ids.forEach((id) => {
+        grid[id].insideCell.comboShape = result.shape.map((row) =>
+          row.map((col) => ({ value: col, id: col === 1 ? id : -1 }))
+        );
       });
     });
 
     for (const activatorKey of Object.keys(combos.activators).filter((key) => key !== "default")) {
-      const activator = activatorKey as keyof typeof combos.activators;
-      sumsOfActivators[activator] += combos.activators[activator];
+      sumsOfActivators[activatorKey as keyof GameStatsType] += combos.activators[activatorKey as keyof GameStatsType];
     }
-  });
+  }
+
   return sumsOfActivators;
 };
+
 export { calculateActivators };

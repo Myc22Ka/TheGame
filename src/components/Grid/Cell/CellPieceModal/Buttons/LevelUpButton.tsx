@@ -9,7 +9,6 @@ import styles from "src/styles/style.module.scss";
 import { useCell } from "src/contexts/CellContext";
 import { motion } from "framer-motion";
 import { buttonVariants, variants } from "./Buttons";
-import { emptyCell } from "src/modules/Game/utils";
 
 type LevelButtonPropsType = {
   handleClose: () => void;

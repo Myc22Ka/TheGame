@@ -1,4 +1,4 @@
-import { GameStats } from "../Game/types";
+import { GameStats } from "../Game/rules";
 
 type ActivatorsType = {
   [K in Exclude<GameStats, "">]?: number[];

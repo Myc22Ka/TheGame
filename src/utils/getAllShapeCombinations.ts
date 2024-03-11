@@ -16,7 +16,7 @@ export type MatchingShape = {
   activators: GameStatsType;
 };
 
-export const findBiggestShapesInGrid = (tempGrid: PieceType[], shapes: ShapeType[], rule: GameStats) => {
+export const getAllShapeCombinations = (tempGrid: PieceType[], shapes: ShapeType[], rule: GameStats) => {
   const array: grid2DType[][] = transformArrayInto2DArray(
     tempGrid,
     Math.sqrt(tempGrid.length),

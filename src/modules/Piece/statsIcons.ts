@@ -13,7 +13,7 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { GameStats, PieceRules } from "./types";
-import { rules } from "../Game/utils";
+import { rules } from "../Game/rules";
 
 const icons = [
   faGaugeHigh,

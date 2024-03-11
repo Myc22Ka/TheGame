@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Stack } from "react-bootstrap";
-import { GameStats } from "src/modules/Game/types";
 import { statsIcons } from "src/modules/Piece/statsIcons";
 import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import styles from "src/styles/style.module.scss";
+import { GameStats } from "src/modules/Game/rules";
 
 type ActivatorNamePropsType = {
   activator: GameStats | "destroyChance";

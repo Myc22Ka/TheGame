@@ -7,7 +7,8 @@ import { useScore } from "src/contexts/ScoreContext";
 import { piecesIcons } from "src/modules/Piece/statsIcons";
 import { useCell } from "src/contexts/CellContext";
 import { PieceType } from "src/modules/Piece/types";
-import { emptyCell, emptyPiece } from "src/modules/Game/utils";
+import { emptyPiece } from "src/modules/Game/emptyPiece";
+import { emptyCell } from "src/modules/Game/emptyCell";
 
 type PiecePropsType = {
   piece?: PieceType;

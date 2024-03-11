@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext, ReactElement, useCallback }
 import options from "src/config.json";
 import { GridEntry, PieceType } from "src/modules/Piece/types";
 import { GameType } from "src/modules/Game/types";
-import { emptyCell } from "src/modules/Game/utils";
+import { emptyCell } from "src/modules/Game/emptyCell";
 
 export const initGameState: GameType = {
   gameOver: false,

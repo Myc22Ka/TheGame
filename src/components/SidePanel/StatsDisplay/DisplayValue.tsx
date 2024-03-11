@@ -5,10 +5,10 @@ import { changeCammelCaseToSpace } from "src/utils/changeToCamelCase";
 import styles from "src/styles/style.module.scss";
 import { animate, useMotionValue, useTransform } from "framer-motion";
 import { useScore } from "src/contexts/ScoreContext";
-import { GameStats } from "src/modules/Game/types";
 import { motion } from "framer-motion";
 import { GameStatsType } from "src/modules/Score/types";
 import { statsIcons } from "src/modules/Piece/statsIcons";
+import { GameStats } from "src/modules/Game/rules";
 
 type DisplayValuePropsType = {
   value: number;

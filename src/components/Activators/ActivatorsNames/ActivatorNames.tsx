@@ -2,14 +2,14 @@ import React from "react";
 import { Stack } from "react-bootstrap";
 import { ActivatorsType } from "src/modules/Score/types";
 import ActivatorName from "./ActivatorName";
-import { GameStats } from "src/modules/Game/types";
+import { GameStats } from "src/modules/Game/rules";
 
 type ActivatorNamesPropsType = {
   activators: ActivatorsType;
   destroyChance: number[];
 };
 
-const ActivatorNames: React.FC<ActivatorNamesPropsType> = ({ activators, destroyChance }) => {
+const ActivatorNames: React.FC<ActivatorNamesPropsType> = ({ activators }) => {
   return (
     <Stack direction="vertical">
       {Object.keys(activators).map((activator) => (

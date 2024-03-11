@@ -1,6 +1,6 @@
+import { GameStats } from "../Game/rules";
 import { GridEntry } from "../Grid/types";
 import { ActivatorsType } from "../Score/types";
-import { GameStats } from "../Game/types";
 
 type ExtraRules = "booster" | "ads_remover";
 

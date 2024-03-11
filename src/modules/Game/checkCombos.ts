@@ -1,8 +1,8 @@
 import { GridEntry } from "../Grid/types";
-import { MatchingShape, findBiggestShapesInGrid } from "src/utils/findShapeIn2DArray";
-import { GameStats } from "./types";
+import { MatchingShape, getAllShapeCombinations } from "src/utils/getAllShapeCombinations";
 import options from "src/config.json";
 import { GameStatsType } from "../Score/types";
+import { GameStats } from "./rules";
 
 export type ShapeType = {
   shape: number[][];
@@ -32,7 +32,7 @@ export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
 
   const gridCells = grid.map((entry) => entry.insideCell);
 
-  const foundShapes = findBiggestShapesInGrid(gridCells, shapes, rule);
+  const foundShapes = getAllShapeCombinations(gridCells, shapes, rule);
 
   const results: MatchingShape[][] = [];
   foundShapes.forEach((shape) => {

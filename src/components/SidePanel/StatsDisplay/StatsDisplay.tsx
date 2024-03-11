@@ -4,7 +4,7 @@ import { Container, Stack } from "react-bootstrap";
 import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DisplayValue from "./DisplayValue";
-import { GameStats } from "src/modules/Game/types";
+import { GameStats } from "src/modules/Game/rules";
 
 const StatsDisplay: React.FC = () => {
   const { score } = useScore();
