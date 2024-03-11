@@ -33,13 +33,10 @@ type StatsIconType = {
 const statsIcons = {} as StatsIconType;
 
 rules.forEach((rule, index) => {
-  if (typeof rule === "string") {
-    statsIcons[rule as GameStats] = icons[index];
-    return;
-  }
-
-  statsIcons["destroyChance"] = icons[index];
+  statsIcons[rule as GameStats] = icons[index];
 });
+
+statsIcons["destroyChance"] = faExclamationTriangle;
 
 type PieceIconType = {
   [key in PieceRules]: IconDefinition;

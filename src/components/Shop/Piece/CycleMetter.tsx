@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useScore } from "src/contexts/ScoreContext";
 import { DefaultCycleType } from "src/modules/Piece/types";
 import { defaultCycle, setCycleSteps } from "src/modules/Piece/utils";
@@ -11,9 +11,9 @@ type CycleMetterPropsType = {
 
 const CycleMetter: React.FC<CycleMetterPropsType> = ({ cycle, updateCycle }) => {
   const { score, currentGameSpeed } = useScore();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    let currentIndex = 0;
     let timeout: ReturnType<typeof setTimeout>;
 
     const cycleSequence = async () => {
@@ -23,14 +23,14 @@ const CycleMetter: React.FC<CycleMetterPropsType> = ({ cycle, updateCycle }) => 
         timeout = setTimeout(resolve, currentGameSpeed());
       });
 
-      currentIndex = (currentIndex + 1) % cycles.length;
+      setCurrentIndex((currentIndex + 1) % cycles.length);
       cycleSequence();
     };
 
     cycleSequence();
 
     return () => clearTimeout(timeout);
-  }, [score.gameStats.speed]);
+  }, [score.gameStats.speed, currentIndex]);
 
   return (
     <input
