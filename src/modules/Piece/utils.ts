@@ -1,10 +1,10 @@
 import { PieceEventType, PieceType, PieceRules } from "./types";
 import { Cords, DefaultCycleType, NearestCellType, TileType } from "./types";
 import options from "../../config.json";
-import { GameType } from "../Game/types";
 import { Variants } from "framer-motion";
 import { emptyCell } from "../Game/emptyCell";
 import { rules } from "../Game/rules";
+import { GameType } from "src/contexts/GameContext";
 
 const range = options.pieces.types.map((piece) => piece.range);
 

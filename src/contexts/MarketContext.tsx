@@ -1,9 +1,15 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback, useEffect } from "react";
 import { PieceType } from "src/modules/Piece/types";
 import options from "src/config.json";
-import { ActiveStateType, MarketContentType } from "src/modules/Market/types";
 import { ScoreType } from "src/modules/Score/types";
 import { useScore } from "./ScoreContext";
+
+export type ActiveStateType = "Market" | "Upgrades";
+
+type MarketContentType = {
+  pieces: PieceType[];
+  activeState: ActiveStateType;
+};
 
 export const initMarketState: MarketContentType = {
   pieces: options.pieces.types as unknown as PieceType[],

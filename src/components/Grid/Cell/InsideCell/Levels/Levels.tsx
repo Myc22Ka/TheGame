@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { gridVariants } from "src/modules/Grid/utils";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
 import { useCell } from "src/contexts/CellContext";

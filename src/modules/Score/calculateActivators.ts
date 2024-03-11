@@ -1,7 +1,7 @@
 import { checkCombos } from "../Game/checkCombos";
 import options from "src/config.json";
-import { GridEntry } from "../Grid/types";
 import { GameStatsType } from "./types";
+import { GridEntry } from "src/contexts/GameContext";
 
 const calculateActivators = (grid: GridEntry[]) => {
   const sumsOfActivators: GameStatsType = { ...options.score.gameStats };

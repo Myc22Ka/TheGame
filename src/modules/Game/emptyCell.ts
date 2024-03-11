@@ -1,4 +1,4 @@
-import { GridEntry } from "../Grid/types";
+import { GridEntry } from "../Piece/types";
 import { emptyPiece } from "./emptyPiece";
 
 const emptyCell: GridEntry = {

@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
-import { gridVariants } from "src/modules/Grid/utils";
 import options from "src/config.json";
 import { useCell } from "src/contexts/CellContext";
+import { scale } from "src/components/Animations/Variants/scale";
 
 const PieceStatus: React.FC = () => {
   const { destroyPiece } = useGame();
@@ -56,7 +56,7 @@ const PieceStatus: React.FC = () => {
   return (
     <motion.div
       initial="inactive"
-      variants={gridVariants}
+      variants={scale}
       transition={{
         duration: currentGameSpeed({
           defaultTimeTick: options.time.defaultPieceTransition,

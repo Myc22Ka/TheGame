@@ -2,18 +2,18 @@ import { IconDefinition, faBagShopping, faCircleUp } from "@fortawesome/free-sol
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
 import { Stack } from "react-bootstrap";
-import { useMarket } from "src/contexts/MarketContext";
-import { ActiveStateType } from "src/modules/Market/types";
+import { ActiveStateType, useMarket } from "src/contexts/MarketContext";
+
+const buttons: { name: ActiveStateType; icon: IconDefinition }[] = [
+  { name: "Market", icon: faBagShopping },
+  {
+    name: "Upgrades",
+    icon: faCircleUp,
+  },
+];
 
 const Switch: React.FC = () => {
   const { changeActiveState, marketContent } = useMarket();
-  const buttons: { name: ActiveStateType; icon: IconDefinition }[] = [
-    { name: "Market", icon: faBagShopping },
-    {
-      name: "Upgrades",
-      icon: faCircleUp,
-    },
-  ];
 
   const isActive = useCallback(
     (i: number) => {

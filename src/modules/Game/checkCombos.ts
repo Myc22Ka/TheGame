@@ -1,8 +1,8 @@
-import { GridEntry } from "../Grid/types";
 import { MatchingShape, getAllShapeCombinations } from "src/utils/getAllShapeCombinations";
 import options from "src/config.json";
 import { GameStatsType } from "../Score/types";
 import { GameStats } from "./rules";
+import { GridEntry } from "../Piece/types";
 
 export type ShapeType = {
   shape: number[][];

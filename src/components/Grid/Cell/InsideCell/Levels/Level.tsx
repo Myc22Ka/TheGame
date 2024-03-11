@@ -2,7 +2,7 @@ import React from "react";
 import { useCell } from "src/contexts/CellContext";
 import styles from "src/styles/style.module.scss";
 import { motion } from "framer-motion";
-import { gridVariants } from "src/modules/Grid/utils";
+import { scale } from "src/components/Animations/Variants/scale";
 
 type LevelPropsType = {
   e: number;
@@ -13,7 +13,7 @@ const Level: React.FC<LevelPropsType> = ({ e }) => {
 
   return (
     <motion.div
-      variants={gridVariants}
+      variants={scale}
       className="level"
       style={{
         opacity: e / cell.insideCell.upgradeCost.length,

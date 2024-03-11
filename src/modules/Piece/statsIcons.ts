@@ -30,13 +30,16 @@ type StatsIconType = {
   [key in GameStats | "destroyChance"]: IconDefinition;
 };
 
-const statsIcons: StatsIconType = {} as StatsIconType;
+const statsIcons = {} as StatsIconType;
 
 rules.forEach((rule, index) => {
-  statsIcons[rule as GameStats] = icons[index];
-});
+  if (typeof rule === "string") {
+    statsIcons[rule as GameStats] = icons[index];
+    return;
+  }
 
-statsIcons["destroyChance"] = faExclamationTriangle;
+  statsIcons["destroyChance"] = icons[index];
+});
 
 type PieceIconType = {
   [key in PieceRules]: IconDefinition;

@@ -1,4 +1,4 @@
-const gridVariants = {
+const scale = {
   active: {
     scale: 1,
   },
@@ -7,4 +7,4 @@ const gridVariants = {
   },
 };
 
-export { gridVariants };
+export { scale };

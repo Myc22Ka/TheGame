@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { gridVariants } from "src/modules/Grid/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import options from "src/config.json";
 import { useScore } from "src/contexts/ScoreContext";
@@ -9,6 +8,7 @@ import { useCell } from "src/contexts/CellContext";
 import { PieceType } from "src/modules/Piece/types";
 import { emptyPiece } from "src/modules/Game/emptyPiece";
 import { emptyCell } from "src/modules/Game/emptyCell";
+import { scale } from "../Animations/Variants/scale";
 
 type PiecePropsType = {
   piece?: PieceType;
@@ -21,7 +21,7 @@ const Piece: React.FC<PiecePropsType> = ({ piece = emptyPiece, show = false }) =
 
   const motionProps = {
     initial: "inactive",
-    variants: gridVariants,
+    variants: scale,
     transition: {
       duration: currentGameSpeed({
         defaultTimeTick: options.time.defaultPieceTransition,
