@@ -15,7 +15,7 @@ const Score: React.FC = () => {
     if (!game.gameOver) interval = setInterval(() => addGold(), score.speed.tick);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [score.speed.tick]);
 
   return (
     <Stack className="justify-content-center align-items-center" direction="horizontal" gap={2}>

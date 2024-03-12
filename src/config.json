@@ -171,7 +171,7 @@
         "uses": 3,
         "range": [1, 2, 3, 4, 5],
         "upgradeCost": [60, 360, 720],
-        "destroyChance": [0.02, 0.1, 0.02],
+        "destroyChance": [0.2, 0.1, 0.02],
         "activators": {
           "speed": [6, 12, 18],
           "power": [-3, -1, -4]

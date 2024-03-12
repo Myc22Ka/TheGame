@@ -23,7 +23,7 @@ const Timer: React.FC = () => {
       gameLoseEvent();
     }
     return () => clearInterval(interval);
-  }, [score.speed]);
+  }, [score.speed.timer]);
 
   return (
     <Stack

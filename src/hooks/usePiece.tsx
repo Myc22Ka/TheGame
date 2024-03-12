@@ -8,7 +8,7 @@ export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell, updateGrid } = useGame();
-  const { removeSomeGold, updateActivators, score, currentGameSpeed } = useScore();
+  const { removeSomeGold, updateActivators, score } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -60,8 +60,6 @@ export const usePiece = (piece: PieceType) => {
 
         const newGrid = updateActivators(updatedGame);
         updateGrid(newGrid);
-
-        if (piece.rule === "speed") currentGameSpeed();
         changePieceAnimation("exit");
       },
       (score.speed.pieceTransition - 0.2) * 1000

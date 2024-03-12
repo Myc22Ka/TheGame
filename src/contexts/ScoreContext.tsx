@@ -4,6 +4,7 @@ import { GridEntry } from "src/modules/Piece/types";
 import { ScoreType, Speed } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
 import { calculateActivators } from "src/modules/Score/calculateActivators";
+import calculateSpeed from "src/utils/calculateSpeed";
 
 const { gold, gameStats, speed } = options.score;
 export const initState: ScoreType = { gold, gameStats, speed };
@@ -36,24 +37,6 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [setScore]
   );
 
-  const currentGameSpeed = useCallback(() => {
-    setScore((prev) => {
-      const newSpeed: Speed = prev.speed;
-      Object.entries(prev.speed).forEach(([key, value]) => {
-        const k = key as Exclude<keyof Speed, "cycle">;
-        if (typeof value === "number") newSpeed[k] = value / prev.gameStats.speed;
-      });
-      newSpeed["cycle"] = { ...prev.speed.cycle, time: prev.speed.cycle.time / prev.gameStats.speed };
-
-      console.log(newSpeed, prev.gameStats.speed);
-
-      return {
-        ...prev,
-        speed: newSpeed,
-      };
-    });
-  }, [setScore]);
-
   const updateActivators = useCallback(
     (grid: GridEntry[] = initGameState.grid) => {
       const updatedGrid = [...grid];
@@ -61,8 +44,9 @@ const useScoreContext = (defaultScore: ScoreType) => {
         setPrevScore(prev);
 
         const sumsOfActivators = calculateActivators(updatedGrid);
+        const newSpeed = calculateSpeed({ ...prev, gameStats: sumsOfActivators });
 
-        return { ...prev, gameStats: sumsOfActivators };
+        return { ...prev, gameStats: sumsOfActivators, speed: newSpeed };
       });
       return updatedGrid;
     },
@@ -76,7 +60,6 @@ const useScoreContext = (defaultScore: ScoreType) => {
     updateActivators,
     removeSomeGold,
     addSomeGold,
-    currentGameSpeed,
   };
 };
 
@@ -87,7 +70,6 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   updateActivators: () => initGameState.grid,
   removeSomeGold: () => {},
   addSomeGold: () => {},
-  currentGameSpeed: () => {},
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -101,8 +83,7 @@ export const ScoreProvider = ({ children, ...initState }: ChildrenType & ScoreTy
 };
 
 export const useScore = () => {
-  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, currentGameSpeed } =
-    useContext(ScoreContext);
+  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold } = useContext(ScoreContext);
 
   return {
     score,
@@ -111,6 +92,5 @@ export const useScore = () => {
     addGold,
     removeSomeGold,
     addSomeGold,
-    currentGameSpeed,
   };
 };

@@ -44,10 +44,12 @@ const PieceStatus: React.FC = () => {
       clearInterval(interval);
     }, score.speed.destroyTime);
 
+    console.log(score.speed);
+
     return () => {
       clearInterval(interval);
     };
-  }, [cell, score.gameStats.resistance, score.gameStats.speed]);
+  }, [cell, score.gameStats.resistance, score.gameStats.speed, score.speed.tick]);
 
   return (
     <motion.div
