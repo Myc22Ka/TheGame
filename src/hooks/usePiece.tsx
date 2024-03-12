@@ -68,7 +68,7 @@ export const usePiece = (piece: PieceType) => {
     setTimeout(() => {
       const updatedGame = addPieceToCell(tile.nearestCell, piece);
 
-      const newGrid = updateActivators(piece, updatedGame);
+      const newGrid = updateActivators(updatedGame);
       updateGrid(newGrid);
 
       changePieceAnimation("exit");

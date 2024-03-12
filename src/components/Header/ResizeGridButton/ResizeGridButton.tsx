@@ -11,8 +11,8 @@ import { motion } from "framer-motion";
 import { buttonVariants } from "src/components/Grid/Cell/CellPieceModal/Buttons/Buttons";
 
 const ResizeGridButton: React.FC = () => {
-  const { game, resizeGrid } = useGame();
-  const { score, removeSomeGold, currentGameSpeed } = useScore();
+  const { game, resizeGrid, updateGrid } = useGame();
+  const { score, removeSomeGold, currentGameSpeed, updateActivators } = useScore();
   const { defaultSize, gridUpgrades } = options.grid;
 
   /**
@@ -26,7 +26,11 @@ const ResizeGridButton: React.FC = () => {
 
     if (upgradeCost.cost <= score.gold) {
       removeSomeGold(upgradeCost.cost);
-      resizeGrid();
+
+      const newGrid = resizeGrid();
+      const updatedGrid = updateActivators(newGrid);
+      updateGrid(updatedGrid);
+
       return;
     }
   };

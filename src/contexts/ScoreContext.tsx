@@ -44,7 +44,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
   );
 
   const updateActivators = useCallback(
-    (piece: PieceType, grid: GridEntry[] = initGameState.grid) => {
+    (grid: GridEntry[] = initGameState.grid) => {
       const updatedGrid = [...grid];
       setScore((prev) => {
         setPrevScore(prev);

@@ -79,8 +79,9 @@ const useGameContext = (defaultGame: GameType) => {
 
   const resizeGrid = useCallback(() => {
     const { defaultSize, gridUpgrades } = options.grid;
+    let updatedGrid = initGameState.grid;
 
-    if (game.size === defaultSize + gridUpgrades.length) return;
+    if (game.size === defaultSize + gridUpgrades.length) return updatedGrid;
 
     setGame((prev) => {
       const newTable = new Array(Math.pow(prev.size + 1, 2))
@@ -90,6 +91,7 @@ const useGameContext = (defaultGame: GameType) => {
       for (let i = 0; i < prev.grid.length; i++) {
         newTable[i] = prev.grid[i];
       }
+      updatedGrid = newTable;
 
       return {
         ...prev,
@@ -97,6 +99,7 @@ const useGameContext = (defaultGame: GameType) => {
         size: prev.size + 1,
       };
     });
+    return updatedGrid;
   }, [game, setGame]);
 
   const updateGrid = useCallback(
@@ -194,7 +197,7 @@ const useGameContext = (defaultGame: GameType) => {
 const initContextState: ReturnType<typeof useGameContext> = {
   game: initGameState,
   gameLoseEvent: () => {},
-  resizeGrid: () => {},
+  resizeGrid: () => initGameState.grid,
   defineRefForCells: () => {},
   addPieceToCell: () => initGameState.grid,
   levelUp: () => initGameState.grid,
