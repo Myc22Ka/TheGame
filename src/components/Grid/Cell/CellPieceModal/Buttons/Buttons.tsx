@@ -4,6 +4,7 @@ import RepairButton from "./RepairButton";
 import LevelUpButton from "./LevelUpButton";
 import { Variants } from "framer-motion";
 import styles from "src/styles/style.module.scss";
+import { ScoreType } from "src/modules/Score/types";
 
 export const variants: Variants = {
   active: { backgroundColor: styles.active },
@@ -13,6 +14,13 @@ export const variants: Variants = {
 export const buttonVariants = {
   reject: { scale: 1, x: [0, -2.5, 2.5, -1.25, 1.25, 0], rotate: [0, -2.5, 2.5, -1.25, 1.25, 0] },
   success: { scale: [1, 1.1, 1], x: [0, 0] },
+};
+
+export const transition = (score: ScoreType) => {
+  return {
+    duration: score.speed.rejectTime,
+    ease: "easeInOut",
+  };
 };
 
 type ButtonsPropsType = {

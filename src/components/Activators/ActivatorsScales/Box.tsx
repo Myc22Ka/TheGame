@@ -2,7 +2,6 @@ import React from "react";
 import styles from "src/styles/style.module.scss";
 import { motion } from "framer-motion";
 import { useScore } from "src/contexts/ScoreContext";
-import options from "src/config.json";
 import { GameStats } from "src/modules/Game/rules";
 
 const variants = {
@@ -25,21 +24,13 @@ type BoxPropsType = {
 };
 
 const Box: React.FC<BoxPropsType> = ({ delay, show, value, activator, i }) => {
-  const { currentGameSpeed } = useScore();
-
+  const { score } = useScore();
   return (
     <motion.div
       transition={{
-        duration: currentGameSpeed({
-          defaultTimeTick: options.time.defaultPieceTransition,
-          devider: 1000,
-        }),
+        duration: score.speed.pieceTransition,
         ease: "anticipate",
-        delay:
-          currentGameSpeed({
-            defaultTimeTick: options.time.defaultPieceTransition,
-            devider: 10000 * delay.current,
-          }) * i,
+        delay: score.speed.tick * 0.001 * delay.current * i,
       }}
       initial="inactive"
       animate={show ? "active" : "inactive"}

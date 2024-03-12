@@ -8,11 +8,11 @@ import { Button, Stack } from "react-bootstrap";
 import ResizePrice from "./ResizePrice";
 import styles from "src/styles/style.module.scss";
 import { motion } from "framer-motion";
-import { buttonVariants } from "src/components/Grid/Cell/CellPieceModal/Buttons/Buttons";
+import { buttonVariants, transition } from "src/components/Grid/Cell/CellPieceModal/Buttons/Buttons";
 
 const ResizeGridButton: React.FC = () => {
   const { game, resizeGrid, updateGrid } = useGame();
-  const { score, removeSomeGold, currentGameSpeed, updateActivators } = useScore();
+  const { score, removeSomeGold, updateActivators } = useScore();
   const { defaultSize, gridUpgrades } = options.grid;
 
   /**
@@ -46,10 +46,7 @@ const ResizeGridButton: React.FC = () => {
       {!isMaxed && <ResizePrice price={cost} />}
       <motion.div
         whileTap={cost > score.gold || isMaxed ? buttonVariants.reject : buttonVariants.success}
-        transition={{
-          duration: currentGameSpeed({ devider: 6000 }),
-          ease: "easeInOut",
-        }}
+        transition={transition(score)}
       >
         <Button variant="main" onClick={resizeGridHandler} disabled={isMaxed}>
           <Stack gap={3} direction="horizontal">

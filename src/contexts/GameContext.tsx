@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext, ReactElement, useCallback }
 import options from "src/config.json";
 import { PieceType } from "src/modules/Piece/types";
 import { emptyCell } from "src/modules/Game/emptyCell";
+import { specialAbilities } from "src/utils/specialAbilities";
 
 export type GameType = {
   gameOver: boolean;
@@ -115,11 +116,14 @@ const useGameContext = (defaultGame: GameType) => {
       setGame((prev) => {
         const updatedGrid = prev.grid.map((gridCell) => {
           if (gridCell.insideCell.id === cell.insideCell.id) {
+            const newLevel = gridCell.insideCell.level + 1;
+            const foundPiece = options.pieces.types.find((p) => p.rule === cell.insideCell.rule);
+            if (newLevel === foundPiece?.upgradeCost.length) specialAbilities(cell.insideCell.rule);
             return {
               ...gridCell,
               insideCell: {
                 ...gridCell.insideCell,
-                level: gridCell.insideCell.level + 1,
+                level: newLevel,
               },
             };
           }

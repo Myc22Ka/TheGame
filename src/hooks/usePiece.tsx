@@ -3,13 +3,12 @@ import { useGame } from "src/contexts/GameContext";
 import { defaultTile, findNearestCell, calcCenterPoint, defaultCords } from "src/modules/Piece/utils";
 import { AnimationsType, PieceEventType, PieceType } from "src/modules/Piece/types";
 import { useScore } from "src/contexts/ScoreContext";
-import options from "src/config.json";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell, updateGrid } = useGame();
-  const { removeSomeGold, updateActivators, currentGameSpeed, score } = useScore();
+  const { removeSomeGold, updateActivators, score, currentGameSpeed } = useScore();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -51,29 +50,23 @@ export const usePiece = (piece: PieceType) => {
   );
 
   const setDefaultValues = useCallback(() => {
-    setTimeout(() => setTile({ ...defaultTile, animate: "reset" }), currentGameSpeed({ devider: 1 }));
+    setTimeout(() => setTile({ ...defaultTile, animate: "reset" }), score.speed.pieceTransition * 1000);
   }, [tile]);
 
   const addToGrid = useCallback(() => {
-    const { defaultPieceTransition } = options.time;
+    setTimeout(
+      () => {
+        const updatedGame = addPieceToCell(tile.nearestCell, piece);
 
-    const addToGridDelay =
-      (currentGameSpeed({
-        defaultTimeTick: defaultPieceTransition,
-        devider: 1000,
-      }) -
-        0.2) *
-      1000;
+        const newGrid = updateActivators(updatedGame);
+        updateGrid(newGrid);
 
-    setTimeout(() => {
-      const updatedGame = addPieceToCell(tile.nearestCell, piece);
-
-      const newGrid = updateActivators(updatedGame);
-      updateGrid(newGrid);
-
-      changePieceAnimation("exit");
-    }, addToGridDelay);
-  }, [tile, currentGameSpeed, game]);
+        if (piece.rule === "speed") currentGameSpeed();
+        changePieceAnimation("exit");
+      },
+      (score.speed.pieceTransition - 0.2) * 1000
+    );
+  }, [tile, game]);
 
   const changePieceAnimation = useCallback(
     (animationName: AnimationsType) => {

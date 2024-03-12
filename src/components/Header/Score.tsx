@@ -8,14 +8,14 @@ import styles from "src/styles/style.module.scss";
 
 const Score: React.FC = () => {
   const { game } = useGame();
-  const { addGold, score, currentGameSpeed } = useScore();
+  const { addGold, score } = useScore();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (!game.gameOver) interval = setInterval(() => addGold(), currentGameSpeed());
+    if (!game.gameOver) interval = setInterval(() => addGold(), score.speed.tick);
 
     return () => clearInterval(interval);
-  }, [currentGameSpeed]);
+  }, []);
 
   return (
     <Stack className="justify-content-center align-items-center" direction="horizontal" gap={2}>

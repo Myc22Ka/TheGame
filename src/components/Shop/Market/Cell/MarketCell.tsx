@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import PieceInfo from "./Info/PieceInfo";
 import { pieceVariants } from "src/modules/Piece/utils";
 import { useMarket } from "src/contexts/MarketContext";
-import options from "src/config.json";
 
 type MarketCellProps = {
   piece: PieceType;
@@ -15,7 +14,7 @@ type MarketCellProps = {
 };
 
 const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
-  const { score, currentGameSpeed } = useScore();
+  const { score } = useScore();
   const { changeMarketState } = useMarket();
   const { pieceRef, tile, handleDragStart, handleDragEnd, addToGrid, setDefaultValues, changePieceAnimation } =
     usePiece(piece);
@@ -75,10 +74,7 @@ const MarketCell: React.FC<MarketCellProps> = ({ children, piece }) => {
           },
         }}
         transition={{
-          duration: currentGameSpeed({
-            defaultTimeTick: options.time.defaultPieceTransition,
-            devider: 1000,
-          }),
+          duration: score.speed.pieceTransition,
           ease: "anticipate",
         }}
         onAnimationComplete={animationCompleteHandle}

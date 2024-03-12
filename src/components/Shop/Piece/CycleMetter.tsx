@@ -10,7 +10,7 @@ type CycleMetterPropsType = {
 };
 
 const CycleMetter: React.FC<CycleMetterPropsType> = ({ cycle, updateCycle }) => {
-  const { score, currentGameSpeed } = useScore();
+  const { score } = useScore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const CycleMetter: React.FC<CycleMetterPropsType> = ({ cycle, updateCycle }) => 
       const cycles = setCycleSteps(currentIndex);
       await new Promise((resolve) => {
         updateCycle(cycles, currentIndex);
-        timeout = setTimeout(resolve, currentGameSpeed());
+        timeout = setTimeout(resolve, score.speed.tick);
       });
 
       setCurrentIndex((currentIndex + 1) % cycles.length);

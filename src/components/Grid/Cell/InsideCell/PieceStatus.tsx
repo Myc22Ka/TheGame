@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
-import options from "src/config.json";
 import { useCell } from "src/contexts/CellContext";
 import { scale } from "src/components/Animations/Variants/scale";
 
 const PieceStatus: React.FC = () => {
   const { destroyPiece } = useGame();
   const { cell } = useCell();
-  const { score, currentGameSpeed, updateActivators } = useScore();
+  const { score, updateActivators } = useScore();
   const controls = useAnimation();
 
   const startAnimation = () => {
@@ -17,9 +16,9 @@ const PieceStatus: React.FC = () => {
       scale: [1, 1.2, 1],
       boxShadow: "0 0 10px rgba(255, 0, 0, 0.8)",
       transition: {
-        duration: currentGameSpeed({ devider: 1000 }),
+        duration: score.speed.statusChangeTime,
         repeat: Infinity,
-        repeatDelay: currentGameSpeed({ devider: 1000 }),
+        repeatDelay: score.speed.statusChangeTime,
         repeatType: "reverse",
       },
     });
@@ -37,16 +36,13 @@ const PieceStatus: React.FC = () => {
 
     const pieceDestoryChance = cell.insideCell.destroyChance[cell.insideCell.level - 1];
 
-    interval = setInterval(
-      () => {
-        const resistance = Math.random() + score.gameStats.resistance;
-        if (resistance > pieceDestoryChance) return;
-        const updatedGrid = destroyPiece(cell);
-        updateActivators(updatedGrid);
-        clearInterval(interval);
-      },
-      currentGameSpeed({ devider: 0.5 })
-    );
+    interval = setInterval(() => {
+      const resistance = Math.random() + score.gameStats.resistance;
+      if (resistance > pieceDestoryChance) return;
+      const updatedGrid = destroyPiece(cell);
+      updateActivators(updatedGrid);
+      clearInterval(interval);
+    }, score.speed.destroyTime);
 
     return () => {
       clearInterval(interval);
@@ -58,10 +54,7 @@ const PieceStatus: React.FC = () => {
       initial="inactive"
       variants={scale}
       transition={{
-        duration: currentGameSpeed({
-          defaultTimeTick: options.time.defaultPieceTransition,
-          devider: 1000,
-        }),
+        duration: score.speed.pieceTransition,
         ease: "anticipate",
       }}
       animate={cell.animate}

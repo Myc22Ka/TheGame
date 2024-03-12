@@ -8,7 +8,7 @@ import { useScore } from "src/contexts/ScoreContext";
 import styles from "src/styles/style.module.scss";
 import PieceCostPower from "./PieceCostPower";
 import { motion } from "framer-motion";
-import { buttonVariants, variants } from "./Buttons";
+import { buttonVariants, transition, variants } from "./Buttons";
 
 type RepairButtonPropsType = {
   handleClose: () => void;
@@ -16,7 +16,7 @@ type RepairButtonPropsType = {
 
 const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
   const { repairPiece } = useGame();
-  const { score, updateActivators, currentGameSpeed } = useScore();
+  const { score, updateActivators } = useScore();
   const { cell } = useCell();
 
   const handleRepair = () => {
@@ -35,10 +35,7 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
       <motion.div
         style={{ borderRadius: "0.4rem" }}
         whileTap={!cell.isDestroyed ? buttonVariants.reject : buttonVariants.success}
-        transition={{
-          duration: currentGameSpeed({ devider: 6000 }),
-          ease: "easeInOut",
-        }}
+        transition={transition(score)}
         animate={cell.isDestroyed ? "active" : "inactive"}
         variants={variants}
         initial={cell.isDestroyed ? "active" : "inactive"}

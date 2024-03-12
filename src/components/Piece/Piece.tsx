@@ -16,17 +16,13 @@ type PiecePropsType = {
 };
 
 const Piece: React.FC<PiecePropsType> = ({ piece = emptyPiece, show = false }) => {
-  const { currentGameSpeed } = useScore();
   const { cell } = useCell();
-
+  const { score } = useScore();
   const motionProps = {
     initial: "inactive",
     variants: scale,
     transition: {
-      duration: currentGameSpeed({
-        defaultTimeTick: options.time.defaultPieceTransition,
-        devider: 1000,
-      }),
+      duration: score.speed.pieceTransition,
       ease: "anticipate",
     },
     animate: show ? "active" : cell !== emptyCell ? cell.animate : "inactive",

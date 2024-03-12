@@ -24,7 +24,7 @@ const defaultTile: TileType = {
 
 const defaultCycle: DefaultCycleType = {
   piece: generateRandomPiece(),
-  time: options.pieces.cycleTime,
+  time: options.score.speed.cycle.steps,
   show: true,
   animate: "",
 };
@@ -114,7 +114,7 @@ function generateRandomPiece(): PieceType {
  * @returns {DefaultCycleType[]} An array of steps for the cycle.
  */
 const setCycleSteps = (currentIndex: number): DefaultCycleType[] => {
-  const restArray = Array.from({ length: defaultCycle.time }, (_, i) => ({
+  const restArray = Array.from({ length: options.score.speed.cycle.steps }, (_, i) => ({
     ...defaultCycle,
     time: i + 1,
   })).reverse();

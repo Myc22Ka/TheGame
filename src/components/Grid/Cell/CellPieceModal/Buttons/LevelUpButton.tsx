@@ -2,13 +2,13 @@ import { faCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
 import { Button, Stack } from "react-bootstrap";
-import { initGameState, useGame } from "src/contexts/GameContext";
+import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
 import PieceCostMoney from "./PieceCostMoney";
 import styles from "src/styles/style.module.scss";
 import { useCell } from "src/contexts/CellContext";
 import { motion } from "framer-motion";
-import { buttonVariants, variants } from "./Buttons";
+import { buttonVariants, transition, variants } from "./Buttons";
 
 type LevelButtonPropsType = {
   handleClose: () => void;
@@ -20,7 +20,7 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
 
   if (level === upgradeCost.length) return;
 
-  const { score, removeSomeGold, updateActivators, currentGameSpeed } = useScore();
+  const { score, removeSomeGold, updateActivators } = useScore();
   const { levelUp } = useGame();
 
   const handleLevelUp = useCallback(() => {
@@ -46,10 +46,7 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
       <motion.div
         style={{ borderRadius: "0.4rem" }}
         whileTap={cell.isDestroyed ? buttonVariants.reject : buttonVariants.success}
-        transition={{
-          duration: currentGameSpeed({ devider: 6000 }),
-          ease: "easeInOut",
-        }}
+        transition={transition(score)}
         animate={!cell.isDestroyed ? "active" : "inactive"}
         variants={variants}
         initial={!cell.isDestroyed ? "active" : "inactive"}

@@ -4,9 +4,8 @@ import React from "react";
 import ActivatorsScales from "./ActivatorsScales/ActivatorsScales";
 import { ActivatorsType } from "src/modules/Score/types";
 import { motion } from "framer-motion";
-import options from "src/config.json";
-import { useScore } from "src/contexts/ScoreContext";
 import { useCell } from "src/contexts/CellContext";
+import { useScore } from "src/contexts/ScoreContext";
 
 const variants = {
   active: {
@@ -27,8 +26,8 @@ type ShowNextLevelPropsType = {
 };
 
 const ShowNextLevel: React.FC<ShowNextLevelPropsType> = ({ destroyChance, activators, show, level }) => {
-  const { currentGameSpeed } = useScore();
   const { cell } = useCell();
+  const { score } = useScore();
 
   if (cell.insideCell.level === cell.insideCell.upgradeCost.length) return;
   return (
@@ -40,10 +39,7 @@ const ShowNextLevel: React.FC<ShowNextLevelPropsType> = ({ destroyChance, activa
         animate={show ? "active" : "inactive"}
         variants={variants}
         transition={{
-          duration: currentGameSpeed({
-            defaultTimeTick: options.time.defaultPieceTransition,
-            devider: 1000,
-          }),
+          duration: score.speed.pieceTransition,
           ease: "anticipate",
         }}
       >

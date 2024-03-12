@@ -1,23 +1,19 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
 import { motion } from "framer-motion";
-import options from "src/config.json";
-import { useScore } from "src/contexts/ScoreContext";
 import { useCell } from "src/contexts/CellContext";
 import Level from "./Level";
+import { useScore } from "src/contexts/ScoreContext";
 
 const Levels: React.FC = () => {
-  const { currentGameSpeed } = useScore();
   const { cell } = useCell();
+  const { score } = useScore();
 
   return (
     <motion.div
       initial="inactive"
       transition={{
-        duration: currentGameSpeed({
-          defaultTimeTick: options.time.defaultPieceTransition,
-          devider: 1000,
-        }),
+        duration: score.speed.pieceTransition,
         ease: "anticipate",
         staggerChildren: 0.04,
       }}

@@ -9,21 +9,21 @@ import { Stack } from "react-bootstrap";
 import { useScore } from "src/contexts/ScoreContext";
 
 const Timer: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState(options.time.maxTime);
+  const [currentTime, setCurrentTime] = useState(options.score.speed.maxTime);
   const { gameLoseEvent } = useGame();
-  const { currentGameSpeed } = useScore();
+  const { score } = useScore();
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
 
-    if (currentTime > 0) interval = setInterval(() => setCurrentTime((prev) => prev - 1), currentGameSpeed());
+    if (currentTime > 0) interval = setInterval(() => setCurrentTime((prev) => prev - 1), score.speed.timer);
 
     if (currentTime === 0) {
       setCurrentTime(currentTime - 1);
       gameLoseEvent();
     }
     return () => clearInterval(interval);
-  }, [currentGameSpeed]);
+  }, [score.speed]);
 
   return (
     <Stack
@@ -43,8 +43,8 @@ const Timer: React.FC = () => {
         <div
           className="timer-metter"
           style={{
-            width: `${(currentTime / options.time.maxTime) * 100}%`,
-            filter: `hue-rotate(${(options.time.maxTime - currentTime) * 0.058}deg)`,
+            width: `${(currentTime / score.speed.maxTime) * 100}%`,
+            filter: `hue-rotate(${(score.speed.maxTime - currentTime) * 0.058}deg)`,
           }}
         ></div>
       </Stack>

@@ -2,6 +2,19 @@
   "score": {
     "gold": 3000,
     "destroyRange": [0.2, 0.4, 0.5, 0.6, 0.8],
+    "speed": {
+      "timer": 1000,
+      "tick": 1000,
+      "pieceTransition": 0.7,
+      "statusChangeTime": 1,
+      "destroyTime": 5000,
+      "maxTime": 3600,
+      "rejectTime": 0.15,
+      "cycle": {
+        "steps": 16,
+        "time": 2
+      }
+    },
     "gameStats": {
       "multiplier": 1,
       "flatIncome": 1,
@@ -22,13 +35,7 @@
     ],
     "maxDragDistance": 200
   },
-  "time": {
-    "defaultTimeTick": 1,
-    "defaultPieceTransition": 0.7,
-    "maxTime": 3600
-  },
   "pieces": {
-    "cycleTime": 4,
     "types": [
       {
         "description": "This block enhances the money multiplier, acting as an economic catalyst to boost in-game income and accelerate financial progress.",
