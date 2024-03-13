@@ -9,6 +9,7 @@ import styles from "src/styles/style.module.scss";
 import PieceCostPower from "./PieceCostPower";
 import { motion } from "framer-motion";
 import { buttonVariants, transition, variants } from "./Buttons";
+import { useSpecialAbilities } from "src/hooks/useSpecialAbilities";
 
 type RepairButtonPropsType = {
   handleClose: () => void;
@@ -18,6 +19,7 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
   const { repairPiece } = useGame();
   const { score, updateActivators } = useScore();
   const { cell } = useCell();
+  const { giveAbility } = useSpecialAbilities(cell.insideCell.rule, cell.insideCell.level);
 
   const handleRepair = () => {
     if (score.gameStats.power <= 0 || !cell.isDestroyed) return;
@@ -27,6 +29,7 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
     setTimeout(() => {
       const updatedGrid = repairPiece(cell);
       updateActivators(updatedGrid);
+      giveAbility();
     }, 200);
   };
 

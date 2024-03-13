@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback } from "react";
 import options from "src/config.json";
 import { GridEntry } from "src/modules/Piece/types";
-import { ScoreType, Speed } from "src/modules/Score/types";
+import { ScoreType } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
 import { calculateActivators } from "src/modules/Score/calculateActivators";
 import calculateSpeed from "src/utils/calculateSpeed";
@@ -53,6 +53,34 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [setScore]
   );
 
+  const changeSpeed = useCallback(
+    ({
+      timerMult = 1,
+      tickMult = 1,
+      pieceTransitionMult = 1,
+      maxTimeMult = 1,
+      statusChangeTimeMult = 1,
+      destroyTimeMult = 1,
+      rejectTimeMult = 1,
+      cycleAddSteps = 0,
+    } = {}) => {
+      setScore((prev) => ({
+        ...prev,
+        speed: {
+          timer: prev.speed.timer * timerMult,
+          tick: prev.speed.tick * tickMult,
+          pieceTransition: prev.speed.pieceTransition * pieceTransitionMult,
+          maxTime: prev.speed.maxTime * maxTimeMult,
+          statusChangeTime: prev.speed.statusChangeTime * statusChangeTimeMult,
+          destroyTime: prev.speed.destroyTime * destroyTimeMult,
+          rejectTime: prev.speed.rejectTime * rejectTimeMult,
+          cycle: { ...prev.speed.cycle, steps: prev.speed.cycle.steps + cycleAddSteps },
+        },
+      }));
+    },
+    [setScore]
+  );
+
   return {
     score,
     prevScore,
@@ -60,6 +88,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
     updateActivators,
     removeSomeGold,
     addSomeGold,
+    changeSpeed,
   };
 };
 
@@ -70,6 +99,7 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   updateActivators: () => initGameState.grid,
   removeSomeGold: () => {},
   addSomeGold: () => {},
+  changeSpeed: () => {},
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -83,7 +113,8 @@ export const ScoreProvider = ({ children, ...initState }: ChildrenType & ScoreTy
 };
 
 export const useScore = () => {
-  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold } = useContext(ScoreContext);
+  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, changeSpeed } =
+    useContext(ScoreContext);
 
   return {
     score,
@@ -92,5 +123,6 @@ export const useScore = () => {
     addGold,
     removeSomeGold,
     addSomeGold,
+    changeSpeed,
   };
 };

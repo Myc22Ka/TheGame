@@ -12,7 +12,7 @@ const Score: React.FC = () => {
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (!game.gameOver) interval = setInterval(() => addGold(), score.speed.tick);
+    if (!game.gameOver) interval = setInterval(() => addGold(), score.speed.tick * 1000);
 
     return () => clearInterval(interval);
   }, [score.speed.tick]);

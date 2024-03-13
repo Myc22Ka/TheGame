@@ -42,9 +42,7 @@ const PieceStatus: React.FC = () => {
       const updatedGrid = destroyPiece(cell);
       updateActivators(updatedGrid);
       clearInterval(interval);
-    }, score.speed.destroyTime);
-
-    console.log(score.speed);
+    }, score.speed.destroyTime * 1000);
 
     return () => {
       clearInterval(interval);

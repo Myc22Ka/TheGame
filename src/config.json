@@ -3,16 +3,16 @@
     "gold": 3000,
     "destroyRange": [0.2, 0.4, 0.5, 0.6, 0.8],
     "speed": {
-      "timer": 1000,
-      "tick": 1000,
+      "timer": 1,
+      "tick": 1,
       "pieceTransition": 0.7,
-      "statusChangeTime": 1,
-      "destroyTime": 5000,
-      "maxTime": 3600,
+      "statusChangeTime": 0.5,
+      "destroyTime": 5,
+      "maxTime": 900,
       "rejectTime": 0.15,
       "cycle": {
         "steps": 16,
-        "time": 2
+        "time": 1
       }
     },
     "gameStats": {

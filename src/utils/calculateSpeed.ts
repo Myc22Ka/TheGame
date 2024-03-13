@@ -5,12 +5,15 @@ const calculateSpeed = (prev: ScoreType) => {
   const newSpeed: Speed = {} as Speed;
   Object.entries(options.score.speed).forEach(([key, value]) => {
     const k = key as Exclude<keyof Speed, "cycle">;
-    if (k === "maxTime") return;
-    if (typeof value === "number") newSpeed[k] = Math.ceil(value / prev.gameStats.speed);
+    if (k === "maxTime") {
+      newSpeed[k] = prev.speed.maxTime;
+      return;
+    }
+    if (typeof value === "number") newSpeed[k] = +(value / prev.gameStats.speed).toFixed(2);
   });
   newSpeed["cycle"] = {
     ...prev.speed.cycle,
-    time: Math.ceil(options.score.speed.cycle.time / prev.gameStats.speed),
+    time: +(options.score.speed.cycle.time / prev.gameStats.speed).toFixed(2),
   };
 
   return newSpeed;

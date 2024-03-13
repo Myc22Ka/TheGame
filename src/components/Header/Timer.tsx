@@ -16,7 +16,7 @@ const Timer: React.FC = () => {
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
 
-    if (currentTime > 0) interval = setInterval(() => setCurrentTime((prev) => prev - 1), score.speed.timer);
+    if (currentTime > 0) interval = setInterval(() => setCurrentTime((prev) => prev - 1), score.speed.timer * 1000);
 
     if (currentTime === 0) {
       setCurrentTime(currentTime - 1);
@@ -44,7 +44,7 @@ const Timer: React.FC = () => {
           className="timer-metter"
           style={{
             width: `${(currentTime / score.speed.maxTime) * 100}%`,
-            filter: `hue-rotate(${(score.speed.maxTime - currentTime) * 0.058}deg)`,
+            filter: `hue-rotate(${(score.speed.maxTime - currentTime) * 0.35}deg)`,
           }}
         ></div>
       </Stack>

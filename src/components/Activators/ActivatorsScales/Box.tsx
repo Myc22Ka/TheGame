@@ -30,7 +30,7 @@ const Box: React.FC<BoxPropsType> = ({ delay, show, value, activator, i }) => {
       transition={{
         duration: score.speed.pieceTransition,
         ease: "anticipate",
-        delay: score.speed.tick * 0.001 * delay.current * i,
+        delay: score.speed.tick * 0.1 * delay.current * i,
       }}
       initial="inactive"
       animate={show ? "active" : "inactive"}

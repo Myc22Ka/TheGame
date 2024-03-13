@@ -20,7 +20,7 @@ const CycleMetter: React.FC<CycleMetterPropsType> = ({ cycle, updateCycle }) => 
       const cycles = setCycleSteps(currentIndex);
       await new Promise((resolve) => {
         updateCycle(cycles, currentIndex);
-        timeout = setTimeout(resolve, score.speed.tick);
+        timeout = setTimeout(resolve, score.speed.cycle.time * 1000);
       });
 
       setCurrentIndex((currentIndex + 1) % cycles.length);

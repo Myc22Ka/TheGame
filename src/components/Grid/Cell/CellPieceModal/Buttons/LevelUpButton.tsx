@@ -9,6 +9,7 @@ import styles from "src/styles/style.module.scss";
 import { useCell } from "src/contexts/CellContext";
 import { motion } from "framer-motion";
 import { buttonVariants, transition, variants } from "./Buttons";
+import { useSpecialAbilities } from "src/hooks/useSpecialAbilities";
 
 type LevelButtonPropsType = {
   handleClose: () => void;
@@ -16,6 +17,7 @@ type LevelButtonPropsType = {
 
 const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
   const { cell } = useCell();
+  const { giveAbility } = useSpecialAbilities(cell.insideCell.rule, cell.insideCell.level);
   const { upgradeCost, level, activators } = cell.insideCell;
 
   if (level === upgradeCost.length) return;
@@ -37,6 +39,7 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
     setTimeout(() => {
       const updatedGrid = levelUp(cell);
       updateActivators(updatedGrid);
+      giveAbility();
     }, 200);
   }, [score.gold, cell.isDestroyed, activators.power, score.gameStats.power]);
 
