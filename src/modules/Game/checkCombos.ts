@@ -2,14 +2,14 @@ import { MatchingShape, getAllShapeCombinations } from "src/utils/getAllShapeCom
 import options from "src/config.json";
 import { GameStatsType } from "../Score/types";
 import { GameStats } from "./rules";
-import { GridEntry } from "../Piece/types";
+import { GridEntry, PieceRules } from "../Piece/types";
 
 export type ShapeType = {
   shape: number[][];
   activators: GameStatsType;
 };
 
-export const checkCombos = (grid: GridEntry[], rule: GameStats) => {
+export const checkCombos = (grid: GridEntry[], rule: PieceRules) => {
   const foundPiece = options.pieces.types.find((piece) => piece.rule === rule);
   if (!foundPiece) return { activators: {} as GameStatsType, results: [] as MatchingShape[] };
   const filteredGrid = grid.filter((entry) => entry.insideCell.rule === rule);

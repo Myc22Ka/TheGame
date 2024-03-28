@@ -1,6 +1,6 @@
 import { ShapeType } from "src/modules/Game/checkCombos";
 import { transformArrayInto2DArray } from "./transformInto2DArray";
-import { GameStats, PieceType } from "src/modules/Piece/types";
+import { GameStats, PieceRules, PieceType } from "src/modules/Piece/types";
 import { GameStatsType } from "src/modules/Score/types";
 
 type grid2DType = {
@@ -16,7 +16,7 @@ export type MatchingShape = {
   activators: GameStatsType;
 };
 
-export const getAllShapeCombinations = (tempGrid: PieceType[], shapes: ShapeType[], rule: GameStats) => {
+export const getAllShapeCombinations = (tempGrid: PieceType[], shapes: ShapeType[], rule: PieceRules) => {
   const array: grid2DType[][] = transformArrayInto2DArray(
     tempGrid,
     Math.sqrt(tempGrid.length),

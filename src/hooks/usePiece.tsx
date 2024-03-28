@@ -3,12 +3,14 @@ import { useGame } from "src/contexts/GameContext";
 import { defaultTile, findNearestCell, calcCenterPoint, defaultCords } from "src/modules/Piece/utils";
 import { AnimationsType, PieceEventType, PieceType } from "src/modules/Piece/types";
 import { useScore } from "src/contexts/ScoreContext";
+import { useSpecialAbilities } from "./useSpecialAbilities";
 
 export const usePiece = (piece: PieceType) => {
   const pieceRef = useRef<HTMLDivElement>(null);
   const [tile, setTile] = useState(defaultTile);
   const { game, addPieceToCell, updateGrid } = useGame();
   const { removeSomeGold, updateActivators, score } = useScore();
+  const { giveAbility } = useSpecialAbilities();
 
   const handleDragStart = useCallback(() => {
     setTile((prev) => ({
@@ -61,6 +63,12 @@ export const usePiece = (piece: PieceType) => {
         const newGrid = updateActivators(updatedGame);
         updateGrid(newGrid);
         changePieceAnimation("exit");
+        setTimeout(
+          () => {
+            giveAbility({ ...piece, id: tile.nearestCell.insideCell.id });
+          },
+          (score.speed.pieceTransition - 0.2) * 1000
+        );
       },
       (score.speed.pieceTransition - 0.2) * 1000
     );

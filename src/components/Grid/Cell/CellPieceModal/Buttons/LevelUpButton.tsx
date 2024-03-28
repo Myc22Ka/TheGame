@@ -17,7 +17,7 @@ type LevelButtonPropsType = {
 
 const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
   const { cell } = useCell();
-  const { giveAbility } = useSpecialAbilities(cell.insideCell.rule, cell.insideCell.level);
+  const { giveAbility } = useSpecialAbilities();
   const { upgradeCost, level, activators } = cell.insideCell;
 
   if (level === upgradeCost.length) return;
@@ -39,7 +39,7 @@ const LevelUpButton: React.FC<LevelButtonPropsType> = ({ handleClose }) => {
     setTimeout(() => {
       const updatedGrid = levelUp(cell);
       updateActivators(updatedGrid);
-      giveAbility();
+      giveAbility(cell.insideCell);
     }, 200);
   }, [score.gold, cell.isDestroyed, activators.power, score.gameStats.power]);
 

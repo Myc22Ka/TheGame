@@ -1,20 +1,12 @@
 import React, { useState, useContext, createContext, ReactElement, useCallback } from "react";
 import options from "src/config.json";
 import { PieceType } from "src/modules/Piece/types";
-import { emptyCell } from "src/modules/Game/emptyCell";
+import { GridEntry, emptyCell } from "src/modules/Game/emptyCell";
 
 export type GameType = {
   gameOver: boolean;
   grid: GridEntry[];
   size: number;
-};
-
-export type GridEntry = {
-  insideCell: PieceType;
-  ref: HTMLDivElement | null;
-  isEmpty: boolean;
-  animate: "inactive" | "active";
-  isDestroyed: boolean;
 };
 
 export const initGameState: GameType = {

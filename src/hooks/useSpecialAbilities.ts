@@ -1,25 +1,36 @@
 import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
-import { PieceRules } from "src/modules/Piece/types";
+import { PieceType } from "src/modules/Piece/types";
+import { getIdsAroundPiece } from "src/utils/getIdsAroundPiece";
 
-export const useSpecialAbilities = (rule: PieceRules, level: number) => {
+export const useSpecialAbilities = () => {
   const { score, changeSpeed } = useScore();
-  const { game } = useGame();
+  const { game, updateGrid } = useGame();
 
-  const giveAbility = () => {
-    switch (rule) {
+  const giveAbility = (piece: PieceType) => {
+    switch (piece.rule) {
       case "multiplier":
         return;
       case "speed":
-        speedAbility();
+        speedAbility(piece);
         break;
+      case "booster":
+        boostAbility(piece);
+        return;
       default:
         break;
     }
   };
 
-  const speedAbility = () => {
-    changeSpeed({ timerMult: (level * 2) / 3 });
+  const speedAbility = (piece: PieceType) => {
+    changeSpeed({ timerMult: (piece.level * 2) / 3 });
+  };
+
+  const boostAbility = (piece: PieceType) => {
+    if (piece.level !== piece.upgradeCost.length) return;
+    const ids = getIdsAroundPiece(piece, game);
+    const newGrid = game.grid.map((cell) => (ids.includes(cell.insideCell.id) ? { ...cell, booster: 2 } : cell));
+    updateGrid(newGrid);
   };
 
   return { giveAbility };

@@ -1,4 +1,4 @@
-import { GridEntry } from "src/contexts/GameContext";
+import { GridEntry } from "../Game/emptyCell";
 import { GameStats } from "../Game/rules";
 import { ActivatorsType } from "../Score/types";
 
@@ -18,7 +18,7 @@ type PieceType = {
   name: string;
   upgradeCost: number[];
   destroyChance: number[];
-  rule: GameStats;
+  rule: PieceRules;
   level: number;
   uses: number;
   id: number;

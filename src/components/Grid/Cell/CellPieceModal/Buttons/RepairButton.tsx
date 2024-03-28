@@ -19,7 +19,7 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
   const { repairPiece } = useGame();
   const { score, updateActivators } = useScore();
   const { cell } = useCell();
-  const { giveAbility } = useSpecialAbilities(cell.insideCell.rule, cell.insideCell.level);
+  const { giveAbility } = useSpecialAbilities();
 
   const handleRepair = () => {
     if (score.gameStats.power <= 0 || !cell.isDestroyed) return;
@@ -29,7 +29,7 @@ const RepairButton: React.FC<RepairButtonPropsType> = ({ handleClose }) => {
     setTimeout(() => {
       const updatedGrid = repairPiece(cell);
       updateActivators(updatedGrid);
-      giveAbility();
+      giveAbility(cell.insideCell);
     }, 200);
   };
 
