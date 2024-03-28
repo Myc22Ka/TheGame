@@ -23,7 +23,7 @@ export const useSpecialAbilities = () => {
   };
 
   const speedAbility = (piece: PieceType) => {
-    changeSpeed({ timerMult: (piece.level * 2) / 3 });
+    changeSpeed({ timerMult: piece.level * (piece.abilities || [])[0].value });
   };
 
   const boostAbility = (piece: PieceType) => {

@@ -23,6 +23,7 @@ type PieceType = {
   uses: number;
   id: number;
   activators: ActivatorsType;
+  abilities?: { name: string; value: number; description: string }[];
   comboShape: { value: number; id: number }[][];
 };
 

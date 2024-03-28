@@ -63,12 +63,7 @@ export const usePiece = (piece: PieceType) => {
         const newGrid = updateActivators(updatedGame);
         updateGrid(newGrid);
         changePieceAnimation("exit");
-        setTimeout(
-          () => {
-            giveAbility({ ...piece, id: tile.nearestCell.insideCell.id });
-          },
-          (score.speed.pieceTransition - 0.2) * 1000
-        );
+        setTimeout(() => giveAbility({ ...piece, id: tile.nearestCell.insideCell.id }), 50);
       },
       (score.speed.pieceTransition - 0.2) * 1000
     );

@@ -1,11 +1,9 @@
 import React from "react";
 import { Offcanvas, Stack } from "react-bootstrap";
 import { PieceType } from "src/modules/Piece/types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Activators from "../../../../Activators/Activators";
-import { piecesIcons } from "src/modules/Piece/statsIcons";
 import Title from "src/components/Animations/Text/Title";
 import Piece from "src/components/Piece/Piece";
+import Body from "./Body";
 
 type InfoMenuPropsType = {
   show: boolean;
@@ -23,17 +21,7 @@ const InfoMenu: React.FC<InfoMenuPropsType> = ({ show, piece, handleClose }) => 
         </Stack>
       </Offcanvas.Header>
       <hr className="hr" />
-      <Offcanvas.Body>
-        <Stack>
-          <div className="piece-description">{piece.description}</div>
-          <Activators
-            activators={piece.activators}
-            level={piece.level}
-            show={show}
-            destroyChance={piece.destroyChance}
-          />
-        </Stack>
-      </Offcanvas.Body>
+      <Body piece={piece} show={show} />
     </Offcanvas>
   );
 };
