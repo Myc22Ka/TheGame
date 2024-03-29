@@ -4,7 +4,7 @@ import { GridEntry } from "src/modules/Piece/types";
 import { ScoreType } from "src/modules/Score/types";
 import { initGameState } from "./GameContext";
 import { calculateActivators } from "src/modules/Score/calculateActivators";
-import calculateSpeed from "src/utils/calculateSpeed";
+// import calculateSpeed from "src/utils/calculateSpeed";
 
 const { gold, gameStats, speed } = options.score;
 export const initState: ScoreType = { gold, gameStats, speed };
@@ -44,7 +44,18 @@ const useScoreContext = (defaultScore: ScoreType) => {
         setPrevScore(prev);
 
         const sumsOfActivators = calculateActivators(updatedGrid);
-        const newSpeed = calculateSpeed({ ...prev, gameStats: sumsOfActivators });
+
+        const { tick, pieceTransition, statusChangeTime, destroyTime, rejectTime, cycle } = options.score.speed;
+
+        const newSpeed = {
+          ...prev.speed,
+          tick: +(tick / sumsOfActivators.speed).toFixed(2),
+          pieceTransition: +(pieceTransition / sumsOfActivators.speed).toFixed(2),
+          statusChangeTime: +(statusChangeTime / sumsOfActivators.speed).toFixed(2),
+          destroyTime: +(destroyTime / sumsOfActivators.speed).toFixed(2),
+          rejectTime: +(rejectTime / sumsOfActivators.speed).toFixed(2),
+          cycle: { ...cycle, time: +(cycle.time / sumsOfActivators.speed).toFixed(2) },
+        };
 
         return { ...prev, gameStats: sumsOfActivators, speed: newSpeed };
       });
@@ -53,28 +64,13 @@ const useScoreContext = (defaultScore: ScoreType) => {
     [setScore]
   );
 
-  const changeSpeed = useCallback(
-    ({
-      timerMult = 1,
-      tickMult = 1,
-      pieceTransitionMult = 1,
-      maxTimeMult = 1,
-      statusChangeTimeMult = 1,
-      destroyTimeMult = 1,
-      rejectTimeMult = 1,
-      cycleAddSteps = 0,
-    } = {}) => {
+  const changeTimeSpeed = useCallback(
+    (timerMult: number) => {
       setScore((prev) => ({
         ...prev,
         speed: {
-          timer: prev.speed.timer * timerMult,
-          tick: prev.speed.tick * tickMult,
-          pieceTransition: prev.speed.pieceTransition * pieceTransitionMult,
-          maxTime: prev.speed.maxTime * maxTimeMult,
-          statusChangeTime: prev.speed.statusChangeTime * statusChangeTimeMult,
-          destroyTime: prev.speed.destroyTime * destroyTimeMult,
-          rejectTime: prev.speed.rejectTime * rejectTimeMult,
-          cycle: { ...prev.speed.cycle, steps: prev.speed.cycle.steps + cycleAddSteps },
+          ...prev.speed,
+          timer: options.score.speed.timer * timerMult,
         },
       }));
     },
@@ -88,7 +84,7 @@ const useScoreContext = (defaultScore: ScoreType) => {
     updateActivators,
     removeSomeGold,
     addSomeGold,
-    changeSpeed,
+    changeTimeSpeed,
   };
 };
 
@@ -99,7 +95,7 @@ const initContextState: ReturnType<typeof useScoreContext> = {
   updateActivators: () => initGameState.grid,
   removeSomeGold: () => {},
   addSomeGold: () => {},
-  changeSpeed: () => {},
+  changeTimeSpeed: () => {},
 };
 
 export const ScoreContext = createContext(initContextState);
@@ -113,7 +109,7 @@ export const ScoreProvider = ({ children, ...initState }: ChildrenType & ScoreTy
 };
 
 export const useScore = () => {
-  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, changeSpeed } =
+  const { score, prevScore, updateActivators, addGold, removeSomeGold, addSomeGold, changeTimeSpeed } =
     useContext(ScoreContext);
 
   return {
@@ -123,6 +119,6 @@ export const useScore = () => {
     addGold,
     removeSomeGold,
     addSomeGold,
-    changeSpeed,
+    changeTimeSpeed,
   };
 };

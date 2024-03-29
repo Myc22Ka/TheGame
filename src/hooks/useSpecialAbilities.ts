@@ -4,7 +4,7 @@ import { PieceType } from "src/modules/Piece/types";
 import { getIdsAroundPiece } from "src/utils/getIdsAroundPiece";
 
 export const useSpecialAbilities = () => {
-  const { score, changeSpeed } = useScore();
+  const { score, changeTimeSpeed } = useScore();
   const { game, updateGrid } = useGame();
 
   const giveAbility = (piece: PieceType) => {
@@ -23,7 +23,7 @@ export const useSpecialAbilities = () => {
   };
 
   const speedAbility = (piece: PieceType) => {
-    changeSpeed({ timerMult: piece.level * (piece.abilities || [])[0].value });
+    changeTimeSpeed(piece.level * (piece.abilities || [])[0].value);
   };
 
   const boostAbility = (piece: PieceType) => {

@@ -172,7 +172,7 @@
         "abilities": [
           {
             "name": "Reverse Aging",
-            "value": 10,
+            "value": 1,
             "description": "Slows time, increases speed."
           }
         ],

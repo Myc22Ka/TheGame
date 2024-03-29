@@ -4,11 +4,13 @@ import { useGame } from "src/contexts/GameContext";
 import { useScore } from "src/contexts/ScoreContext";
 import { useCell } from "src/contexts/CellContext";
 import { scale } from "src/components/Animations/Variants/scale";
+import { useSpecialAbilities } from "src/hooks/useSpecialAbilities";
 
 const PieceStatus: React.FC = () => {
   const { destroyPiece } = useGame();
   const { cell } = useCell();
-  const { score, updateActivators } = useScore();
+  const { score, updateActivators, changeTimeSpeed } = useScore();
+  const { giveAbility } = useSpecialAbilities();
   const controls = useAnimation();
 
   const startAnimation = () => {
@@ -35,12 +37,14 @@ const PieceStatus: React.FC = () => {
     }
 
     const pieceDestoryChance = cell.insideCell.destroyChance[cell.insideCell.level - 1];
+    giveAbility(cell.insideCell);
 
     interval = setInterval(() => {
       const resistance = Math.random() + score.gameStats.resistance;
       if (resistance > pieceDestoryChance) return;
       const updatedGrid = destroyPiece(cell);
       updateActivators(updatedGrid);
+      if (cell.insideCell.rule === "speed") setTimeout(() => changeTimeSpeed(1), 100);
       clearInterval(interval);
     }, score.speed.destroyTime * 1000);
 
